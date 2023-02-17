@@ -8,6 +8,8 @@ on:
 jobs:
   buildTest:
     uses: ISPP23-G11/FitWin/.github/workflows/main.yml@main
+    secrets:
+      CODACY_PROJECT_TOKEN: ${{secrets.CODACY_PROJECT_TOKEN}}    
      
   release:
     needs: buildTest
