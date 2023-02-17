@@ -33,8 +33,8 @@ jobs:
     - name: Run tests
       run: |
         cd FitWin
-        coverage run --branch --source=. ./manage.py test  --keepdb
-        coverage xml
+        python -m coverage run --branch --source=. ./manage.py test  --keepdb
+        python -m coverage xml
     - name: Codacy Coverage Reporter
       uses: codacy/codacy-coverage-reporter-action@v1
       with:
