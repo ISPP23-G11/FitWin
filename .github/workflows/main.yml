@@ -27,5 +27,5 @@ jobs:
         python manage.py migrate
     - name: Run tests
       run: |
-        cd decide
+        cd FitWin
         python manage.py test  --keepdb 
