@@ -11,30 +11,31 @@
 	<link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css" rel="stylesheet">
 	<link href="{% static 'css/style.css' %}" rel="stylesheet">
+	<script src="https://kit.fontawesome.com/c18980d3a8.js" crossorigin="anonymous"></script>
 </head>
 <body>
 	<nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
 		<div class="container">
-			<a class="navbar-brand" href="#"><span class="text-warning">Fit</span>Win</a> <button aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler" data-bs-target="#navbarSupportedContent" data-bs-toggle="collapse" type="button"><span class="navbar-toggler-icon"></span></button>
+			<a class="navbar-brand" href="#" ><img alt="" class="img-fluid" width="75" height="75" src="{% static 'img/logo.png' %}"><span style="color:#8860D0">Fit</span>Win</a> <button aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler" data-bs-target="#navbarSupportedContent" data-bs-toggle="collapse" type="button"><span class="navbar-toggler-icon"></span></button>
 			<div class="collapse navbar-collapse" id="navbarSupportedContent">
 				<ul class="navbar-nav ms-auto mb-2 mb-lg-0">
 					<li class="nav-item">
-						<a class="nav-link" href="#">Home</a>
+						<a class="nav-link" href="#">Inicio</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link" href="#about">About</a>
+						<a class="nav-link" href="#about">Acerca de</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link" href="#services">Services</a>
+						<a class="nav-link" href="#services">Servicios</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link" href="#portfolio">Portfolio</a>
+						<a class="nav-link" href="#contexto">Contexto</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link" href="#team">Team</a>
+						<a class="nav-link" href="#team">Equipo</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link" href="#contact">Contact</a>
+						<a class="nav-link" href="#contact">Contacto</a>
 					</li>
 				</ul>
 			</div>
@@ -48,9 +49,27 @@
 			<div class="carousel-item active">
 				<img alt="..." class="d-block w-100" src="{% static 'img/home-1.jpg' %}">
 				<div class="carousel-caption">
-					<h5>Your Dream House</h5>
-					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Maxime, nulla, tempore. Deserunt excepturi quas vero.</p>
-					<p><a class="btn btn-warning mt-3" href="#">Learn More</a></p>
+					<h5>FitWin</h5>
+					<p>Encuentra los entrenadores que mejor se adapten a ti y ponte en forma</p>
+
+					<div class="input-group mb-3">
+
+						<input type="text" class="form-control" placeholder="Lugar">
+						
+						<select class="form-select" aria-label="Default select example">
+							<option selected>Individual</option>
+							<option value="1">Grupo</option>
+						</select>
+
+						<input type="text" class="form-control" placeholder="Entrenamiento">
+
+						<button type="button" class="btn btn-success">Buscar</button>
+
+					</div>
+					
+					
+					<p><a class="btn btn-secondary mt-3" href="#">Iniciar sesión</a></p>
+					<p><a class="btn btn-warning mt-3" href="#">Registrarse</a></p>
 				</div>
 			</div>
 			
@@ -60,13 +79,14 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-lg-4 col-md-12 col-12">
-					<div class="about-img"><img alt="" class="img-fluid" src="{% static 'img/about.jpg' %}"></div>
+					<div class="about-img"><img alt="" class="img-fluid" src="{% static 'img/entrenador-personal.jpg' %}"></div>
 				</div>
 				<div class="col-lg-8 col-md-12 col-12 ps-lg-5 mt-md-5">
 					<div class="about-text">
-						<h2>We Provide the Best Quality<br>
-						Services Ever</h2>
-						<p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Totam, labore reiciendis. Assumenda eos quod animi! Soluta nesciunt inventore dolores excepturi provident, culpa beatae tempora, explicabo corporis quibusdam corrupti. Autem, quaerat. Assumenda quo aliquam vel, nostrum explicabo ipsum dolor, ipsa perferendis porro doloribus obcaecati placeat natus iste odio est non earum?</p><a class="btn btn-warning" href="#">Learn More</a>
+						<h2><br>Ponte en forma con FitWin o publica anuncios</h2>
+						<p>Esta aplicación permite a los entrenadores personales crear y publicar anuncios de clases.</p>
+						<p>Los alumnos podrán encontrar entrenadores que se adapten a sus necesidades.</p>
+						<a class="btn btn-warning" href="#contact">Más información</a>
 					</div>
 				</div>
 			</div>
@@ -78,9 +98,8 @@
 			<div class="row">
 				<div class="col-md-12">
 					<div class="section-header text-center pb-5">
-						<h2>Our Services</h2>
-						<p>Lorem ipsum dolor sit amet, consectetur<br>
-						adipisicing elit. Non, quo.</p>
+						<h2>Nuestros servicios</h2>
+						<p>Ofrecemos servicios tantos a entrenadores como a alumnos.</p>
 					</div>
 				</div>
 			</div>
@@ -88,18 +107,51 @@
 				<div class="col-12 col-md-12 col-lg-4">
 					<div class="card text-white text-center bg-dark pb-2">
 						<div class="card-body">
-							<i class="bi bi-laptop"></i>
-							<h3 class="card-title">Best Quality</h3>
-							<p class="lead">Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisci eligendi modi temporibus alias iste. Accusantium?</p><button class="btn bg-warning text-dark">Read More</button>
+							<i class="fa-solid fa-dumbbell"></i>
+							<br>
+							<h3 class="card-title">Para entrenadores</h3>
+							<p class="lead">
+								<ul>
+									<li type="circle">
+										Creación de anuncios personalizados
+									</li>
+									<br>
+									<li type="circle">
+										Organización de entrenamientos
+									</li>
+									<br>
+									<li type="circle">
+										Calendario de clases
+										
+									</li>
+								</ul>
+							</p>
+							<a class="btn btn-warning" href="#contact">Más información</a>
 						</div>
 					</div>
 				</div>
 				<div class="col-12 col-md-12 col-lg-4">
 					<div class="card text-white text-center bg-dark pb-2">
 						<div class="card-body">
-							<i class="bi bi-journal"></i>
-							<h3 class="card-title">Sustainability</h3>
-							<p class="lead">Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisci eligendi modi temporibus alias iste. Accusantium?</p><button class="btn bg-warning text-dark">Read More</button>
+							<i class="fa-solid fa-person-running"></i>
+							<br>
+							<h3 class="card-title">Para alumnos</h3>
+							<p class="lead">
+								<ul>
+									<li type="circle">
+										Búsqueda de entrenadores mediante sistema de valoración y recomendación
+									</li>
+									<br>
+									<li type="circle">
+										Calendario de clases
+									</li>
+									<br>
+									<li type="circle">
+										Pago online mediante al app
+									</li>
+								</ul>
+							</p>
+							<a class="btn btn-warning" href="#contact">Más información</a>
 						</div>
 					</div>
 				</div>
@@ -107,8 +159,24 @@
 					<div class="card text-white text-center bg-dark pb-2">
 						<div class="card-body">
 							<i class="bi bi-intersect"></i>
-							<h3 class="card-title">Integrity</h3>
-							<p class="lead">Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisci eligendi modi temporibus alias iste. Accusantium?</p><button class="btn bg-warning text-dark">Read More</button>
+							<br>
+							<h3 class="card-title">Otros servicios</h3>
+							<p class="lead">
+								<ul>
+									<li type="circle">
+										Integración con redes sociales
+									</li>
+									<br>
+									<li type="circle">
+										Integración con google calendar
+									</li>
+									<br>
+									<li type="circle">
+										Wiki para alumnos
+									</li>
+								</ul>
+							</p>
+							<a class="btn btn-warning" href="#contact">Más información</a>
 						</div>
 					</div>
 				</div>
@@ -116,47 +184,22 @@
 		</div>
 	</section><!-- services section Ends -->
 	<!-- portfolio strats -->
-	<section class="portfolio section-padding" id="portfolio">
+	<section class="contexto section-padding" id="contexto">
 		<div class="container">
 			<div class="row">
-				<div class="col-md-12">
-					<div class="section-header text-center pb-5">
-						<h2>Our Projects</h2>
-						<p>Lorem ipsum dolor sit amet, consectetur<br>
-						adipisicing elit. Non, quo.</p>
-					</div>
+				<div class="col-lg-4 col-md-12 col-12">
+					<div class="about-img"><img alt="" class="img-fluid" src="{% static 'img/software.jpg' %}"></div>
 				</div>
-			</div>
-			<div class="row">
-				<div class="col-12 col-md-12 col-lg-4">
-					<div class="card text-light text-center bg-white pb-2">
-						<div class="card-body text-dark">
-							<div class="img-area mb-4"><img alt="" class="img-fluid" src="{% static 'img/project-1.jpg' %}"></div>
-							<h3 class="card-title">Building Make</h3>
-							<p class="lead">Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisci eligendi modi temporibus alias iste. Accusantium?</p><button class="btn bg-warning text-dark">Learn More</button>
-						</div>
-					</div>
-				</div>
-				<div class="col-12 col-md-12 col-lg-4">
-					<div class="card text-light text-center bg-white pb-2">
-						<div class="card-body text-dark">
-							<div class="img-area mb-4"><img alt="" class="img-fluid" src="{% static 'img/project-2.jpg' %}"></div>
-							<h3 class="card-title">Building Make</h3>
-							<p class="lead">Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisci eligendi modi temporibus alias iste. Accusantium?</p><button class="btn bg-warning text-dark">learn More</button>
-						</div>
-					</div>
-				</div>
-				<div class="col-12 col-md-12 col-lg-4">
-					<div class="card text-light text-center bg-white pb-2">
-						<div class="card-body text-dark">
-							<div class="img-area mb-4"><img alt="" class="img-fluid" src="{% static 'img/project-3.jpg' %}"></div>
-							<h3 class="card-title">Building Make</h3>
-							<p class="lead">Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisci eligendi modi temporibus alias iste. Accusantium?</p><button class="btn bg-warning text-dark">Learn More</button>
-						</div>
+				<div class="col-lg-8 col-md-12 col-12 ps-lg-5 mt-md-5">
+					<div class="about-text">
+						<h2><br>Contexto</h2>
+						<p>Esta aplicación web es un proyecto desarrollado por un grupo de 12 alumnos de 4º curso de la Universidad de Sevilla, para la asignatura Ingeniería del Software y Práctica Profesional.</p>
+						<a class="btn btn-warning" href="#contact">Más información</a>
 					</div>
 				</div>
 			</div>
 		</div>
+		
 	</section><!-- portfolio ends -->
 	<!-- team starts -->
 	<section class="team section-padding" id="team">
@@ -164,9 +207,8 @@
 			<div class="row">
 				<div class="col-md-12">
 					<div class="section-header text-center pb-5">
-						<h2>Our Team</h2>
-						<p>Lorem ipsum dolor sit amet, consectetur<br>
-						adipisicing elit. Non, quo.</p>
+						<h2>Equipo</h2>
+						<p>Estos son los miembros del equipo de desarrollo de la aplicación.</p>
 					</div>
 				</div>
 			</div>
@@ -174,9 +216,9 @@
 				<div class="col-12 col-md-6 col-lg-3">
 					<div class="card text-center">
 						<div class="card-body">
-							<img alt="" class="img-fluid rounded-circle" src="{% static 'img/team-1.jpg' %}">
-							<h3 class="card-title py-2">Jack Wilson</h3>
-							<p class="card-text">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Sequi ipsam nostrum illo tempora esse quibusdam.</p>
+							<img alt="" class="img-fluid rounded-circle" src="{% static 'img/nacho.jpg' %}" width="150" height="150">
+							<h3 class="card-title py-2">Ignacio Jordano</h3>
+							<p class="card-text"><strong>Contacto:</strong> ignjorde@alum.us.es</p>
 							<p class="socials"><i class="bi bi-twitter text-dark mx-1"></i> <i class="bi bi-facebook text-dark mx-1"></i> <i class="bi bi-linkedin text-dark mx-1"></i> <i class="bi bi-instagram text-dark mx-1"></i></p>
 						</div>
 					</div>
@@ -184,9 +226,9 @@
 				<div class="col-12 col-md-6 col-lg-3">
 					<div class="card text-center">
 						<div class="card-body">
-							<img alt="" class="img-fluid rounded-circle" src="{% static 'img/team-2.jpg' %}">
-							<h3 class="card-title py-2">Jack Wilson</h3>
-							<p class="card-text">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Sequi ipsam nostrum illo tempora esse quibusdam.</p>
+							<img alt="" class="img-fluid rounded-circle" src="{% static 'img/jesus.jpg' %}" width="150" height="150">
+							<h3 class="card-title py-2">Jesús Páez</h3>
+							<p class="card-text"><strong>Contacto:</strong> jespaepae@alum.us.es</p>
 							<p class="socials"><i class="bi bi-twitter text-dark mx-1"></i> <i class="bi bi-facebook text-dark mx-1"></i> <i class="bi bi-linkedin text-dark mx-1"></i> <i class="bi bi-instagram text-dark mx-1"></i></p>
 						</div>
 					</div>
@@ -194,9 +236,9 @@
 				<div class="col-12 col-md-6 col-lg-3">
 					<div class="card text-center">
 						<div class="card-body">
-							<img alt="" class="img-fluid rounded-circle" src="{% static 'img/team-3.jpg' %}">
-							<h3 class="card-title py-2">Jack Wilson</h3>
-							<p class="card-text">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Sequi ipsam nostrum illo tempora esse quibusdam.</p>
+							<img alt="" class="img-fluid rounded-circle" src="{% static 'img/borja.jpg' %}" width="150" height="150">
+							<h3 class="card-title py-2">Borja Piñero</h3>
+							<p class="card-text"><strong>Contacto:</strong> borpincal@alum.us.es</p>
 							<p class="socials"><i class="bi bi-twitter text-dark mx-1"></i> <i class="bi bi-facebook text-dark mx-1"></i> <i class="bi bi-linkedin text-dark mx-1"></i> <i class="bi bi-instagram text-dark mx-1"></i></p>
 						</div>
 					</div>
@@ -204,9 +246,95 @@
 				<div class="col-12 col-md-6 col-lg-3">
 					<div class="card text-center">
 						<div class="card-body">
-							<img alt="" class="img-fluid rounded-circle" src="{% static 'img/team-4.jpg' %}">
-							<h3 class="card-title py-2">Jack Wilson</h3>
-							<p class="card-text">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Sequi ipsam nostrum illo tempora esse quibusdam.</p>
+							<img alt="" class="img-fluid rounded-circle" src="{% static 'img/juanjo.jpg' %}" width="150" height="150">
+							<h3 class="card-title py-2">Juan José Casamitjana</h3>
+							<p class="card-text"><strong>Contacto:</strong> juacasben@alum.us.es</p>
+							<p class="socials"><i class="bi bi-twitter text-dark mx-1"></i> <i class="bi bi-facebook text-dark mx-1"></i> <i class="bi bi-linkedin text-dark mx-1"></i> <i class="bi bi-instagram text-dark mx-1"></i></p>
+						</div>
+					</div>
+				</div>
+			</div>
+			<br>
+			<div class="row">
+				<div class="col-12 col-md-6 col-lg-3">
+					<div class="card text-center">
+						<div class="card-body">
+							<img alt="" class="img-fluid rounded-circle" src="{% static 'img/victor.jpg' %}" width="150" height="150">
+							<h3 class="card-title py-2">Victor Graván</h3>
+							<p class="card-text"><strong>Contacto:</strong> vicgrabru@alum.us.es</p>
+							<p class="socials"><i class="bi bi-twitter text-dark mx-1"></i> <i class="bi bi-facebook text-dark mx-1"></i> <i class="bi bi-linkedin text-dark mx-1"></i> <i class="bi bi-instagram text-dark mx-1"></i></p>
+						</div>
+					</div>
+				</div>
+				<div class="col-12 col-md-6 col-lg-3">
+					<div class="card text-center">
+						<div class="card-body">
+							<img alt="" class="img-fluid rounded-circle" src="{% static 'img/edu.jpg' %}" width="150" height="150">
+							<h3 class="card-title py-2">Eduardo Ciezar</h3>
+							<p class="card-text"><strong>Contacto:</strong> educielan@alum.us.es</p>
+							<p class="socials"><i class="bi bi-twitter text-dark mx-1"></i> <i class="bi bi-facebook text-dark mx-1"></i> <i class="bi bi-linkedin text-dark mx-1"></i> <i class="bi bi-instagram text-dark mx-1"></i></p>
+						</div>
+					</div>
+				</div>
+				<div class="col-12 col-md-6 col-lg-3">
+					<div class="card text-center">
+						<div class="card-body">
+							<img alt="" class="img-fluid rounded-circle" src="{% static 'img/raul.jpg' %}" width="150" height="150">
+							<h3 class="card-title py-2">Raúl Gallardo</h3>
+							<p class="card-text"><strong>Contacto:</strong> raugalroc@alum.us.es</p>
+							<p class="socials"><i class="bi bi-twitter text-dark mx-1"></i> <i class="bi bi-facebook text-dark mx-1"></i> <i class="bi bi-linkedin text-dark mx-1"></i> <i class="bi bi-instagram text-dark mx-1"></i></p>
+						</div>
+					</div>
+				</div>
+				<div class="col-12 col-md-6 col-lg-3">
+					<div class="card text-center">
+						<div class="card-body">
+							<img alt="" class="img-fluid rounded-circle" src="{% static 'img/pablo.jpg' %}" width="150" height="150">
+							<h3 class="card-title py-2">Pablo Ramos</h3>
+							<p class="card-text"><strong>Contacto:</strong> pabramber@alum.us.es</p>
+							<p class="socials"><i class="bi bi-twitter text-dark mx-1"></i> <i class="bi bi-facebook text-dark mx-1"></i> <i class="bi bi-linkedin text-dark mx-1"></i> <i class="bi bi-instagram text-dark mx-1"></i></p>
+						</div>
+					</div>
+				</div>
+			</div>
+			<br>
+			<div class="row">
+				<div class="col-12 col-md-6 col-lg-3">
+					<div class="card text-center">
+						<div class="card-body">
+							<img alt="" class="img-fluid rounded-circle" src="{% static 'img/nuria.jpg' %}" width="150" height="150">
+							<h3 class="card-title py-2">Nuria Gómez</h3>
+							<p class="card-text"><strong>Contacto:</strong> nurgomari@alum.us.es</p>
+							<p class="socials"><i class="bi bi-twitter text-dark mx-1"></i> <i class="bi bi-facebook text-dark mx-1"></i> <i class="bi bi-linkedin text-dark mx-1"></i> <i class="bi bi-instagram text-dark mx-1"></i></p>
+						</div>
+					</div>
+				</div>
+				<div class="col-12 col-md-6 col-lg-3">
+					<div class="card text-center">
+						<div class="card-body">
+							<img alt="" class="img-fluid rounded-circle" src="{% static 'img/alberto.jpg' %}" width="150" height="150">
+							<h3 class="card-title py-2">Alberto Antonio Tokos</h3>
+							<p class="card-text"><strong>Contacto:</strong> albtokmat@alum.us.es</p>
+							<p class="socials"><i class="bi bi-twitter text-dark mx-1"></i> <i class="bi bi-facebook text-dark mx-1"></i> <i class="bi bi-linkedin text-dark mx-1"></i> <i class="bi bi-instagram text-dark mx-1"></i></p>
+						</div>
+					</div>
+				</div>
+				<div class="col-12 col-md-6 col-lg-3">
+					<div class="card text-center">
+						<div class="card-body">
+							<img alt="" class="img-fluid rounded-circle" src="{% static 'img/maria.jpg' %}" width="150" height="150">
+							<h3 class="card-title py-2">María Remedios Zoido</h3>
+							<p class="card-text"><strong>Contacto:</strong> marzoiras@alum.us.es</p>
+							<p class="socials"><i class="bi bi-twitter text-dark mx-1"></i> <i class="bi bi-facebook text-dark mx-1"></i> <i class="bi bi-linkedin text-dark mx-1"></i> <i class="bi bi-instagram text-dark mx-1"></i></p>
+						</div>
+					</div>
+				</div>
+				<div class="col-12 col-md-6 col-lg-3">
+					<div class="card text-center">
+						<div class="card-body">
+							<img alt="" class="img-fluid rounded-circle" src="{% static 'img/juan-antonio.jpg' %}" width="150" height="150">
+							<h3 class="card-title py-2">Juan Antonio Ortiz</h3>
+							<p class="card-text"><strong>Contacto:</strong> </p>
 							<p class="socials"><i class="bi bi-twitter text-dark mx-1"></i> <i class="bi bi-facebook text-dark mx-1"></i> <i class="bi bi-linkedin text-dark mx-1"></i> <i class="bi bi-instagram text-dark mx-1"></i></p>
 						</div>
 					</div>
@@ -220,9 +348,11 @@
 			<div class="row">
 				<div class="col-md-12">
 					<div class="section-header text-center pb-5">
-						<h2>Contact Us</h2>
-						<p>Lorem ipsum dolor sit amet, consectetur<br>
-						adipisicing elit. Non, quo.</p>
+						<h2>Contacta con nosotros</h2>
+						<p><i class="fa-solid fa-envelope"></i> fitwinispp@gmail.com</p>
+						<p><i class="fa-brands fa-twitter"></i> @fitwin</p>
+						<p><i class="fa-brands fa-facebook"></i> @fitwin</p>
+						<p><i class="fa-brands fa-instagram"></i> @fitwin</p>
 					</div>
 				</div>
 			</div>
@@ -236,7 +366,7 @@
 	<!-- footer starts -->
 	<footer class="bg-dark p-2 text-center">
 		<div class="container">
-			<p class="text-white">All Right Reserved By @website Name</p>
+			<p class="text-white">Todos los derechos reservados por @FitWin</p>
 		</div>
 	</footer>
 	<!-- footer ends -->
