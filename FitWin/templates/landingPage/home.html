@@ -6,7 +6,8 @@
 	<meta charset="UTF-8">
 	<meta content="IE=edge" http-equiv="X-UA-Compatible">
 	<meta content="width=device-width, initial-scale=1.0" name="viewport">
-	<title>Bootstrap 5 Responsive Landing Page Design</title>
+	<title>FitWin</title>
+	<link rel="icon" href="{% static 'img/logo.png' %}">
 	<!-- All CSS -->
 	<link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css" rel="stylesheet">
@@ -42,15 +43,14 @@
 		</div>
 	</nav>
 	<div class="carousel slide" data-bs-ride="carousel" id="carouselExampleIndicators">
-		<div class="carousel-indicators">
-			<button aria-label="Slide 1" class="active" data-bs-slide-to="0" data-bs-target="#carouselExampleIndicators" type="button"></button> <button aria-label="Slide 2" data-bs-slide-to="1" data-bs-target="#carouselExampleIndicators" type="button"></button> <button aria-label="Slide 3" data-bs-slide-to="2" data-bs-target="#carouselExampleIndicators" type="button"></button>
-		</div>
+		
 		<div class="carousel-inner">
 			<div class="carousel-item active">
 				<img alt="..." class="d-block w-100" src="{% static 'img/home-1.jpg' %}">
 				<div class="carousel-caption">
 					<h5>FitWin</h5>
 					<p>Encuentra los entrenadores que mejor se adapten a ti y ponte en forma</p>
+					<br>
 
 					<div class="input-group mb-3">
 
@@ -62,6 +62,8 @@
 						</select>
 
 						<input type="text" class="form-control" placeholder="Entrenamiento">
+
+						<input type="text" class="form-control" placeholder="Fecha">
 
 						<button type="button" class="btn btn-success">Buscar</button>
 
@@ -105,7 +107,7 @@
 			</div>
 			<div class="row">
 				<div class="col-12 col-md-12 col-lg-4">
-					<div class="card text-white text-center bg-dark pb-2">
+					<div class="card text-white text-center bg-dark pb-2" style="height: 340px">
 						<div class="card-body">
 							<i class="fa-solid fa-dumbbell"></i>
 							<br>
@@ -126,6 +128,7 @@
 									</li>
 								</ul>
 							</p>
+							<br>
 							<a class="btn btn-warning" href="#contact">Más información</a>
 						</div>
 					</div>
@@ -214,7 +217,7 @@
 			</div>
 			<div class="row">
 				<div class="col-12 col-md-6 col-lg-3">
-					<div class="card text-center">
+					<div class="card text-center" style="height: 400px">
 						<div class="card-body">
 							<img alt="" class="img-fluid rounded-circle" src="{% static 'img/nacho.jpg' %}" width="150" height="150">
 							<h3 class="card-title py-2">Ignacio Jordano</h3>
@@ -224,7 +227,7 @@
 					</div>
 				</div>
 				<div class="col-12 col-md-6 col-lg-3">
-					<div class="card text-center">
+					<div class="card text-center" style="height: 400px">
 						<div class="card-body">
 							<img alt="" class="img-fluid rounded-circle" src="{% static 'img/jesus.jpg' %}" width="150" height="150">
 							<h3 class="card-title py-2">Jesús Páez</h3>
@@ -234,7 +237,7 @@
 					</div>
 				</div>
 				<div class="col-12 col-md-6 col-lg-3">
-					<div class="card text-center">
+					<div class="card text-center" style="height: 400px">
 						<div class="card-body">
 							<img alt="" class="img-fluid rounded-circle" src="{% static 'img/borja.jpg' %}" width="150" height="150">
 							<h3 class="card-title py-2">Borja Piñero</h3>
@@ -244,7 +247,7 @@
 					</div>
 				</div>
 				<div class="col-12 col-md-6 col-lg-3">
-					<div class="card text-center">
+					<div class="card text-center" style="height: 400px">
 						<div class="card-body">
 							<img alt="" class="img-fluid rounded-circle" src="{% static 'img/juanjo.jpg' %}" width="150" height="150">
 							<h3 class="card-title py-2">Juan José Casamitjana</h3>
@@ -257,7 +260,7 @@
 			<br>
 			<div class="row">
 				<div class="col-12 col-md-6 col-lg-3">
-					<div class="card text-center">
+					<div class="card text-center" style="height: 400px">
 						<div class="card-body">
 							<img alt="" class="img-fluid rounded-circle" src="{% static 'img/victor.jpg' %}" width="150" height="150">
 							<h3 class="card-title py-2">Victor Graván</h3>
@@ -267,7 +270,7 @@
 					</div>
 				</div>
 				<div class="col-12 col-md-6 col-lg-3">
-					<div class="card text-center">
+					<div class="card text-center" style="height: 400px">
 						<div class="card-body">
 							<img alt="" class="img-fluid rounded-circle" src="{% static 'img/edu.jpg' %}" width="150" height="150">
 							<h3 class="card-title py-2">Eduardo Ciezar</h3>
@@ -277,7 +280,7 @@
 					</div>
 				</div>
 				<div class="col-12 col-md-6 col-lg-3">
-					<div class="card text-center">
+					<div class="card text-center" style="height: 400px">
 						<div class="card-body">
 							<img alt="" class="img-fluid rounded-circle" src="{% static 'img/raul.jpg' %}" width="150" height="150">
 							<h3 class="card-title py-2">Raúl Gallardo</h3>
@@ -287,7 +290,7 @@
 					</div>
 				</div>
 				<div class="col-12 col-md-6 col-lg-3">
-					<div class="card text-center">
+					<div class="card text-center" style="height: 400px">
 						<div class="card-body">
 							<img alt="" class="img-fluid rounded-circle" src="{% static 'img/pablo.jpg' %}" width="150" height="150">
 							<h3 class="card-title py-2">Pablo Ramos</h3>
@@ -300,7 +303,7 @@
 			<br>
 			<div class="row">
 				<div class="col-12 col-md-6 col-lg-3">
-					<div class="card text-center">
+					<div class="card text-center" style="height: 400px">
 						<div class="card-body">
 							<img alt="" class="img-fluid rounded-circle" src="{% static 'img/nuria.jpg' %}" width="150" height="150">
 							<h3 class="card-title py-2">Nuria Gómez</h3>
@@ -310,7 +313,7 @@
 					</div>
 				</div>
 				<div class="col-12 col-md-6 col-lg-3">
-					<div class="card text-center">
+					<div class="card text-center" style="height: 400px">
 						<div class="card-body">
 							<img alt="" class="img-fluid rounded-circle" src="{% static 'img/alberto.jpg' %}" width="150" height="150">
 							<h3 class="card-title py-2">Alberto Antonio Tokos</h3>
@@ -320,7 +323,7 @@
 					</div>
 				</div>
 				<div class="col-12 col-md-6 col-lg-3">
-					<div class="card text-center">
+					<div class="card text-center" style="height: 400px">
 						<div class="card-body">
 							<img alt="" class="img-fluid rounded-circle" src="{% static 'img/maria.jpg' %}" width="150" height="150">
 							<h3 class="card-title py-2">María Remedios Zoido</h3>
@@ -330,7 +333,7 @@
 					</div>
 				</div>
 				<div class="col-12 col-md-6 col-lg-3">
-					<div class="card text-center">
+					<div class="card text-center" style="height: 400px">
 						<div class="card-body">
 							<img alt="" class="img-fluid rounded-circle" src="{% static 'img/juan-antonio.jpg' %}" width="150" height="150">
 							<h3 class="card-title py-2">Juan Antonio Ortiz</h3>
@@ -349,10 +352,13 @@
 				<div class="col-md-12">
 					<div class="section-header text-center pb-5">
 						<h2>Contacta con nosotros</h2>
-						<p><i class="fa-solid fa-envelope"></i> fitwinispp@gmail.com</p>
-						<p><i class="fa-brands fa-twitter"></i> @fitwin</p>
-						<p><i class="fa-brands fa-facebook"></i> @fitwin</p>
-						<p><i class="fa-brands fa-instagram"></i> @fitwin</p>
+						<br>
+						<p><i class="fa-solid fa-2x fa-envelope"></i>&nbsp;<strong>fitwinispp@gmail.com</strong></p>
+						<br>
+						&nbsp;&nbsp;&nbsp;<i class="fa-brands fa-2x fa-github"></i>
+						&nbsp;&nbsp;&nbsp;<i class="fa-brands fa-2x fa-twitter"></i>
+						&nbsp;&nbsp;&nbsp;<i class="fa-brands fa-2x fa-facebook"></i>
+						&nbsp;&nbsp;&nbsp;<i class="fa-brands fa-2x fa-instagram"></i>
 					</div>
 				</div>
 			</div>
