@@ -1,0 +1,43 @@
+project:
+  name: FitWin
+  owner: G11
+  teamId: G11
+  identities: {}
+  notifications: {}
+  members:
+    member1:
+      name: 'Juan Antonio'
+      surname: Ortiz
+    member2:
+      name: Eduarzo
+      surname: Ciezar
+    member3:
+      name: Raúl
+      surname: Gallardo
+    member4:
+      name: Borja
+      surname: Piñero
+    member5:
+      name: Pablo
+      surname: Ramos
+    member6:
+      name: Nuria
+      surname: Gómez
+    member7:
+      name: Jesús
+      surname: Páez
+    member8:
+      name: Ignacio
+      surname: Jordano
+    member9:
+      name: Victor
+      surname: Graván
+    member10:
+      name: 'Juan José'
+      surname: Casamitjana
+    member11:
+      name: 'Alberto Antonio'
+      surname: Tokos
+    member12:
+      name: María
+      surname: Zoido
