@@ -8,36 +8,48 @@ project:
     member1:
       name: 'Juan Antonio'
       surname: Ortiz
+      githubUsername: juaortgue
     member2:
       name: Eduarzo
       surname: Ciezar
+      githubUsername: educielan
     member3:
       name: Raúl
       surname: Gallardo
+      githubUsername: raugalroc
     member4:
       name: Borja
       surname: Piñero
+      githubUsername: borpincal
     member5:
       name: Pablo
       surname: Ramos
+      githubUsername: pabramber
     member6:
       name: Nuria
       surname: Gómez
+      githubUsername: nurgomari
     member7:
       name: Jesús
       surname: Páez
+      githubUsername: jespaepae
     member8:
       name: Ignacio
       surname: Jordano
+      githubUsername: ignjorde
     member9:
       name: Victor
       surname: Graván
+      githubUsername: vicgrabru
     member10:
       name: 'Juan José'
       surname: Casamitjana
+      githubUsername: JuanJoCasamitjana
     member11:
       name: 'Alberto Antonio'
       surname: Tokos
+      githubUsername: albert011
     member12:
       name: María
       surname: Zoido
+      githubUsername: MariaZoidoR
