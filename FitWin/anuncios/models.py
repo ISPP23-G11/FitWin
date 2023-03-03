@@ -21,27 +21,10 @@ class Client(models.Model):
     bio = models.TextField(max_length=150, null=True, blank=True)
 
 class Category(models.Model):
+    name=models.CharField(max_length=250, verbose_name='Categoria')
 
-    LOSE_WEIGHT = 'LW'
-    MUSCLE_MASS = 'MM'
-    CROSSFIT = 'CF'
-    PILATES = 'PL'
-    BOXING = 'BX'
-    AEROBIC = 'AB'
-    MARTIAL_ARTS = 'MA'
-    
-
-    CATEGORIES=[
-        (LOSE_WEIGHT, 'Lose weight'),
-        (MUSCLE_MASS, 'Muscle mass'),
-        (CROSSFIT, 'Crossfit'),
-        (PILATES, 'Pilates'),
-        (BOXING, 'Boxing'),
-        (AEROBIC, 'Aerobic'),
-        (MARTIAL_ARTS, 'Martial arts'),
-    ]
-    
-    name=models.CharField(max_length=250, verbose_name='Categoria', choices=CATEGORIES, default=LOSE_WEIGHT)
+    def __str__(self):
+        return self.name
 
 
 

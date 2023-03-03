@@ -1,0 +1,42 @@
+<body>
+
+{% if messages|length > 0 %}
+    {% for message in messages %}
+        <h3>
+            {{ message }}
+        </h3>
+    {% endfor %}
+{% endif %}
+
+
+<form method="post" action="/announcements/create">
+
+    {% csrf_token %}
+    
+    <label for="title">Titulo:</label><br>
+    <input type="text" id="title" name="title"><br>
+
+    <label for="description">Descripcion:</label><br>
+    <input type="text" id="description" name="description"><br>
+
+    <label for="place">Lugar:</label><br>
+    <input type="text" id="place" name="place"><br>
+
+    <label for="price">Precio:</label><br>
+    <input type="number" id="price" name="price" step="0.01" placeholder="1,01"><br>
+
+    <label for="capacity">Aforo:</label><br>
+    <input type="number" id="capacity" name="capacity" placeholder="1"><br>
+
+    <label for="day">Dia:</label><br>
+    <input type="date" id="day" name="day"><br>
+
+    <label for="start_date">Hora de comienzo:</label><br>
+    <input type="time" id="start_date" name="start_date"><br>
+
+    <label for="finish_date">Hora de finalizacion:</label><br>
+    <input type="time" id="finish_date" name="finish_date"><br>
+
+    <input type="submit" value="Guardar">
+</form>
+</body>
