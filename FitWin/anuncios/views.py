@@ -11,6 +11,9 @@ from django.contrib.auth.models import User
 
 def validate_dates(start_date, finish_date):
     now_date = (datetime.now()+ timedelta(hours=1))
+    print(now_date)
+    print(start_date)
+    print(finish_date)
     val = False
     if( now_date > start_date or start_date > finish_date):
         val = True
@@ -87,6 +90,61 @@ def create_announcement(request):
         context = {}
         return HttpResponse(template.render(context, request))
     
+@login_required
+def edit_announcement(request, announcement_id):
+    announcement = Announcement.objects.get(id = announcement_id)
+    if request.method == 'POST':
+        title = request.POST.get('title', '')
+        description = request.POST.get('description', '')
+        place = request.POST.get('place', 'No definido')
+        price = request.POST.get('price', '0.0')
+        capacity = request.POST.get('capacity', '0')
+        user = request.user
+        trainer = Trainer.objects.get(user = user)
+        day = request.POST.get('day', '')
+        start_date = request.POST.get('start_date', '')
+        finish_date = request.POST.get('finish_date', '')
+
+        start_date = datetime.strptime(start_date, '%H:%M').time()
+        finish_date = datetime.strptime(finish_date, '%H:%M').time()
+        day = datetime.strptime(day, '%Y-%m-%d').date()
+
+        start_date = datetime.combine(day, start_date)
+        finish_date = datetime.combine(day, finish_date)
+
+
+        capacity = int(capacity)
+        price = float(price)
+
+        errors = False
+
+        if validate_dates(start_date, finish_date):
+            errors = True
+            messages.error(request, "Las fechas son incorrectas")
+        if validate_capacity(capacity):
+            errors = True
+            messages.error(request, "La capacidad no puede ser 0")
+
+        if errors == True:
+            return redirect("/announcements/edit/"+str(announcement.id))
+
+        else:
+            announcement.title = title
+            announcement.description = description
+            announcement.place = place
+            announcement.price = price
+            announcement.capacity = capacity
+            announcement.trainer = trainer
+            announcement.start_date = start_date
+            announcement.finish_date = finish_date
+            announcement.save()
+            template = loader.get_template("main.html") 
+            context = {}
+            return HttpResponse(template.render(context, request))
+    elif request.method == 'GET':
+        template = loader.get_template("form.html") 
+        context = {'a':announcement}
+        return HttpResponse(template.render(context, request))
 
 
 def main(request):
@@ -129,3 +187,9 @@ def add_categories(request, announcement_id):
         template = loader.get_template("add_categories.html") 
         context = {'categories':categories, 'a':announcement}
         return HttpResponse(template.render(context, request))
+
+def delete_categories(request, announcement_id, category_id):
+    announcement = Announcement.objects.get(id = announcement_id)
+    category = Category.objects.get(id = category_id)
+    announcement.categories.remove(category)
+    return redirect("/announcements/add-categories/"+str(announcement_id))
