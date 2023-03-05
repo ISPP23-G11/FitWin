@@ -40,6 +40,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'landingPage',
+    'bootstrap5',
+    'jquery',
 ]
 
 MIDDLEWARE = [
