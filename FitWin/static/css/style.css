@@ -130,3 +130,22 @@ body {
 		margin-bottom: 30px;
 	}
 }
+.color1{
+    color: #5580e9;
+}
+.color2{
+    color: #43b6e4;
+}
+.color3{
+    color: #5ab8eb;
+}
+.color4{
+    color: #c1c8e4;
+    
+}
+.color5{
+    color: #8860d0;
+}
+.btn-primary, .btn-primary:hover, .btn-primary:active, .btn-primary:visited {
+    background-color: #43b6e4 !important;
+}
