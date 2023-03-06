@@ -39,6 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    'anuncios',
+
     'landingPage',
 ]
 
@@ -79,12 +81,14 @@ WSGI_APPLICATION = 'FitWin.wsgi.application'
 
 DATABASES = {
     'default': {
+
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'fitwin',
         'USER': 'fitwin',
         'PASSWORD':'fitwin',
         'HOST': 'localhost',
         'PORT': '5432',
+
     }
 }
 
