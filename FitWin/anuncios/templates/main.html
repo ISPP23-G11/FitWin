@@ -1,0 +1,18 @@
+<h1>Página principal</h1>
+
+{% if messages|length > 0 %}
+    {% for message in messages %}
+        <h3>
+            {{ message }}
+        </h3>
+    {% endfor %}
+{% endif %}
+
+Tu usuario es: {{ user.username }}
+
+<br>
+<a href="/login">Autenticate como usuario de prueba</a>
+<br>
+<a href="/announcements/create">Crea un anuncio como usuario de prueba</a>
+<br>
+<a href="/announcements/list-own/all">Ver anuncios del usuario de prueba</a>
