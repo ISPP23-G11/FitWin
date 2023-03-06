@@ -42,8 +42,6 @@ INSTALLED_APPS = [
     'anuncios',
 
     'landingPage',
-    'bootstrap5',
-    'jquery',
 ]
 
 MIDDLEWARE = [
