@@ -8,4 +8,6 @@ def home(request):
     return HttpResponse(template.render())
 def principal(request):
     template = loader.get_template('principal.html')
+def menu(request):
+    template = loader.get_template('menu.html')
     return HttpResponse(template.render())
