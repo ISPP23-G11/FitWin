@@ -205,4 +205,16 @@ def book_announcement(request, announcement_id):
     else:
         messages.error(request, "No hay hueco para reservar esta clase")
     return redirect("/") 
+
+
+def cancel_book_announcement(request, announcement_id):
+    client = Client.objects.get(user = request.user)
+    announcement = Announcement.objects.get(id = announcement_id)
+    if client in announcement.clients.all():
+        announcement.clients.remove(client.id)
+        announcement.capacity = announcement.capacity + 1
+        announcement.save()
+    else:
+        messages.error(request, "Aún no estas inscrito a esta clase")
+    return redirect("/") 
     
