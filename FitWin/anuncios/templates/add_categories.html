@@ -1,0 +1,34 @@
+<body>
+    <h1>Añade categorias a tu anuncio</h1>
+
+    <form action="/announcements/add-categories/{{ a.id }}" method="post">
+        
+        {% csrf_token %}
+
+        <label for="categories">Categorias:</label><br>
+        <select required id="categories" name="category"><br>
+            {% for c in categories %}
+            <option
+                {% if c == category %}
+                selected> 
+                {% else %}
+                >
+                {% endif %}
+                {{ c }} 
+            </option>                            
+            {% endfor %}
+        </select>
+
+        <input type="submit" value="Añadir">
+
+    </form>
+
+
+    <br>
+        {% for c in a.categories.all %}
+            <p>{{ c.name }}</p>
+            <a href="/announcements/delete-categories/{{ a.id }}/{{ c.id }}">Eliminar</a>
+            <hr>
+        {% endfor %}
+    
+</body>
