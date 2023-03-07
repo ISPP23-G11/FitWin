@@ -1,0 +1,739 @@
+[
+{
+  "model": "auth.user",
+  "pk": 1,
+  "fields": {
+    "password": "pbkdf2_sha256$390000$MX2eEz6vV88a2TvYw8ZWzp$k/LQUpdZtZ8d8COFABR4UVjD47AyS1fV0kAp0cK2BcA=",
+    "last_login": "2023-03-06T16:36:33.095Z",
+    "is_superuser": true,
+    "username": "fitwin",
+    "first_name": "",
+    "last_name": "",
+    "email": "fitwin@us.es",
+    "is_staff": true,
+    "is_active": true,
+    "date_joined": "2023-03-06T16:27:43.479Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 3,
+  "fields": {
+    "password": "pbkdf2_sha256$390000$M5ofMPPuQYZPAvbtNI1Nz3$+HUspEoSRlZxTC4wtcw07ZxGkH2uQeDxeSDkGk0lSyw=",
+    "last_login": null,
+    "is_superuser": false,
+    "username": "jorge",
+    "first_name": "Jorge",
+    "last_name": "García",
+    "email": "jorge@fitwin.es",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2023-03-06T16:57:43Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 4,
+  "fields": {
+    "password": "pbkdf2_sha256$390000$mypTHnsZptPgHQhK6J1XG4$SOSKBrhvgymWWu/QyGeADrz5aOuQgGSmS09g2rLXUmU=",
+    "last_login": null,
+    "is_superuser": false,
+    "username": "alberto",
+    "first_name": "Alberto",
+    "last_name": "Pérez",
+    "email": "albertoperez@fitwin.es",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2023-03-06T16:59:49Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 5,
+  "fields": {
+    "password": "pbkdf2_sha256$390000$EvLLg030K6vzP1V1fP8M6Y$e96Qh/dIsti/hWtlQbU5GkW7jkbbEgWaadv9v3lncFo=",
+    "last_login": null,
+    "is_superuser": false,
+    "username": "pablo",
+    "first_name": "Pablo",
+    "last_name": "Hernández",
+    "email": "pabloher@fitwin.es",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2023-03-06T17:00:35Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 6,
+  "fields": {
+    "password": "pbkdf2_sha256$390000$GvqBytfjWGYobhwbYJdklr$P+SZUDxkphCiHUdzmdgJ2UndmFkGQoL6hAWEDMfQuaY=",
+    "last_login": null,
+    "is_superuser": false,
+    "username": "fernando",
+    "first_name": "Fernando",
+    "last_name": "Martín",
+    "email": "fer@fitwin.es",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2023-03-06T17:01:37Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 7,
+  "fields": {
+    "password": "pbkdf2_sha256$390000$hTQqKvJ9KKRBVOgnrOUbjq$pAZ/Hp3atOBXHzzXOhvf8vujCs/96dg4rAYswEYfmJ4=",
+    "last_login": null,
+    "is_superuser": false,
+    "username": "Antonio",
+    "first_name": "Antonio",
+    "last_name": "García",
+    "email": "anto@fitwin.es",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2023-03-06T17:02:31Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 8,
+  "fields": {
+    "password": "pbkdf2_sha256$390000$0ZDCjS0Hs7AQcg8KgySsB7$UCdPIx1wepV1jY1wy1RlNLl69yVkxVKjqAzfqtNnwIA=",
+    "last_login": null,
+    "is_superuser": false,
+    "username": "carlos",
+    "first_name": "Carlos",
+    "last_name": "Rodriguez",
+    "email": "carlosr@fitwin.es",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2023-03-06T17:03:08Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 9,
+  "fields": {
+    "password": "pbkdf2_sha256$390000$mbTGE6HNWF5z8FPGVwdh1b$TFD8Eezu+6Uv7eYctbNzy8u/6gjw2kOq9OIB8ZUHzqU=",
+    "last_login": null,
+    "is_superuser": false,
+    "username": "jesus",
+    "first_name": "Jesús",
+    "last_name": "Segovia",
+    "email": "jesu@fitwin.es",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2023-03-06T17:04:04Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 10,
+  "fields": {
+    "password": "pbkdf2_sha256$390000$YyNCisLWjA8SahlheSWuk5$SbSYgPNWVP7+M/+Mpo3vEA3+iwjUu/0iWzkO7bao4gs=",
+    "last_login": null,
+    "is_superuser": false,
+    "username": "roberto",
+    "first_name": "Roberto",
+    "last_name": "Nadal",
+    "email": "roberto@fitwin.es",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2023-03-06T17:05:14Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 11,
+  "fields": {
+    "password": "pbkdf2_sha256$390000$p9dtASQxSvpsVivkATMaoi$u79nZY3Zz/L52UkNY6tNoXy7ts+Cdr0HFdqo0qn48YM=",
+    "last_login": null,
+    "is_superuser": false,
+    "username": "maria",
+    "first_name": "María",
+    "last_name": "Durán",
+    "email": "maria@fitwin.es",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2023-03-06T17:06:01Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 12,
+  "fields": {
+    "password": "pbkdf2_sha256$390000$FrhL7ZK9kpcNcoU7KBX7VU$AMT6wBV7pEghBqe+JAhKLdBxsSOeQ/pObYm4+92xXiU=",
+    "last_login": null,
+    "is_superuser": false,
+    "username": "alicia",
+    "first_name": "Alicia",
+    "last_name": "Ramos",
+    "email": "alicica@fitwin.es",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2023-03-06T17:07:05Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 13,
+  "fields": {
+    "password": "pbkdf2_sha256$390000$EuKB2ow608WqV5Wio7PyVd$nQXM1hYB9nQKVKPQ9HyFmeXLdyc+CCGnUhuWyRvJLcc=",
+    "last_login": null,
+    "is_superuser": false,
+    "username": "natalia",
+    "first_name": "Natalia",
+    "last_name": "García",
+    "email": "natalia@fitwin.es",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2023-03-06T17:08:33Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 14,
+  "fields": {
+    "password": "pbkdf2_sha256$390000$MN06IKibodYlm2SXviVDwG$Kx/5r9MMV/kPr5se/Uz3VlOs7hEeD6uV2cd96Jsl1GE=",
+    "last_login": null,
+    "is_superuser": false,
+    "username": "sonia",
+    "first_name": "Sonia",
+    "last_name": "Sanchez",
+    "email": "sonias@fitwin.es",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2023-03-06T17:09:19Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 15,
+  "fields": {
+    "password": "pbkdf2_sha256$390000$eNrQLLcXbBPbLlgfKhFrLl$mLjLDh3UURcZPokVFFeGSCHEVkhrOT+fXzoBguFliTg=",
+    "last_login": null,
+    "is_superuser": false,
+    "username": "marta",
+    "first_name": "Marta",
+    "last_name": "Gómez",
+    "email": "marta@fitwin.es",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2023-03-06T17:10:07Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 16,
+  "fields": {
+    "password": "pbkdf2_sha256$390000$5wRSlROBtmOAxaJ8cRsiJH$SOLKNoWn6GBHvM01LfyUyTDcGHekHe8qoU87eGnj1ag=",
+    "last_login": null,
+    "is_superuser": false,
+    "username": "ana",
+    "first_name": "Ana",
+    "last_name": "Alonso",
+    "email": "ana@fitwin.es",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2023-03-06T17:11:25Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 17,
+  "fields": {
+    "password": "pbkdf2_sha256$390000$ZvTeMPgEiBFCmnWmymE5y0$/h+wxFqpni0mrhW27KRu/52B4/M6i3n5crhiGP2Xuds=",
+    "last_login": null,
+    "is_superuser": false,
+    "username": "carmen",
+    "first_name": "Carmen",
+    "last_name": "Gallardo",
+    "email": "carmen@fitwin.es",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2023-03-06T17:12:06Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 18,
+  "fields": {
+    "password": "pbkdf2_sha256$390000$vjIcvLrRXwFVKZO6VvklBN$phSIdd4RLR/UlVcDdPnE7Wu0cRuK8oVkVaLlMSKKPLA=",
+    "last_login": null,
+    "is_superuser": false,
+    "username": "marcelo",
+    "first_name": "Marcelo",
+    "last_name": "Manzano",
+    "email": "marcelo@fitwin.es",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2023-03-06T17:12:53Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 19,
+  "fields": {
+    "password": "pbkdf2_sha256$390000$ui1VSsPJlfEdEYYtZ9CvqG$QIM+hiaXTGzXLK5Wq0zmz4PmHMsj4x6d5COO/3jBNNE=",
+    "last_login": null,
+    "is_superuser": false,
+    "username": "juan",
+    "first_name": "Juan",
+    "last_name": "Gómez",
+    "email": "juan@fitwin.es",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2023-03-06T17:13:37Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "anuncios.trainer",
+  "pk": 2,
+  "fields": {
+    "user": 4,
+    "picture": "",
+    "date_created": "2023-03-06",
+    "birthday": "1990-03-06",
+    "bio": "Soy un entrenador personal con experiencia de 10 años. Estudios de ciencias del deporte y titulo oficial de entrenador de baloncesto."
+  }
+},
+{
+  "model": "anuncios.trainer",
+  "pk": 3,
+  "fields": {
+    "user": 12,
+    "picture": "",
+    "date_created": "2023-03-06",
+    "birthday": "1995-10-04",
+    "bio": "Mi nombre es Alicia y tengo el título del TAFAD así como múltiples cursos de entrenamiento. Tengo experiencia con alumn@s de todas las edades."
+  }
+},
+{
+  "model": "anuncios.trainer",
+  "pk": 4,
+  "fields": {
+    "user": 16,
+    "picture": "",
+    "date_created": "2023-03-06",
+    "birthday": "2001-05-04",
+    "bio": "Mi nombre es Ana, he terminado hace poco la carrera de Ciencias del deporte. LLevo poco tiempo dando clases pero sigo formandome todo lo que pueda."
+  }
+},
+{
+  "model": "anuncios.trainer",
+  "pk": 5,
+  "fields": {
+    "user": 6,
+    "picture": "",
+    "date_created": "2023-03-06",
+    "birthday": "1980-12-01",
+    "bio": "Hola, soy Fernando y he sido profesor de natación en varios lugares. Tengo años de experiencia."
+  }
+},
+{
+  "model": "anuncios.trainer",
+  "pk": 6,
+  "fields": {
+    "user": 8,
+    "picture": "",
+    "date_created": "2023-03-06",
+    "birthday": "1979-01-06",
+    "bio": "Empecé como preparador físico de un pequeño equipo de fútbol y con el tiempo fui trabajando para equipos mas grandes. Lo compagino con clases privadas"
+  }
+},
+{
+  "model": "anuncios.trainer",
+  "pk": 7,
+  "fields": {
+    "user": 14,
+    "picture": "",
+    "date_created": "2023-03-06",
+    "birthday": "1990-09-22",
+    "bio": "Mi nombre es Sonia y llevo trabajando varios años como entrenadora personal en distintos gimnasios."
+  }
+},
+{
+  "model": "anuncios.trainer",
+  "pk": 8,
+  "fields": {
+    "user": 15,
+    "picture": "",
+    "date_created": "2023-03-06",
+    "birthday": "1995-09-09",
+    "bio": "Soy Marta y soy experta en crossfit. LLevo un par de años dando clases en un gimnasio."
+  }
+},
+{
+  "model": "anuncios.client",
+  "pk": 1,
+  "fields": {
+    "user": 7,
+    "picture": "",
+    "date_created": "2023-03-06",
+    "birthday": "1990-06-29",
+    "bio": ""
+  }
+},
+{
+  "model": "anuncios.client",
+  "pk": 2,
+  "fields": {
+    "user": 17,
+    "picture": "",
+    "date_created": "2023-03-06",
+    "birthday": "2001-05-04",
+    "bio": ""
+  }
+},
+{
+  "model": "anuncios.client",
+  "pk": 3,
+  "fields": {
+    "user": 9,
+    "picture": "",
+    "date_created": "2023-03-06",
+    "birthday": "1970-01-06",
+    "bio": ""
+  }
+},
+{
+  "model": "anuncios.client",
+  "pk": 4,
+  "fields": {
+    "user": 3,
+    "picture": "",
+    "date_created": "2023-03-06",
+    "birthday": "1996-02-01",
+    "bio": ""
+  }
+},
+{
+  "model": "anuncios.client",
+  "pk": 5,
+  "fields": {
+    "user": 19,
+    "picture": "",
+    "date_created": "2023-03-06",
+    "birthday": "1998-03-09",
+    "bio": "Soy Juan y me gustaría ponerme en forma haciendo crossfit"
+  }
+},
+{
+  "model": "anuncios.client",
+  "pk": 6,
+  "fields": {
+    "user": 18,
+    "picture": "",
+    "date_created": "2023-03-06",
+    "birthday": "2001-08-20",
+    "bio": ""
+  }
+},
+{
+  "model": "anuncios.client",
+  "pk": 7,
+  "fields": {
+    "user": 11,
+    "picture": "",
+    "date_created": "2023-03-06",
+    "birthday": "1991-01-08",
+    "bio": "Hola, mi nombre es maría y me gustaría bajar de peso. Tengo bastante tiempo y me gustan casi todos los deportes."
+  }
+},
+{
+  "model": "anuncios.client",
+  "pk": 8,
+  "fields": {
+    "user": 13,
+    "picture": "",
+    "date_created": "2023-03-06",
+    "birthday": "1980-06-01",
+    "bio": ""
+  }
+},
+{
+  "model": "anuncios.client",
+  "pk": 9,
+  "fields": {
+    "user": 5,
+    "picture": "",
+    "date_created": "2023-03-06",
+    "birthday": "2003-05-04",
+    "bio": ""
+  }
+},
+{
+  "model": "anuncios.client",
+  "pk": 10,
+  "fields": {
+    "user": 10,
+    "picture": "",
+    "date_created": "2023-03-06",
+    "birthday": "2002-12-29",
+    "bio": ""
+  }
+},
+{
+  "model": "anuncios.category",
+  "pk": 1,
+  "fields": {
+    "name": "Crossfit"
+  }
+},
+{
+  "model": "anuncios.category",
+  "pk": 2,
+  "fields": {
+    "name": "Entrenamiento personal"
+  }
+},
+{
+  "model": "anuncios.category",
+  "pk": 3,
+  "fields": {
+    "name": "Yoga"
+  }
+},
+{
+  "model": "anuncios.category",
+  "pk": 4,
+  "fields": {
+    "name": "Pilates"
+  }
+},
+{
+  "model": "anuncios.category",
+  "pk": 5,
+  "fields": {
+    "name": "Definición"
+  }
+},
+{
+  "model": "anuncios.category",
+  "pk": 6,
+  "fields": {
+    "name": "Boxeo"
+  }
+},
+{
+  "model": "anuncios.category",
+  "pk": 7,
+  "fields": {
+    "name": "Artes marciales"
+  }
+},
+{
+  "model": "anuncios.category",
+  "pk": 8,
+  "fields": {
+    "name": "Natación"
+  }
+},
+{
+  "model": "anuncios.category",
+  "pk": 9,
+  "fields": {
+    "name": "Gimnasia rítmica"
+  }
+},
+{
+  "model": "anuncios.category",
+  "pk": 10,
+  "fields": {
+    "name": "Padel"
+  }
+},
+{
+  "model": "anuncios.category",
+  "pk": 11,
+  "fields": {
+    "name": "Tenis"
+  }
+},
+{
+  "model": "anuncios.category",
+  "pk": 12,
+  "fields": {
+    "name": "Bajar de peso"
+  }
+},
+{
+  "model": "anuncios.announcement",
+  "pk": 1,
+  "fields": {
+    "title": "Clases de crossfit",
+    "description": "Se impartirán clases de crossfit para principiantes.",
+    "place": "Avenida Reina Mercedes, Sevilla",
+    "price": 20.0,
+    "capacity": 10,
+    "trainer": 8,
+    "start_date": "2023-03-06T17:45:40.415Z",
+    "finish_date": "2023-03-06T17:45:40.415Z",
+    "clients": [
+      1,
+      2,
+      3
+    ],
+    "categories": [
+      1
+    ]
+  }
+},
+{
+  "model": "anuncios.announcement",
+  "pk": 2,
+  "fields": {
+    "title": "Clases de boxeo",
+    "description": "Se impartirán clases de boxeo de nivel medio.",
+    "place": "Madrid",
+    "price": 40.0,
+    "capacity": 4,
+    "trainer": 3,
+    "start_date": "2023-03-06T17:51:42.372Z",
+    "finish_date": "2023-03-06T17:51:42.372Z",
+    "clients": [
+      1
+    ],
+    "categories": [
+      6
+    ]
+  }
+},
+{
+  "model": "anuncios.announcement",
+  "pk": 3,
+  "fields": {
+    "title": "Entrenamientos para pérdida de peso",
+    "description": "Con mis entrenamientos podrás cumplir tus objetivo de peso lo antes posible.",
+    "place": "Low fit, Sevilla",
+    "price": 20.0,
+    "capacity": 10,
+    "trainer": 6,
+    "start_date": "2023-03-06T17:53:49.664Z",
+    "finish_date": "2023-03-06T17:53:49.664Z",
+    "clients": [
+      7
+    ],
+    "categories": [
+      12
+    ]
+  }
+},
+{
+  "model": "anuncios.announcement",
+  "pk": 4,
+  "fields": {
+    "title": "Clases de natación",
+    "description": "Se darán clases de natación para competidores.",
+    "place": "Málaga",
+    "price": 30.0,
+    "capacity": 5,
+    "trainer": 5,
+    "start_date": "2023-03-06T17:56:35.751Z",
+    "finish_date": "2023-03-06T17:56:35.751Z",
+    "clients": [
+      6
+    ],
+    "categories": [
+      8
+    ]
+  }
+},
+{
+  "model": "anuncios.announcement",
+  "pk": 5,
+  "fields": {
+    "title": "Entrenamiento personal para definición",
+    "description": "Clases para personas que quieran ponerse bastante en forma.",
+    "place": "Sevilla",
+    "price": 15.0,
+    "capacity": 10,
+    "trainer": 2,
+    "start_date": "2023-03-06T17:57:52.992Z",
+    "finish_date": "2023-03-06T17:57:52.992Z",
+    "clients": [
+      10
+    ],
+    "categories": [
+      5
+    ]
+  }
+},
+{
+  "model": "anuncios.announcement",
+  "pk": 6,
+  "fields": {
+    "title": "Clases para principiantes",
+    "description": "Empieza a ponerte en forma conmigo y con tus compañeros.",
+    "place": "cáceres",
+    "price": 10.0,
+    "capacity": 15,
+    "trainer": 4,
+    "start_date": "2023-03-06T17:59:23.286Z",
+    "finish_date": "2023-03-06T17:59:23.286Z",
+    "clients": [
+      8
+    ],
+    "categories": [
+      2
+    ]
+  }
+},
+{
+  "model": "anuncios.announcement",
+  "pk": 7,
+  "fields": {
+    "title": "Clases de yoga",
+    "description": "Se darán clases de yoga con pocas personas.",
+    "place": "Madrid",
+    "price": 10.0,
+    "capacity": 6,
+    "trainer": 7,
+    "start_date": "2023-03-06T18:01:08.392Z",
+    "finish_date": "2023-03-06T18:01:08.392Z",
+    "clients": [
+      5
+    ],
+    "categories": [
+      3
+    ]
+  }
+}
+]
