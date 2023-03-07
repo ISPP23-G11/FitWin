@@ -27,6 +27,8 @@
     <br>
         {% for c in a.categories.all %}
             <p>{{ c.name }}</p>
+            <a href="/announcements/delete-categories/{{ a.id }}/{{ c.id }}">Eliminar</a>
+            <hr>
         {% endfor %}
     
 </body>
