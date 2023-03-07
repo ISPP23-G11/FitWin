@@ -133,7 +133,7 @@ def edit_announcement(request, announcement_id):
             announcement.description = description
             announcement.place = place
             announcement.price = price
-            announcement.capacity = capacity
+            announcement.capacity = capacity - len(announcement.clients.all())
             announcement.trainer = trainer
             announcement.start_date = start_date
             announcement.finish_date = finish_date
@@ -193,3 +193,16 @@ def delete_categories(request, announcement_id, category_id):
     category = Category.objects.get(id = category_id)
     announcement.categories.remove(category)
     return redirect("/announcements/add-categories/"+str(announcement_id))
+
+
+def book_announcement(request, announcement_id):
+    client = Client.objects.get(user = request.user)
+    announcement = Announcement.objects.get(id = announcement_id)
+    if announcement.capacity > 0:
+        announcement.clients.add(client.id)
+        announcement.capacity = announcement.capacity - 1
+        announcement.save()
+    else:
+        messages.error(request, "No hay hueco para reservar esta clase")
+    return redirect("/") 
+    
