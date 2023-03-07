@@ -9,33 +9,38 @@
 {% endif %}
 
 
-<form method="post" action="/announcements/create">
+<form method="post" 
+    {% if a %}
+        action="/announcements/edit/{{ a.id }}">
+    {% else %}
+        action="/announcements/create">
+    {% endif %}
 
     {% csrf_token %}
     
     <label for="title">Titulo:</label><br>
-    <input type="text" id="title" name="title"><br>
+    <input type="text" id="title" name="title" value="{{ a.title }}"><br>
 
     <label for="description">Descripcion:</label><br>
-    <input type="text" id="description" name="description"><br>
+    <input type="text" id="description" name="description" value="{{ a.description }}"><br>
 
     <label for="place">Lugar:</label><br>
-    <input type="text" id="place" name="place"><br>
+    <input type="text" id="place" name="place" value="{{ a.place }}"><br>
 
     <label for="price">Precio:</label><br>
-    <input type="number" id="price" name="price" step="0.01" placeholder="1,01"><br>
+    <input type="number" id="price" name="price" step="0.01" placeholder="1,01"  value="{{ a.price }}"><br>
 
     <label for="capacity">Aforo:</label><br>
-    <input type="number" id="capacity" name="capacity" placeholder="1"><br>
+    <input type="number" id="capacity" name="capacity" placeholder="1"  value="{{ a.capacity }}"><br>
 
     <label for="day">Dia:</label><br>
-    <input type="date" id="day" name="day"><br>
+    <input type="date" id="day" name="day"  value="{{ a.start_date|date:"Y-m-d" }}"><br>
 
     <label for="start_date">Hora de comienzo:</label><br>
-    <input type="time" id="start_date" name="start_date"><br>
+    <input type="time" id="start_date" name="start_date" value="{{ a.start_date|date:"H:i" }}"><br>
 
     <label for="finish_date">Hora de finalizacion:</label><br>
-    <input type="time" id="finish_date" name="finish_date"><br>
+    <input type="time" id="finish_date" name="finish_date" value="{{ a.finish_date|date:"H:i" }}"><br>
 
     <input type="submit" value="Guardar">
 </form>
