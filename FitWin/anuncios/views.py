@@ -8,17 +8,15 @@ from datetime import datetime, timedelta
 from django.contrib.auth import authenticate
 from django.contrib.auth import login as login_django
 from django.contrib.auth.models import User
+from django.utils.timezone import make_aware
 
 def validate_dates(start_date, finish_date):
     now_date = (datetime.now()+ timedelta(hours=1))
-    print(now_date)
-    print(start_date)
-    print(finish_date)
     val = False
     if( now_date > start_date or start_date > finish_date):
         val = True
 
-    print(val)
+    print(finish_date)
     return val
 
 def validate_capacity(capacity):
@@ -48,7 +46,7 @@ def create_announcement(request):
 
         start_date = datetime.combine(day, start_date)
         finish_date = datetime.combine(day, finish_date)
-
+        print(finish_date)
         capacity = int(capacity)
         price = float(price)
 
@@ -99,19 +97,18 @@ def edit_announcement(request, announcement_id):
         place = request.POST.get('place', 'No definido')
         price = request.POST.get('price', '0.0')
         capacity = request.POST.get('capacity', '0')
-        user = request.user
-        trainer = Trainer.objects.get(user = user)
         day = request.POST.get('day', '')
         start_date = request.POST.get('start_date', '')
         finish_date = request.POST.get('finish_date', '')
 
         start_date = datetime.strptime(start_date, '%H:%M').time()
         finish_date = datetime.strptime(finish_date, '%H:%M').time()
+        
         day = datetime.strptime(day, '%Y-%m-%d').date()
 
         start_date = datetime.combine(day, start_date)
         finish_date = datetime.combine(day, finish_date)
-
+        print(finish_date)
 
         capacity = int(capacity)
         price = float(price)
@@ -129,15 +126,18 @@ def edit_announcement(request, announcement_id):
             return redirect("/announcements/edit/"+str(announcement.id))
 
         else:
+            print(finish_date)
             announcement.title = title
             announcement.description = description
             announcement.place = place
             announcement.price = price
             announcement.capacity = capacity - len(announcement.clients.all())
-            announcement.trainer = trainer
-            announcement.start_date = start_date
+            announcement.start_date = make_aware(start_date)
+            finish_date = make_aware(finish_date)
+            print(finish_date)
             announcement.finish_date = finish_date
             announcement.save()
+            print(announcement.finish_date)
             template = loader.get_template("main.html") 
             context = {}
             return HttpResponse(template.render(context, request))
@@ -154,17 +154,19 @@ def main(request):
 
 
 def login(request):
-    users = User.objects.all()
-    user = None
-    for u in users:
-        if not u.is_superuser:
-            user = u
+    if request.method == 'POST':
+        username = request.POST.get("username", "").strip()
+        password = request.POST.get("password", "").strip()
 
-    user = authenticate(request, username=user.username, password="contrasenia1234")
-    if user is not None:
-        login_django(request, user)
-        messages.error(request, "Usuario autenticado")
-        return redirect('/')
+        user = authenticate(request, username=username, password=password)
+        if user is not None:
+            login_django(request, user)
+            messages.error(request, "Usuario autenticado")
+            return redirect('/')
+    else:
+        template = loader.get_template("login.html") 
+        context = {}
+        return HttpResponse(template.render(context, request))
 
 
 def list_own_all(request):
