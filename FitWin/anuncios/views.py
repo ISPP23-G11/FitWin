@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.contrib import messages
 from .models import *
 from django.template import loader
@@ -9,6 +9,7 @@ from django.contrib.auth import authenticate
 from django.contrib.auth import login as login_django
 from django.contrib.auth.models import User
 from django.utils.timezone import make_aware
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 def validate_dates(start_date, finish_date):
     now_date = (datetime.now()+ timedelta(hours=1))
@@ -170,7 +171,24 @@ def login(request):
 
 
 def list_own_all(request):
-    pass
+    trainer = Trainer.objects.get(user=request.user)
+    announcements = Announcement.objects.filter(trainer=trainer)
+
+    paginator = Paginator(announcements, 2)  # muestra 2 elementos por página
+
+
+    page = request.GET.get('page')
+    try:
+        announcements = paginator.page(page)
+    except PageNotAnInteger:
+        page = 1  # establecer el valor predeterminado de la página en 1
+        announcements = paginator.page(page)
+    except EmptyPage:
+        page = paginator.num_pages  # establecer la página en la última página disponible
+        announcements = paginator.page(page)
+
+    return render(request, 'list_announcements.html', {'announcements': announcements})
+
 
 def add_categories(request, announcement_id):
     if request.method == 'POST':
@@ -219,4 +237,4 @@ def cancel_book_announcement(request, announcement_id):
     else:
         messages.error(request, "Aún no estas inscrito a esta clase")
     return redirect("/") 
-    
+
