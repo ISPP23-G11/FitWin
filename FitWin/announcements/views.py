@@ -1,11 +1,11 @@
 from django.shortcuts import render, get_object_or_404
 from django.contrib import messages
 from .models import *
+from users.models import Trainer, Client 
 from django.template import loader
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import HttpResponse, redirect
 from datetime import datetime, timedelta
-from django.contrib.auth import authenticate
 from django.contrib.auth import login as login_django
 from django.contrib.auth.models import User
 from django.utils.timezone import make_aware
@@ -16,8 +16,6 @@ def validate_dates(start_date, finish_date):
     val = False
     if( now_date > start_date or start_date > finish_date):
         val = True
-
-    print(finish_date)
     return val
 
 def validate_capacity(capacity):
@@ -47,7 +45,6 @@ def create_announcement(request):
 
         start_date = datetime.combine(day, start_date)
         finish_date = datetime.combine(day, finish_date)
-        print(finish_date)
         capacity = int(capacity)
         price = float(price)
 
@@ -109,7 +106,6 @@ def edit_announcement(request, announcement_id):
 
         start_date = datetime.combine(day, start_date)
         finish_date = datetime.combine(day, finish_date)
-        print(finish_date)
 
         capacity = int(capacity)
         price = float(price)
@@ -127,7 +123,6 @@ def edit_announcement(request, announcement_id):
             return redirect("/announcements/edit/"+str(announcement.id))
 
         else:
-            print(finish_date)
             announcement.title = title
             announcement.description = description
             announcement.place = place
@@ -135,10 +130,8 @@ def edit_announcement(request, announcement_id):
             announcement.capacity = capacity - len(announcement.clients.all())
             announcement.start_date = make_aware(start_date)
             finish_date = make_aware(finish_date)
-            print(finish_date)
             announcement.finish_date = finish_date
             announcement.save()
-            print(announcement.finish_date)
             template = loader.get_template("main.html") 
             context = {}
             return HttpResponse(template.render(context, request))
@@ -153,23 +146,7 @@ def main(request):
     context = {}
     return HttpResponse(template.render(context, request))
 
-
-def login(request):
-    if request.method == 'POST':
-        username = request.POST.get("username", "").strip()
-        password = request.POST.get("password", "").strip()
-
-        user = authenticate(request, username=username, password=password)
-        if user is not None:
-            login_django(request, user)
-            messages.error(request, "Usuario autenticado")
-            return redirect('/')
-    else:
-        template = loader.get_template("login.html") 
-        context = {}
-        return HttpResponse(template.render(context, request))
-
-
+@login_required
 def list_own_all(request):
     trainer = Trainer.objects.get(user=request.user)
     announcements = Announcement.objects.filter(trainer=trainer)
@@ -189,7 +166,7 @@ def list_own_all(request):
 
     return render(request, 'list_announcements.html', {'announcements': announcements})
 
-
+@login_required
 def add_categories(request, announcement_id):
     if request.method == 'POST':
         category_name = request.POST.get('category', '')
@@ -208,13 +185,14 @@ def add_categories(request, announcement_id):
         context = {'categories':categories, 'a':announcement}
         return HttpResponse(template.render(context, request))
 
+@login_required
 def delete_categories(request, announcement_id, category_id):
     announcement = Announcement.objects.get(id = announcement_id)
     category = Category.objects.get(id = category_id)
     announcement.categories.remove(category)
     return redirect("/announcements/add-categories/"+str(announcement_id))
 
-
+@login_required
 def book_announcement(request, announcement_id):
     client = Client.objects.get(user = request.user)
     announcement = Announcement.objects.get(id = announcement_id)
@@ -226,7 +204,7 @@ def book_announcement(request, announcement_id):
         messages.error(request, "No hay hueco para reservar esta clase")
     return redirect("/") 
 
-
+@login_required
 def cancel_book_announcement(request, announcement_id):
     client = Client.objects.get(user = request.user)
     announcement = Announcement.objects.get(id = announcement_id)

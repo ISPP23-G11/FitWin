@@ -6,7 +6,7 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('anuncios', '0004_announcement_google_calendar_event_id_and_more'),
+        ('announcements', '0004_announcement_google_calendar_event_id_and_more'),
     ]
 
     operations = [

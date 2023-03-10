@@ -9,7 +9,7 @@ class Migration(migrations.Migration):
 
     dependencies = [
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
-        ('anuncios', '0001_initial'),
+        ('announcements', '0001_initial'),
     ]
 
     operations = [
@@ -60,21 +60,21 @@ class Migration(migrations.Migration):
             ],
         ),
         migrations.DeleteModel(
-            name='Anuncio',
+            name='Announcements',
         ),
         migrations.AddField(
             model_name='announcement',
             name='categories',
-            field=models.ManyToManyField(to='anuncios.category'),
+            field=models.ManyToManyField(to='announcements.category'),
         ),
         migrations.AddField(
             model_name='announcement',
             name='clients',
-            field=models.ManyToManyField(to='anuncios.client'),
+            field=models.ManyToManyField(to='announcements.client'),
         ),
         migrations.AddField(
             model_name='announcement',
             name='trainer',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='anuncios.trainer'),
+            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='announcements.trainer'),
         ),
     ]

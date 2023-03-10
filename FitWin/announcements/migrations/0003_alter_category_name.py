@@ -6,7 +6,7 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('anuncios', '0002_announcement_category_client_trainer_delete_anuncio_and_more'),
+        ('announcements', '0002_announcement_category_client_trainer_delete_anuncio_and_more'),
     ]
 
     operations = [
