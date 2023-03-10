@@ -26,7 +26,7 @@
     "is_superuser": false,
     "username": "jorge",
     "first_name": "Jorge",
-    "last_name": "García",
+    "last_name": "Garcï¿½a",
     "email": "jorge@fitwin.es",
     "is_staff": false,
     "is_active": true,
@@ -44,7 +44,7 @@
     "is_superuser": false,
     "username": "alberto",
     "first_name": "Alberto",
-    "last_name": "Pérez",
+    "last_name": "Pï¿½rez",
     "email": "albertoperez@fitwin.es",
     "is_staff": false,
     "is_active": true,
@@ -62,7 +62,7 @@
     "is_superuser": false,
     "username": "pablo",
     "first_name": "Pablo",
-    "last_name": "Hernández",
+    "last_name": "Hernï¿½ndez",
     "email": "pabloher@fitwin.es",
     "is_staff": false,
     "is_active": true,
@@ -80,7 +80,7 @@
     "is_superuser": false,
     "username": "fernando",
     "first_name": "Fernando",
-    "last_name": "Martín",
+    "last_name": "Martï¿½n",
     "email": "fer@fitwin.es",
     "is_staff": false,
     "is_active": true,
@@ -98,7 +98,7 @@
     "is_superuser": false,
     "username": "Antonio",
     "first_name": "Antonio",
-    "last_name": "García",
+    "last_name": "Garcï¿½a",
     "email": "anto@fitwin.es",
     "is_staff": false,
     "is_active": true,
@@ -133,7 +133,7 @@
     "last_login": null,
     "is_superuser": false,
     "username": "jesus",
-    "first_name": "Jesús",
+    "first_name": "Jesï¿½s",
     "last_name": "Segovia",
     "email": "jesu@fitwin.es",
     "is_staff": false,
@@ -169,8 +169,8 @@
     "last_login": null,
     "is_superuser": false,
     "username": "maria",
-    "first_name": "María",
-    "last_name": "Durán",
+    "first_name": "Marï¿½a",
+    "last_name": "Durï¿½n",
     "email": "maria@fitwin.es",
     "is_staff": false,
     "is_active": true,
@@ -206,7 +206,7 @@
     "is_superuser": false,
     "username": "natalia",
     "first_name": "Natalia",
-    "last_name": "García",
+    "last_name": "Garcï¿½a",
     "email": "natalia@fitwin.es",
     "is_staff": false,
     "is_active": true,
@@ -242,7 +242,7 @@
     "is_superuser": false,
     "username": "marta",
     "first_name": "Marta",
-    "last_name": "Gómez",
+    "last_name": "Gï¿½mez",
     "email": "marta@fitwin.es",
     "is_staff": false,
     "is_active": true,
@@ -314,7 +314,7 @@
     "is_superuser": false,
     "username": "juan",
     "first_name": "Juan",
-    "last_name": "Gómez",
+    "last_name": "Gï¿½mez",
     "email": "juan@fitwin.es",
     "is_staff": false,
     "is_active": true,
@@ -324,29 +324,29 @@
   }
 },
 {
-  "model": "anuncios.trainer",
+  "model": "users.trainer",
   "pk": 2,
   "fields": {
     "user": 4,
     "picture": "",
     "date_created": "2023-03-06",
     "birthday": "1990-03-06",
-    "bio": "Soy un entrenador personal con experiencia de 10 años. Estudios de ciencias del deporte y titulo oficial de entrenador de baloncesto."
+    "bio": "Soy un entrenador personal con experiencia de 10 aï¿½os. Estudios de ciencias del deporte y titulo oficial de entrenador de baloncesto."
   }
 },
 {
-  "model": "anuncios.trainer",
+  "model": "users.trainer",
   "pk": 3,
   "fields": {
     "user": 12,
     "picture": "",
     "date_created": "2023-03-06",
     "birthday": "1995-10-04",
-    "bio": "Mi nombre es Alicia y tengo el título del TAFAD así como múltiples cursos de entrenamiento. Tengo experiencia con alumn@s de todas las edades."
+    "bio": "Mi nombre es Alicia y tengo el tï¿½tulo del TAFAD asï¿½ como mï¿½ltiples cursos de entrenamiento. Tengo experiencia con alumn@s de todas las edades."
   }
 },
 {
-  "model": "anuncios.trainer",
+  "model": "users.trainer",
   "pk": 4,
   "fields": {
     "user": 16,
@@ -357,51 +357,51 @@
   }
 },
 {
-  "model": "anuncios.trainer",
+  "model": "users.trainer",
   "pk": 5,
   "fields": {
     "user": 6,
     "picture": "",
     "date_created": "2023-03-06",
     "birthday": "1980-12-01",
-    "bio": "Hola, soy Fernando y he sido profesor de natación en varios lugares. Tengo años de experiencia."
+    "bio": "Hola, soy Fernando y he sido profesor de nataciï¿½n en varios lugares. Tengo aï¿½os de experiencia."
   }
 },
 {
-  "model": "anuncios.trainer",
+  "model": "users.trainer",
   "pk": 6,
   "fields": {
     "user": 8,
     "picture": "",
     "date_created": "2023-03-06",
     "birthday": "1979-01-06",
-    "bio": "Empecé como preparador físico de un pequeño equipo de fútbol y con el tiempo fui trabajando para equipos mas grandes. Lo compagino con clases privadas"
+    "bio": "Empecï¿½ como preparador fï¿½sico de un pequeï¿½o equipo de fï¿½tbol y con el tiempo fui trabajando para equipos mas grandes. Lo compagino con clases privadas"
   }
 },
 {
-  "model": "anuncios.trainer",
+  "model": "users.trainer",
   "pk": 7,
   "fields": {
     "user": 14,
     "picture": "",
     "date_created": "2023-03-06",
     "birthday": "1990-09-22",
-    "bio": "Mi nombre es Sonia y llevo trabajando varios años como entrenadora personal en distintos gimnasios."
+    "bio": "Mi nombre es Sonia y llevo trabajando varios aï¿½os como entrenadora personal en distintos gimnasios."
   }
 },
 {
-  "model": "anuncios.trainer",
+  "model": "users.trainer",
   "pk": 8,
   "fields": {
     "user": 15,
     "picture": "",
     "date_created": "2023-03-06",
     "birthday": "1995-09-09",
-    "bio": "Soy Marta y soy experta en crossfit. LLevo un par de años dando clases en un gimnasio."
+    "bio": "Soy Marta y soy experta en crossfit. LLevo un par de aï¿½os dando clases en un gimnasio."
   }
 },
 {
-  "model": "anuncios.client",
+  "model": "users.client",
   "pk": 1,
   "fields": {
     "user": 7,
@@ -412,7 +412,7 @@
   }
 },
 {
-  "model": "anuncios.client",
+  "model": "users.client",
   "pk": 2,
   "fields": {
     "user": 17,
@@ -423,7 +423,7 @@
   }
 },
 {
-  "model": "anuncios.client",
+  "model": "users.client",
   "pk": 3,
   "fields": {
     "user": 9,
@@ -434,7 +434,7 @@
   }
 },
 {
-  "model": "anuncios.client",
+  "model": "users.client",
   "pk": 4,
   "fields": {
     "user": 3,
@@ -445,18 +445,18 @@
   }
 },
 {
-  "model": "anuncios.client",
+  "model": "users.client",
   "pk": 5,
   "fields": {
     "user": 19,
     "picture": "",
     "date_created": "2023-03-06",
     "birthday": "1998-03-09",
-    "bio": "Soy Juan y me gustaría ponerme en forma haciendo crossfit"
+    "bio": "Soy Juan y me gustarï¿½a ponerme en forma haciendo crossfit"
   }
 },
 {
-  "model": "anuncios.client",
+  "model": "users.client",
   "pk": 6,
   "fields": {
     "user": 18,
@@ -467,18 +467,18 @@
   }
 },
 {
-  "model": "anuncios.client",
+  "model": "users.client",
   "pk": 7,
   "fields": {
     "user": 11,
     "picture": "",
     "date_created": "2023-03-06",
     "birthday": "1991-01-08",
-    "bio": "Hola, mi nombre es maría y me gustaría bajar de peso. Tengo bastante tiempo y me gustan casi todos los deportes."
+    "bio": "Hola, mi nombre es marï¿½a y me gustarï¿½a bajar de peso. Tengo bastante tiempo y me gustan casi todos los deportes."
   }
 },
 {
-  "model": "anuncios.client",
+  "model": "users.client",
   "pk": 8,
   "fields": {
     "user": 13,
@@ -489,7 +489,7 @@
   }
 },
 {
-  "model": "anuncios.client",
+  "model": "users.client",
   "pk": 9,
   "fields": {
     "user": 5,
@@ -500,7 +500,7 @@
   }
 },
 {
-  "model": "anuncios.client",
+  "model": "users.client",
   "pk": 10,
   "fields": {
     "user": 10,
@@ -511,95 +511,95 @@
   }
 },
 {
-  "model": "anuncios.category",
+  "model": "announcements.category",
   "pk": 1,
   "fields": {
     "name": "Crossfit"
   }
 },
 {
-  "model": "anuncios.category",
+  "model": "announcements.category",
   "pk": 2,
   "fields": {
     "name": "Entrenamiento personal"
   }
 },
 {
-  "model": "anuncios.category",
+  "model": "announcements.category",
   "pk": 3,
   "fields": {
     "name": "Yoga"
   }
 },
 {
-  "model": "anuncios.category",
+  "model": "announcements.category",
   "pk": 4,
   "fields": {
     "name": "Pilates"
   }
 },
 {
-  "model": "anuncios.category",
+  "model": "announcements.category",
   "pk": 5,
   "fields": {
-    "name": "Definición"
+    "name": "Definiciï¿½n"
   }
 },
 {
-  "model": "anuncios.category",
+  "model": "announcements.category",
   "pk": 6,
   "fields": {
     "name": "Boxeo"
   }
 },
 {
-  "model": "anuncios.category",
+  "model": "announcements.category",
   "pk": 7,
   "fields": {
     "name": "Artes marciales"
   }
 },
 {
-  "model": "anuncios.category",
+  "model": "announcements.category",
   "pk": 8,
   "fields": {
-    "name": "Natación"
+    "name": "Nataciï¿½n"
   }
 },
 {
-  "model": "anuncios.category",
+  "model": "announcements.category",
   "pk": 9,
   "fields": {
-    "name": "Gimnasia rítmica"
+    "name": "Gimnasia rï¿½tmica"
   }
 },
 {
-  "model": "anuncios.category",
+  "model": "announcements.category",
   "pk": 10,
   "fields": {
     "name": "Padel"
   }
 },
 {
-  "model": "anuncios.category",
+  "model": "announcements.category",
   "pk": 11,
   "fields": {
     "name": "Tenis"
   }
 },
 {
-  "model": "anuncios.category",
+  "model": "announcements.category",
   "pk": 12,
   "fields": {
     "name": "Bajar de peso"
   }
 },
 {
-  "model": "anuncios.announcement",
+  "model": "announcements.announcement",
   "pk": 1,
   "fields": {
     "title": "Clases de crossfit",
-    "description": "Se impartirán clases de crossfit para principiantes.",
+    "description": "Se impartirï¿½n clases de crossfit para principiantes.",
     "place": "Avenida Reina Mercedes, Sevilla",
     "price": 20.0,
     "capacity": 10,
@@ -617,11 +617,11 @@
   }
 },
 {
-  "model": "anuncios.announcement",
+  "model": "announcements.announcement",
   "pk": 2,
   "fields": {
     "title": "Clases de boxeo",
-    "description": "Se impartirán clases de boxeo de nivel medio.",
+    "description": "Se impartirï¿½n clases de boxeo de nivel medio.",
     "place": "Madrid",
     "price": 40.0,
     "capacity": 4,
@@ -637,11 +637,11 @@
   }
 },
 {
-  "model": "anuncios.announcement",
+  "model": "announcements.announcement",
   "pk": 3,
   "fields": {
-    "title": "Entrenamientos para pérdida de peso",
-    "description": "Con mis entrenamientos podrás cumplir tus objetivo de peso lo antes posible.",
+    "title": "Entrenamientos para pï¿½rdida de peso",
+    "description": "Con mis entrenamientos podrï¿½s cumplir tus objetivo de peso lo antes posible.",
     "place": "Low fit, Sevilla",
     "price": 20.0,
     "capacity": 10,
@@ -657,12 +657,12 @@
   }
 },
 {
-  "model": "anuncios.announcement",
+  "model": "announcements.announcement",
   "pk": 4,
   "fields": {
-    "title": "Clases de natación",
-    "description": "Se darán clases de natación para competidores.",
-    "place": "Málaga",
+    "title": "Clases de nataciï¿½n",
+    "description": "Se darï¿½n clases de nataciï¿½n para competidores.",
+    "place": "Mï¿½laga",
     "price": 30.0,
     "capacity": 5,
     "trainer": 5,
@@ -677,10 +677,10 @@
   }
 },
 {
-  "model": "anuncios.announcement",
+  "model": "announcements.announcement",
   "pk": 5,
   "fields": {
-    "title": "Entrenamiento personal para definición",
+    "title": "Entrenamiento personal para definiciï¿½n",
     "description": "Clases para personas que quieran ponerse bastante en forma.",
     "place": "Sevilla",
     "price": 15.0,
@@ -697,12 +697,12 @@
   }
 },
 {
-  "model": "anuncios.announcement",
+  "model": "announcements.announcement",
   "pk": 6,
   "fields": {
     "title": "Clases para principiantes",
-    "description": "Empieza a ponerte en forma conmigo y con tus compañeros.",
-    "place": "cáceres",
+    "description": "Empieza a ponerte en forma conmigo y con tus compaï¿½eros.",
+    "place": "cï¿½ceres",
     "price": 10.0,
     "capacity": 15,
     "trainer": 4,
@@ -717,11 +717,11 @@
   }
 },
 {
-  "model": "anuncios.announcement",
+  "model": "announcements.announcement",
   "pk": 7,
   "fields": {
     "title": "Clases de yoga",
-    "description": "Se darán clases de yoga con pocas personas.",
+    "description": "Se darï¿½n clases de yoga con pocas personas.",
     "place": "Madrid",
     "price": 10.0,
     "capacity": 6,

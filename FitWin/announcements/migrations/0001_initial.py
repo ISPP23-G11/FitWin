@@ -15,7 +15,7 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
-            name='Anuncio',
+            name='Announcements',
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('title', models.CharField(max_length=250, verbose_name='Titulo')),
@@ -28,8 +28,8 @@ class Migration(migrations.Migration):
                 ('trainer', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
             ],
             options={
-                'verbose_name': 'Anuncio',
-                'verbose_name_plural': 'Anuncios',
+                'verbose_name': 'Announcement',
+                'verbose_name_plural': 'Announcements',
             },
         ),
     ]
