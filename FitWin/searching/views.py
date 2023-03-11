@@ -11,6 +11,7 @@ def search_announcements(request):
     place = request.GET.get('place')
     min_price = request.GET.get('min_price')
     max_price = request.GET.get('max_price')
+    trainer = request.GET.get('trainer')
 
     # Convertir las cadenas de fecha y hora en objetos datetime
     start_date = parse_datetime(start_date_str) if start_date_str else None
@@ -36,6 +37,8 @@ def search_announcements(request):
         filters['price__gte'] = float(min_price)
     if max_price:
         filters['price__lte'] = float(max_price)
+    if trainer:
+        filters['trainer__user__username__icontains'] = trainer
 
     # Realizar la consulta a la base de datos
     announcements = Announcement.objects.filter(**filters)
