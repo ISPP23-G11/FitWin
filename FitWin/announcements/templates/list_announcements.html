@@ -1,159 +1,108 @@
-<!DOCTYPE html>
-{% load static %}
-<html lang="en">
-<!--divinectorweb.com-->
+{% extends "navbar.html" %}
 
-<head>
-    <meta charset="UTF-8">
-    <meta content="IE=edge" http-equiv="X-UA-Compatible">
-    <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <title>FitWin</title>
-    <link rel="icon" href="{% static 'img/logo.png' %}">
-    <!-- All CSS -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
-        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-        crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js"
-        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
-        crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js"
-        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
-        crossorigin="anonymous"></script>
-    <link href="{% static 'css/menu.css' %}" rel="stylesheet">
-    <link href="{% static 'css/list.css' %}" rel="stylesheet">
+{% block body %}
+<h1 class="display-4 text-center">Mis anuncios publicados</h1>
 
-</head>
+<div class="row justify-content-center align-items-center h-50 mt-4">
+    <div class="col col-xl-6">
+    {% if announcements|length > 0 %}
 
-<body>
-    <div class="container-fluid">
-
-        <nav class="navbar navbar-expand-lg navbar-light background ">
-            <a class="navbar-brand" href="#">
-                <img alt="..." class="d-block w-100" src="../../../static/img/logo.png" width="50" height="50">
-
-            </a>
-
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav mr-auto">
-                    <li class="nav-item active ">
-                        <a class="nav-link text-white h6" href="#">Clases <span class="sr-only">(current)</span></a>
-                    </li>
-                    <li class="nav-item active">
-                        <a class="nav-link text-white h6" href="#">Anuncios <span class="sr-only"></span></a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-white h6" href="#">Entrenadores</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-white h6" href="#">Página de inicio</a>
-                    </li>
-
-
-                </ul>
-                <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
-                    <ul class="navbar-nav ">
-                        <li class="nav-item ">
-                            <a class="nav-link text-white h6" href="/login">Iniciar sesión</a>
-                        </li>
-                        <li class="nav-item ">
-                            <a class="nav-link text-white h6" href="#">{{ user.username }}</a>
-                        </li>
-                        <li>
-                            <img alt="..." class="d-block w-100" src="../static/img/instagram.svg" width="40" height="40">
-
-                        </li>
-                        <li>
-                            <img alt="..." class="d-block w-100" src="../static/img/facebook.svg" width="40" height="40">
-
-                        </li>
-                        
-                        
-                        
-                    </ul>
-                </div>
-
-            </div>
-        </nav>
-            {% if messages|length > 0 %}
-                {% for message in messages %}
-                    <h3>
-                        {{ message }}
-                    </h3>
+    {% for a in announcements %}
+      
+    <div class="card mb-5" style="border-radius: 15px;">
+      <div class="card-body p-4">
+        <h3 class="mb-3"><b>{{ a.title }}</b></h3>
+        <h5 class="mb-3">{{ a.place }}</h5>
+        <h5 class="mb-3">{{ a.price|floatformat:2 }} €</h5>
+        <h5 class="mb-3">{{ a.start_date|date:"d-m-Y" }} | {{ a.start_date|date:"H:i" }} - {{ a.finish_date|date:"H:i" }}</h5>
+        <h5 class="mb-3">
+            {% if a.categories.all %}
+                {% for category in a.categories.all %}
+                    <span class="badge text-bg-success">{{ category.name }}</span>
                 {% endfor %}
-            {% endif %}
-        <br>
-
-
-{% block content %}
-<h1>Mis anuncios publicados</h1>
-<ul class="announcement-list">
-
-
-    {% for announcement in announcements %}
-    <li>
-        <h2>{{ announcement.title }}</h2>
-        <p><strong>Descripción:</strong> {{ announcement.description }}</p>
-        <p><strong>Lugar:</strong> {{ announcement.place }}</p>
-        <p><strong>Precio:</strong> {{ announcement.price }}</p>
-        <p><strong>Aforo:</strong> {{ announcement.capacity }}</p>
-        <p><strong>Fecha de inicio:</strong> {{ announcement.start_date }}</p>
-        <p><strong>Fecha de finalización:</strong> {{ announcement.finish_date }}</p>
-        <p><strong>Categorías:</strong>
-            {% if announcement.categories.all %}
-            {% for category in announcement.categories.all %}
-            {{ category.name }}
-            {% if not forloop.last %}, {% endif %}
-            {% endfor %}
             {% else %}
-            No hay categorías para este anuncio.
-            {% endif %} </p>
+                No hay categorías para este anuncio.
+            {% endif %}</h5>
         <p><strong>Clientes apuntados:</strong>
-            {% if announcement.clients.all %}
-            {% for client in announcement.clients.all %}
-            {{ client.user.first_name}} {{ client.user.last_name }}
-            {% if not forloop.last %}, {% endif %}
-            {% endfor %}
-            {% else %}
-            No hay clientes para este anuncio.
-            {% endif %}</p>
-    </li>
-    {% empty %}
-    No hay anuncios disponibles.
+                {% if a.clients.all %}
+                {% for client in a.clients.all %}
+                {{ client.user.first_name}} {{ client.user.last_name }}
+                {% if not forloop.last %}, {% endif %}
+                {% endfor %}
+                {% else %}
+                No hay clientes para este anuncio.
+                {% endif %}</p>
+        <p class="mb-3">Hay hueco para {{ a.capacity }} personas más</p>
+        <p class="small mb-0"><i class="far fa-star fa-lg"></i>
+          {{ a.description }}
+        </p>
+
+
+        <hr class="my-2">
+
+        <div class="dropdown">
+          <a class="btn btn-info dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+            Opciones
+          </a>
+        
+          <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuLink">
+            <li><a class="dropdown-item text-center" href="/announcements/edit/{{ a.id }}">Editar</a></li>
+            <li><a class="dropdown-item text-center" href="/announcements/add-categories/{{ a.id }}">Asignar Categorias</a></li>
+            <li><a class="dropdown-item text-center" href="#">Borrar</a></li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+
+    
+    
+
     {% endfor %}
 
+</div>
+   
+</div>
+
+    {% else %}
+      <p class="alert alert-danger">No se encontraron anuncios</p>
+    {% endif %}
+
+
+    
+  
     {% if announcements.has_other_pages %}
-    <div class="pagination">
-        {% if announcements.has_previous %}
-        <a href="?page={{ announcements.previous_page_number }}" class="prev-button">Anterior</a>
-        {% endif %}
-    
+    <nav aria-label="Page navigation example" class="text-center">
+        <ul class="pagination justify-content-center">
+            {% if announcements.has_previous %}
+          <li class="page-item">
+            <a class="page-link" href="?page={{ announcements.previous_page_number }}" aria-label="Previous">
+              <span aria-hidden="true">&laquo;</span>
+            </a>
+          </li>
+            {% endif %}        
+        
         {% for i in announcements.paginator.page_range %}
-        {% if announcements.number == i %}
-        <span class="page current">{{ i }}</span>
-        {% elif i > announcements.number|add:'-1' and i < announcements.number|add:'1' %} <a href="?page={{ i }}"
-            class="page">{{ i }}</a>
+            {% if announcements.number == i %}
+                <li class="page-item"><a class="page-link" href="#">{{ i }}</a></li>
+            {% elif i > announcements.number|add:'-1' and i < announcements.number|add:'1' %} 
+                <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
             {% endif %}
-            {% endfor %}
+        {% endfor %}
+        
+        {% if announcements.has_next %}
+        <li class="page-item">
+        <a class="page-link" href="?page={{ announcements.next_page_number }}" aria-label="Next">
+            <span aria-hidden="true">&raquo;</span>
+        </a>
+            </li>
+        {% endif %}
+        </ul>
+      </nav>
+    <div class="pagination">
     
-            {% if announcements.has_next %}
-            <a href="?page={{ announcements.next_page_number }}" class="next-button">Siguiente</a>
-            {% endif %}
     </div>
     {% endif %}
     
 </ul>
 {% endblock %}
-
-    
-    </div>
-
-
-</body>
-</html>

@@ -45,6 +45,7 @@ def create_announcement(request):
 
         start_date = datetime.combine(day, start_date)
         finish_date = datetime.combine(day, finish_date)
+        print(start_date)
         capacity = int(capacity)
         price = float(price)
 
