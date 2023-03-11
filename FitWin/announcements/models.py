@@ -4,6 +4,8 @@ from users.models import Trainer, Client
 class Category(models.Model):
     name=models.CharField(max_length=250, verbose_name='Categoria')
 
+    
+
     def __str__(self):
         return self.name
 
