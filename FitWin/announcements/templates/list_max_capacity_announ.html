@@ -1,11 +1,8 @@
 {% extends "navbar.html" %}
 
 {% block body %}
-<h1 class="display-4 text-center">Mis anuncios publicados</h1>
+<h1 class="display-4 text-center">Anuncios con aforo completo</h1>
 
-<div class="d-flex justify-content-end mb-4">
-  <a href="{% url 'list_max_capacity_announ' %}" class="btn btn-primary btn-lg btn-gradient">Ver anuncios con aforo máximo</a>
-</div>
 
 <div class="row justify-content-center align-items-center h-50 mt-4">
     <div class="col col-xl-6">
@@ -36,7 +33,7 @@
                 {% else %}
                 No hay clientes para este anuncio.
                 {% endif %}</p>
-        <p class="mb-3">Hay hueco para {{ a.capacity }} personas más</p>
+        <p class="mb-3">Clase completa con un total de {{ a.capacity }} personas </p>
         <p class="small mb-0"><i class="far fa-star fa-lg"></i>
           {{ a.description }}
         </p>
