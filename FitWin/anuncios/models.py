@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.core.validators import MaxValueValidator, MinValueValidator
 # Create your models here.
 
 
@@ -33,7 +34,7 @@ class Announcement(models.Model):
     description = models.TextField(verbose_name='Descripcion')
     place = models.CharField(max_length=250, verbose_name='Lugar')
     price=models.FloatField()
-    capacity=models.IntegerField()
+    capacity=models.IntegerField(default=1, validators=[MinValueValidator(1)])
     trainer=models.ForeignKey(Trainer, on_delete=models.CASCADE)
     clients=models.ManyToManyField(Client, blank=True)
     categories=models.ManyToManyField(Category, blank=True)
@@ -41,7 +42,8 @@ class Announcement(models.Model):
     finish_date = models.DateTimeField(auto_now_add=True, verbose_name='Fecha de fin')
     invitation_sent = models.BooleanField(default=False)
     google_calendar_event_id = models.CharField(max_length=120, blank=True, null=True)
-
+    difficulty=models.IntegerField(default=1, validators=[MinValueValidator(1), MaxValueValidator(10)])
+    
     class Meta:
         verbose_name = 'Announcement'
         verbose_name_plural = 'Announcements'

@@ -39,6 +39,7 @@ def create_announcement(request):
         day = request.POST.get('day', '')
         start_date = request.POST.get('start_date', '')
         finish_date = request.POST.get('finish_date', '')
+        difficulty = request.POST.get('difficulty', '1')
 
         start_date = datetime.strptime(start_date, '%H:%M').time()
         finish_date = datetime.strptime(finish_date, '%H:%M').time()
@@ -48,6 +49,7 @@ def create_announcement(request):
         finish_date = datetime.combine(day, finish_date)
         print(finish_date)
         capacity = int(capacity)
+        difficulty = int(difficulty)
         price = float(price)
 
         errors = False
@@ -74,6 +76,7 @@ def create_announcement(request):
             announcement.trainer = trainer
             announcement.start_date = start_date
             announcement.finish_date = finish_date
+            announcement.difficulty = difficulty
 
             categories = list()
             
@@ -100,6 +103,7 @@ def edit_announcement(request, announcement_id):
         day = request.POST.get('day', '')
         start_date = request.POST.get('start_date', '')
         finish_date = request.POST.get('finish_date', '')
+        difficulty = request.POST.get('difficulty', '1')
 
         start_date = datetime.strptime(start_date, '%H:%M').time()
         finish_date = datetime.strptime(finish_date, '%H:%M').time()
@@ -111,6 +115,7 @@ def edit_announcement(request, announcement_id):
         print(finish_date)
 
         capacity = int(capacity)
+        difficulty = int(difficulty)
         price = float(price)
 
         errors = False
@@ -132,6 +137,7 @@ def edit_announcement(request, announcement_id):
             announcement.place = place
             announcement.price = price
             announcement.capacity = capacity - len(announcement.clients.all())
+            announcement.difficulty = difficulty
             announcement.start_date = make_aware(start_date)
             finish_date = make_aware(finish_date)
             print(finish_date)
