@@ -53,10 +53,28 @@
   <input type="text" class="form-control" id="trainer" name="trainer" value="{{request.GET.trainer}}">
 
   <label for="category">Categoría:</label>
-  <select id="category" class="form-control" name="category">
-    <option value="">Todas</option>
+  <select id="category_difficulty" class="form-control" name="category_difficulty">
+    <option value="">Filtrado por dificultad</option>
     {% for category in categories %}
-    <option value="{{ category.id }}" {% if category.id == request.GET.category %}selected{% endif %}>{{ category.name }}</option>
+      {%if category.types == 'difficulty'%}
+        <option value="{{ category.id }}" {% if category.id == request.GET.category_difficulty %}selected{% endif %}>{{ category.name }}</option>
+      {%endif%}
+    {% endfor %}
+  </select>
+  <select id="category_objective" class="form-control" name="category_objective">
+    <option value="">Filtrado por objetivo</option>
+    {% for category in categories %}
+      {%if category.types == 'objectives'%}
+        <option value="{{ category.id }}" {% if category.id == request.GET.category_objective %}selected{% endif %}>{{ category.name }}</option>
+      {%endif%}
+    {% endfor %}
+  </select>
+  <select id="category_recovery" class="form-control" name="category_recovery">
+    <option value="">Filtrado por lesion</option>
+    {% for category in categories %}
+      {%if category.types == 'recovery'%}
+        <option value="{{ category.id }}" {% if category.id == request.GET.category_recovery %}selected{% endif %}>{{ category.name }}</option>
+      {%endif%}
     {% endfor %}
   </select>
 

@@ -3,7 +3,9 @@ from announcements.models import Announcement, Category
 
 def search_announcements(request):
     # Obtener los datos del formulario
-    category = request.GET.get('category')
+    category_diff = request.GET.get('category_difficulty')
+    category_obj = request.GET.get('category_objective')
+    category_rec = request.GET.get('category_recovery')
     start_date_str = request.GET.get('start_date')
     end_date_str = request.GET.get('end_date')
     title = request.GET.get('title')
@@ -21,8 +23,12 @@ def search_announcements(request):
     filters = {}
 
     # Agregar los filtros según los valores proporcionados
-    if category:
-        filters['categories__pk'] = category
+    if category_diff:
+        filters.setdefault('categories__pk__in', []).append(category_diff)
+    if category_obj:
+        filters.setdefault('categories__pk__in', []).append(category_obj)
+    if category_rec:
+        filters.setdefault('categories__pk__in', []).append(category_rec)
     if start_date:
         filters['start_date__gte'] = start_date
     if end_date:
@@ -41,7 +47,7 @@ def search_announcements(request):
         filters['trainer__user__username__icontains'] = trainer
 
     # Realizar la consulta a la base de datos
-    announcements = Announcement.objects.filter(**filters)
+    announcements = Announcement.objects.filter(**filters).distinct()
 
     # Obtener todas las categorías para mostrar en el formulario
     categories = Category.objects.all()
