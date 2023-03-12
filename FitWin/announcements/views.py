@@ -11,6 +11,7 @@ from django.contrib.auth.models import User
 from django.utils.timezone import make_aware
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.db.models import F, Count
+from django.http import HttpResponseRedirect
 
 def validate_dates(start_date, finish_date):
     now_date = (datetime.now()+ timedelta(hours=1))
@@ -187,7 +188,12 @@ def list_max_capacity_announcements(request):
 
     return render(request, 'list_max_capacity_announ.html', {'announcements': announcements})
 
-
+@login_required
+def delete_announce(request, announcement_id):
+    announcement = Announcement.objects.get(id = announcement_id)
+    announcement.delete()
+    messages.success(request, 'El anuncio ha sido eliminado correctamente.')
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
 @login_required
 def add_categories(request, announcement_id):
