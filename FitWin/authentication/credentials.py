@@ -6,18 +6,19 @@ from allauth.socialaccount.models import SocialAccount, SocialToken
 client_id = settings.GOOGLE_CLIENT_ID
 client_secret = settings.GOOGLE_CLIENT_SECRET
 
-def get_google_credentials(request):
+def get_google_credentials(user):
     """
+    Where user can be obtained with request.user
     For use when making requests for the Google API:
         from google.auth.transport.requests import AuthorizedSession
         
         authed_session = AuthorizedSession(credentials)
         response = authed_session.get('https://www.googleapis.com/calendar/v3/users/me/calendarList/')
     """
-    if (request.user.is_anonymous or not is_social_google(request.user)):
+    if (user.is_anonymous or not is_social_google(user)):
         return None
 
-    account = SocialAccount.objects.get(user=request.user, provider="google")
+    account = SocialAccount.objects.get(user=user, provider="google")
     token = SocialToken.objects.get(
         account=account
     )
