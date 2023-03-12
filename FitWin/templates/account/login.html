@@ -1,5 +1,5 @@
 {% extends "navbar.html" %}
-
+{% load socialaccount %}
 {% block body %}
 <section class="mb-5 text-center">
     <div class="container">
@@ -42,7 +42,13 @@
                 <div class="mt-4 pt-2">
                   <input class="btn btn-primary btn-lg" type="submit" value="Asignar" style="border-radius: 2rem;"/>
                 </div>
-  
+
+                  <div class="row my-4">
+                      <div class="col-md-12">
+                        <a class="btn btn-lg btn-light" href="{% provider_login_url 'google' process='login' %}"><img src="https://img.icons8.com/color/16/000000/google-logo.png"> Entrar Con Google</a>
+                      </div>
+                  </div>
+                  
               </form>
             </div>
         </div>
