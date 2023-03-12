@@ -87,6 +87,17 @@ class CalendarAPI():
                     pass
         return edited
     
+    def delete_event(self, event_id):
+        if self.credentials is not None and self.user_has_calendar():
+            with build('calendar', 'v3', credentials=self.credentials) as service:
+                calendar_id = Calendar.objects.filter(user=self.user) \
+                                              .first().google_calendar_id
+                try:
+                    service.events().delete(calendarId=calendar_id,
+                                                      eventId=event_id).execute()
+                except HttpError:
+                    pass
+
     def add_attendee_to_event(self, event_id, user):
         edited = None
         if self.credentials is not None and self.user_has_calendar():
