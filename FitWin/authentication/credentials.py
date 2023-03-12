@@ -35,7 +35,7 @@ def get_google_credentials(user):
     return credentials
 
 def is_social(user):
-    return SocialAccount.objects.filter(user=user, provider="goole").exists()
+    return SocialAccount.objects.filter(user=user).exists()
 
 def is_social_google(user):
     return SocialAccount.objects.filter(user=user, provider="google").exists()
