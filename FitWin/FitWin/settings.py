@@ -12,18 +12,22 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 
 from pathlib import Path
 import os
+from dotenv import load_dotenv
+
+load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+# Social auth config for google
+GOOGLE_CLIENT_ID = str(os.getenv('GOOGLE_CLIENT_ID'))
+GOOGLE_CLIENT_SECRET = str(os.getenv('GOOGLE_CLIENT_SECRET'))
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'django-insecure-8zxdpip+15qrv8i_86$5s=3%(ygo9p=ung=f)c_us2ffn!_5eo'
-GOOGLE_CLIENT_ID='770475637946-6i6ibtijr6qi4haap2353gep22bav6es.apps.googleusercontent.com'
-GOOGLE_CLIENT_SECRET='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'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
