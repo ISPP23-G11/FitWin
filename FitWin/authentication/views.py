@@ -16,6 +16,6 @@ def login(request):
             messages.error(request, "Usuario autenticado")
             return redirect('/')
     else:
-        template = loader.get_template("login.html") 
+        template = loader.get_template("account/login.html") 
         context = {}
         return HttpResponse(template.render(context, request))
