@@ -6,9 +6,6 @@ from allauth.socialaccount.models import EmailAddress
 from googleapiclient.discovery import build
 from googleapiclient.errors import HttpError
 
-
-
-
 class CalendarAPI():
 
     def __init__(self, user):
@@ -35,7 +32,8 @@ class CalendarAPI():
         created = None
         if self.user_is_authenticated() and self.user_has_calendar():
             with build('calendar', 'v3', credentials=self.credentials) as service:
-                calendar_id = Calendar.objects.filter(user=self.user).first().google_calendar_id
+                calendar_id = Calendar.objects.filter(user=self.user) \
+                                              .first().google_calendar_id
                 email = EmailAddress.objects.filter(user=self.user).get().email
                 event = {
                     'summary': title,
@@ -56,7 +54,8 @@ class CalendarAPI():
                     },
                 }
 
-                event = service.events().insert(calendarId=calendar_id, body=event).execute()
+                event = service.events().insert(calendarId=calendar_id,
+                                                body=event).execute()
                 created = event['id']
         return created
     
@@ -64,9 +63,11 @@ class CalendarAPI():
         edited = None
         if self.credentials is not None and self.user_has_calendar():
             with build('calendar', 'v3', credentials=self.credentials) as service:
-                calendar_id = Calendar.objects.filter(user=self.user).first().google_calendar_id
+                calendar_id = Calendar.objects.filter(user=self.user) \
+                                              .first().google_calendar_id
                 try:
-                    event = service.events().get(calendarId=calendar_id, eventId=event_id).execute()
+                    event = service.events().get(calendarId=calendar_id,
+                                                 eventId=event_id).execute()
                     event['summary'] = title
                     event['description'] = description
                     event['start'] = {
@@ -78,7 +79,9 @@ class CalendarAPI():
                             'timeZone': 'Europe/Madrid',
                         }
 
-                    updated_event = service.events().update(calendarId=calendar_id, eventId=event_id, body=event).execute()
+                    updated_event = service.events().update(calendarId=calendar_id,
+                                                            eventId=event_id,
+                                                            body=event).execute()
                     edited = updated_event['id']
                 except HttpError:
                     pass
@@ -89,16 +92,20 @@ class CalendarAPI():
         if self.credentials is not None and self.user_has_calendar():
             with build('calendar', 'v3', credentials=self.credentials) as service:
                 email = EmailAddress.objects.filter(user=user).get().email
-                calendar_id = Calendar.objects.filter(user=self.user).first().google_calendar_id
+                calendar_id = Calendar.objects.filter(user=self.user) \
+                                              .first().google_calendar_id
                 try:
-                    event = service.events().get(calendarId=calendar_id, eventId=event_id).execute()
+                    event = service.events().get(calendarId=calendar_id,
+                                                 eventId=event_id).execute()
 
                     if 'attendees' in event:
                         event['attendees'] += [ {'email': email} ]
                     else:
                         event['attendees'] = [ {'email': email} ]
 
-                    updated_event = service.events().update(calendarId=calendar_id, eventId=event_id, body=event).execute()
+                    updated_event = service.events().update(calendarId=calendar_id,
+                                                            eventId=event_id,
+                                                            body=event).execute()
                     edited = updated_event['id']
                 except HttpError:
                     pass
@@ -109,14 +116,20 @@ class CalendarAPI():
         if self.credentials is not None and self.user_has_calendar():
             with build('calendar', 'v3', credentials=self.credentials) as service:
                 email = EmailAddress.objects.filter(user=user).get().email
-                calendar_id = Calendar.objects.filter(user=self.user).first().google_calendar_id
+                calendar_id = Calendar.objects.filter(user=self.user) \
+                                              .first().google_calendar_id
                 try:
-                    event = service.events().get(calendarId=calendar_id, eventId=event_id).execute()
+                    event = service.events().get(calendarId=calendar_id,
+                                                 eventId=event_id).execute()
                     
                     if 'attendees' in event:
-                        event['attendees'] = list(filter(lambda x: x['email'] != email,event['attendees']))
+                        event['attendees'] = [
+                            filter(lambda x: x['email'] != email,event['attendees'])
+                        ]
 
-                    updated_event = service.events().update(calendarId=calendar_id, eventId=event_id, body=event).execute()
+                    updated_event = service.events().update(calendarId=calendar_id,
+                                                             eventId=event_id,
+                                                             body=event).execute()
                     edited = updated_event['id']
                 except HttpError:
                     pass
