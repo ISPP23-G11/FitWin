@@ -1,7 +1,7 @@
 from django.shortcuts import render, get_object_or_404
 from django.contrib import messages
 from .models import *
-from users.models import Trainer, Client 
+from users.models import Trainer, Client
 from django.template import loader
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import HttpResponse, redirect
@@ -10,6 +10,7 @@ from django.contrib.auth import login as login_django
 from django.contrib.auth.models import User
 from django.utils.timezone import make_aware
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.db.models import F, Count
 
 def validate_dates(start_date, finish_date):
     now_date = (datetime.now()+ timedelta(hours=1))
@@ -166,6 +167,27 @@ def list_own_all(request):
         announcements = paginator.page(page)
 
     return render(request, 'list_announcements.html', {'announcements': announcements})
+
+@login_required
+def list_max_capacity_announcements(request):
+    trainer = Trainer.objects.get(user=request.user)
+    announcements = Announcement.objects.filter(trainer=trainer).annotate(client_count=Count('clients')).filter(capacity=F('client_count'))
+
+    paginator = Paginator(announcements, 2)
+
+    page = request.GET.get('page')
+    try:
+        announcements = paginator.page(page)
+    except PageNotAnInteger:
+        page = 1
+        announcements = paginator.page(page)
+    except EmptyPage:
+        page = paginator.num_pages
+        announcements = paginator.page(page)
+
+    return render(request, 'list_max_capacity_announ.html', {'announcements': announcements})
+
+
 
 @login_required
 def add_categories(request, announcement_id):
