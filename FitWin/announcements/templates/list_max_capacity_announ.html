@@ -3,6 +3,9 @@
 {% block body %}
 <h1 class="display-4 text-center">Anuncios con aforo completo</h1>
 
+<div class="d-flex justify-content-end mb-4">
+  <a href="{% url 'list_own_all' %}" class="btn btn-primary btn-lg btn-gradient">Volver a mis anuncios</a>
+</div>
 
 <div class="row justify-content-center align-items-center h-50 mt-4">
     <div class="col col-xl-6">
@@ -49,7 +52,7 @@
           <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuLink">
             <li><a class="dropdown-item text-center" href="/announcements/edit/{{ a.id }}">Editar</a></li>
             <li><a class="dropdown-item text-center" href="/announcements/add-categories/{{ a.id }}">Asignar Categorias</a></li>
-            <li><a class="dropdown-item text-center" href="#">Borrar</a></li>
+            <li><a class="dropdown-item text-center" href="/announcements/delete-announce/{{ a.id }}" onclick="return confirm('¿Estás seguro de que quieres borrar este anuncio?')">Borrar</a></li>
           </ul>
         </div>
 

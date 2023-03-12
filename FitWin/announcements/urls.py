@@ -11,4 +11,5 @@ urlpatterns = [
     path('announcements/delete-categories/<int:announcement_id>/<int:category_id>', views.delete_categories, name='delete_categories'),
     path('announcements/book/<int:announcement_id>', views.book_announcement, name='book'),
     path('announcements/cancelBook/<int:announcement_id>', views.cancel_book_announcement, name='cancel_book'),
+    path('announcements/delete-announce/<int:announcement_id>', views.delete_announce, name='delete_announce'),
 ]
