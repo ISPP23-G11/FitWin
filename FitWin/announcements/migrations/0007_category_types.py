@@ -6,7 +6,7 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('announcements', '0001_initial'),
+        ('announcements', '0006_remove_trainer_user_alter_announcement_categories_and_more'),
     ]
 
     operations = [
