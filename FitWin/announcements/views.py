@@ -12,6 +12,7 @@ from django.utils.timezone import make_aware
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.db.models import F, Count
 from django.http import HttpResponseRedirect
+from .gcalendar import CalendarAPI
 
 def validate_dates(start_date, finish_date):
     now_date = (datetime.now()+ timedelta(hours=1))
@@ -66,6 +67,11 @@ def create_announcement(request):
             return HttpResponse(template.render(context, request))
 
         else:
+            calendar = CalendarAPI(request.user)
+            calendar.create_calendar()
+            event_id = calendar.create_event(title,description,start_date.isoformat(),
+                                             finish_date.isoformat())
+
             announcement = Announcement()
             announcement.title = title
             announcement.description = description
@@ -75,6 +81,7 @@ def create_announcement(request):
             announcement.trainer = trainer
             announcement.start_date = start_date
             announcement.finish_date = finish_date
+            announcement.google_calendar_event_id = event_id
 
             categories = list()
             
@@ -86,6 +93,7 @@ def create_announcement(request):
 
     elif request.method == 'GET':
         template = loader.get_template("form.html") 
+
         context = {}
         return HttpResponse(template.render(context, request))
     
@@ -126,6 +134,10 @@ def edit_announcement(request, announcement_id):
             return redirect("/announcements/edit/"+str(announcement.id))
 
         else:
+            calendar = CalendarAPI(request.user)
+            calendar.edit_event(announcement.google_calendar_event_id, title, description,
+                                start_date.isoformat(), finish_date.isoformat())
+
             announcement.title = title
             announcement.description = description
             announcement.place = place
@@ -229,6 +241,9 @@ def book_announcement(request, announcement_id):
         announcement.clients.add(client.id)
         announcement.capacity = announcement.capacity - 1
         announcement.save()
+
+        calendar = CalendarAPI(announcement.trainer.user)
+        calendar.add_attendee_to_event(announcement.google_calendar_event_id, client.user)
     else:
         messages.error(request, "No hay hueco para reservar esta clase")
     return redirect("/") 
@@ -241,6 +256,9 @@ def cancel_book_announcement(request, announcement_id):
         announcement.clients.remove(client.id)
         announcement.capacity = announcement.capacity + 1
         announcement.save()
+
+        calendar = CalendarAPI(announcement.trainer.user)
+        calendar.remove_attendee_from_event(announcement.google_calendar_event_id, client.user)
     else:
         messages.error(request, "Aún no estas inscrito a esta clase")
     return redirect("/") 
