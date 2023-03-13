@@ -48,7 +48,7 @@ def create_announcement(request):
 
         start_date = datetime.combine(day, start_date)
         finish_date = datetime.combine(day, finish_date)
-        print(start_date)
+
         capacity = int(capacity)
         price = float(price)
 
@@ -204,6 +204,10 @@ def list_max_capacity_announcements(request):
 def delete_announce(request, announcement_id):
     announcement = Announcement.objects.get(id = announcement_id)
     announcement.delete()
+
+    calendar = CalendarAPI(announcement.trainer.user)
+    calendar.delete_event(announcement.google_calendar_event_id)
+
     messages.success(request, 'El anuncio ha sido eliminado correctamente.')
     return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
