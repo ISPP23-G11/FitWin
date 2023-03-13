@@ -39,7 +39,6 @@ body {
 	z-index: 1;
 }
 .navbar .getstarted {
-	background: #106eea;
 	margin-left: 30px;
 	border-radius: 4px;
 	font-weight: 400;
@@ -149,3 +148,4 @@ body {
 .btn-primary, .btn-primary:hover, .btn-primary:active, .btn-primary:visited {
     background-color: #43b6e4 !important;
 }
+

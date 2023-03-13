@@ -1,10 +1,10 @@
 {% extends "navbar.html" %}
 
 {% block body %}
-<h1 class="display-4 text-center">Mis anuncios publicados</h1>
+<h1 class="display-4 text-center">Anuncios con aforo completo</h1>
 
 <div class="d-flex justify-content-end mb-4">
-  <a href="{% url 'list_max_capacity_announ' %}" class="btn btn-primary btn-lg btn-gradient">Ver anuncios con aforo máximo</a>
+  <a href="{% url 'list_own_all' %}" class="btn btn-primary btn-lg btn-gradient">Volver a mis anuncios</a>
 </div>
 
 <div class="row justify-content-center align-items-center h-50 mt-4">
@@ -36,7 +36,7 @@
                 {% else %}
                 No hay clientes para este anuncio.
                 {% endif %}</p>
-        <p class="mb-3">Hay hueco para {{ a.capacity }} personas más</p>
+        <p class="mb-3">Clase completa con un total de {{ a.capacity }} personas </p>
         <p class="small mb-0"><i class="far fa-star fa-lg"></i>
           {{ a.description }}
         </p>
@@ -53,7 +53,6 @@
             <li><a class="dropdown-item text-center" href="/announcements/edit/{{ a.id }}">Editar</a></li>
             <li><a class="dropdown-item text-center" href="/announcements/add-categories/{{ a.id }}">Asignar Categorias</a></li>
             <li><a class="dropdown-item text-center" href="/announcements/delete-announce/{{ a.id }}" onclick="return confirm('¿Estás seguro de que quieres borrar este anuncio?')">Borrar</a></li>
-
           </ul>
         </div>
 

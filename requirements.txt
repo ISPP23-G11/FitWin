@@ -1,3 +1,16 @@
 Django==4.1.7
 psycopg2==2.9.5
 Pillow==9.4.0
+django-allauth==0.52.0
+
+# Google
+google-auth==2.16.2
+google-auth-httplib2==0.1.0
+google-auth-oauthlib==1.0.0
+googleapis-common-protos==1.58.0
+google-api-core==2.11.0
+google-api-python-client==2.80.0
+oauthlib==3.2.2
+
+# Config
+python-dotenv==1.0.0
