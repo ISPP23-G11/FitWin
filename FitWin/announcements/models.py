@@ -2,7 +2,19 @@ from django.db import models
 from users.models import Trainer, Client, User
 
 class Category(models.Model):
+    DIFFICULTY = 'difficulty'
+    OBJECTIVES = 'objectives'
+    RECOVERY = 'recovery'
+    TYPE_CHOICES = (
+        (DIFFICULTY, 'Difficulty'),
+        (OBJECTIVES, 'Objectives'),
+        (RECOVERY, 'Recovery'),
+    )
     name=models.CharField(max_length=250, verbose_name='Categoria')
+    types=models.CharField(max_length=20, choices=TYPE_CHOICES, default=DIFFICULTY)
+    
+
+    
 
     def __str__(self):
         return self.name
