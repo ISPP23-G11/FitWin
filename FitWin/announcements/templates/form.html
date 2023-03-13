@@ -1,0 +1,115 @@
+{% extends "navbar.html" %}
+
+{% block body %}
+<section class="mb-5 text-center">
+    <div class="container">
+      <div class="row justify-content-center align-items-center h-100">
+        <div class="col-12 col-lg-9 col-xl-7">
+          <div class="card shadow-2-strong card-registration" style="border-radius: 15px;">
+            <div class="card-body p-4 p-md-5">
+              <h1 class="mb-4 pb-2 pb-md-0 mb-md-5 display-3 color2">Cree su anuncio</h1>
+
+              {% if messages|length > 0 %}
+              {% for message in messages %}
+            <div class="alert alert-danger" role="alert">
+                {{ message }}
+            </div>
+            {% endfor %}
+            {% endif %}
+
+            <form method="post" 
+            {% if a %}
+                action="/announcements/edit/{{ a.id }}">
+            {% else %}
+                action="/announcements/create">
+            {% endif %}
+                {% csrf_token %}
+                <div class="row">
+
+                    <div class="input-group mb-3 col-12">
+                        <span class="input-group-text" id="basic-addon1">Título</span>
+                        <input required type="text" id="title" name="title" value="{{ a.title }}" class="form-control" placeholder="Título del anuncio" aria-label="Titulo"
+                            aria-describedby="basic-addon1">
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="input-group mb-3 col-sm-12 col-lg-6">
+                        <span class="input-group-text">Precio</span>
+                        <input required type="number" id="price" name="price" step="0.01" value="{{ a.price }}" class="form-control" aria-label="Precio" placeholder="10.23">
+        
+                    </div>
+        
+                        <div class="input-group mb-3 col-sm-12 col-lg-6">
+                            <span class="input-group-text">Aforo</span>
+        
+                            <input required type="number" id="capacity" name="capacity" placeholder="1"  value="{{ a.capacity }}" class="form-control" placeholder="5" aria-label="Aforo">
+                        </div>
+                </div>
+        
+                <div class="row">
+        
+                    <div class="input-group mb-3 col-sm-12 col-lg-6">
+                        <span class="input-group-text">Lugar</span>
+        
+                        <input required type="text" id="place" name="place" value="{{ a.place }}" class="form-control" placeholder="Calle del rincón de la plaza nueva nº 14"
+                            aria-label="Lugar">
+                    </div>
+                    <div class="input-group mb-3 col-sm-12 col-lg-6">
+                        <span class="input-group-text">Fecha</span>
+        
+                        <input required type="date" id="day" name="day"  value="{{ a.start_date|date:"Y-m-d" }}" class="form-control" 
+                            aria-label="Fecha">
+                    </div>
+                </div>
+                <div class="row">
+        
+                    <div class="input-group mb-3 col-sm-12 col-lg-6">
+                        <span class="input-group-text">Hora de comienzo</span>
+        
+                        <input required type="time" class="form-control" id="start_date" name="start_date" value="{{ a.start_date|date:"H:i" }}"
+                            aria-label="Hora de comienzo">
+                    </div>
+                    <div class="input-group mb-3 col-sm-12 col-lg-6">
+                        <span class="input-group-text">Hora de fin</span>
+        
+                        <input required type="time" class="form-control" id="finish_date" name="finish_date" value="{{ a.finish_date|date:"H:i" }}"
+                            aria-label="Hora de fin">
+                    </div>
+                </div>
+                <div class="row">
+        
+                    <div class="input-group col">
+                        <span class="input-group-text">Descripción</span>
+                        <input required type="text" class="form-control" aria-label="With textarea" id="description" name="description" value="{{ a.description }}"
+                            placeholder="Clase de boxeo en la que se requiere traer el material.">
+                    </div>
+                </div>
+
+
+                <div class="row mt-5 text-center">
+                    <div class="col col-lg-6 col-sm-12">
+                        <button type="submit" class="btn btn-primary btn-lg btn-block">
+                            {% if a %}
+                                Editar anuncio
+                            {% else %}
+                                Crear anuncio
+                            {% endif %}
+                            
+                        </button>
+                    </div>
+                <div class="col col-sm-12 col-lg-6">
+                    <a href="/" class="btn btn-danger btn-lg btn-block">Cancelar</a>
+                </div>
+        
+                </div>
+
+  
+              </form>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+
+{% endblock %}

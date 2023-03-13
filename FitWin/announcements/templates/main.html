@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<!--divinectorweb.com-->
+<head>
+	<meta charset="UTF-8">
+	<meta content="IE=edge" http-equiv="X-UA-Compatible">
+	<meta content="width=device-width, initial-scale=1.0" name="viewport">
+	<title>FitWin</title>
+	<link rel="icon" href="{% static 'img/logo.png' %}">
+	<!-- All CSS -->
+	<link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css" rel="stylesheet">
+	<link href="{% static 'css/style.css' %}" rel="stylesheet">
+	<script src="https://kit.fontawesome.com/c18980d3a8.js" crossorigin="anonymous"></script>
+	<link href="{% static 'css/menu.css' %}" rel="stylesheet">
+</head>
+<body>
+	<nav class="navbar navbar-expand-lg navbar-light background">
+		<div class="container">
+			<a class="navbar-brand" href="/" ><img alt="" class="img-fluid" width="75" height="75" src="{% static 'img/logo.png' %}"><span style="color: white;">Fit</span>Win</a> <button aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler" data-bs-target="#navbarSupportedContent" data-bs-toggle="collapse" type="button"><span class="navbar-toggler-icon"></span></button>
+			<div class="collapse navbar-collapse" id="navbarSupportedContent">
+				<ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+					<li class="nav-item">
+						<a class="nav-link" style="color: white;" href="/">Inicio</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" style="color: white;" href="#about">Acerca de</a>
+					</li>
+			
+					<li class="nav-item">
+						<a class="nav-link" style="color: white;" href="#contact">Contacto</a>
+					</li>
+
+					{% if not user.is_authenticated %}
+						<li class="nav-item">
+							<a href="/login">
+								<button type="button" class="btn btn-outline-light" >Iniciar sesión</button>
+							</a>
+						</li>
+					{% endif %}
+				
+				</ul>
+
+				{% if user.is_authenticated %}
+				
+					<span class="navbar-text" style="color: white;">
+						&nbsp;&nbsp;Hola, {{ user.username }}
+					</span>
+
+				{% endif %}
+			</div>
+		</div>
+	</nav>
+	<div class="carousel slide" data-bs-ride="carousel" id="carouselExampleIndicators">
+		
+		<div class="carousel-inner">
+			<div class="carousel-item active">
+				<img alt="..." class="d-block w-100" src="{% static 'img/home-1.jpg' %}">
+				<div class="carousel-caption">
+					<h5>FitWin</h5>
+					<p>Encuentra los entrenadores que mejor se adapten a ti y ponte en forma</p>
+					<p>Si por el contrario eres entrenador, registrate y publica tus propios anuncios de clases</p>
+					<br>
+					
+					<div class="mx-auto">
+						
+						<a href="{% url 'create' %}">
+							<button type="button" class="btn btn-lg" style="background-color: #8e6ecf; color: white;">Crea un anuncio</button>
+						</a>
+					</div>
+
+					<br>
+					<div class="mx-auto">
+						<a href="{% url 'list_own_all' %}" class="btn btn-lg" style="background-color: #8e6ecf; color: white;">Ver anuncios de tu usuario</a>
+					</div>
+					
+					
+				</div>
+			</div>
+		
+		
+	</div><!-- about section starts -->
+	<section class="about section-padding" id="about">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-4 col-md-12 col-12">
+					<div class="about-img"><img alt="" class="img-fluid" src="{% static 'img/entrenador-personal.jpg' %}"></div>
+				</div>
+				<div class="col-lg-8 col-md-12 col-12 ps-lg-5 mt-md-5">
+					<div class="about-text">
+						<h2><br>Ponte en forma con FitWin o publica anuncios</h2>
+						<p>Esta aplicación permite a los entrenadores personales crear y publicar anuncios de clases.</p>
+						<p>Los alumnos podrán encontrar entrenadores que se adapten a sus necesidades.</p>
+						<a href="{% url 'login' %}">
+							<button type="button" class="btn btn-lg" style="background-color: #8e6ecf; color: white;">Inicia sesión</button>
+						</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section><!-- about section Ends -->
+	
+	<!-- Contact starts -->
+	<section class="contact section-padding" id="contact">
+		<div class="container mt-5 mb-5">
+			<div class="row">
+				<div class="col-md-12">
+					<div class="section-header text-center pb-5">
+						<h2>Contacta con nosotros</h2>
+						<br>
+						<p><i class="fa-solid fa-2x fa-envelope"></i>&nbsp;<strong>fitwinispp@proton.me</strong></p>
+						<br>
+						&nbsp;&nbsp;&nbsp;<i class="fa-brands fa-2x fa-github"></i>
+						&nbsp;&nbsp;&nbsp;<i class="fa-brands fa-2x fa-instagram"></i>
+					</div>
+				</div>
+			</div>
+			<div class="row m-0">
+				<div class="col-md-12 p-0 pt-4 pb-4">
+					<!--for getting the form download the code from download button-->
+				</div>
+			</div>
+		</div>
+	</section><!-- contact ends -->
+	<!-- footer starts -->
+	<footer class="bg-dark p-2 text-center">
+		<div class="container">
+			<p class="text-white">Todos los derechos reservados por @FitWin</p>
+		</div>
+	</footer>
+	<!-- footer ends -->
+	
+	<!-- All Js -->
+	<script src="{% static 'js/bootstrap.bundle.min.js' %}"></script> 
+</body>
+</html>
