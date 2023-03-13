@@ -169,7 +169,7 @@ SOCIALACCOUNT_PROVIDERS = {
             'https://www.googleapis.com/auth/calendar',
         ],
         'AUTH_PARAMS': {
-            'access_type': 'online',
+            'access_type': 'offline',
         }
     }
 }
