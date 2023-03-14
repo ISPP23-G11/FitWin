@@ -3,7 +3,7 @@ from django.contrib import messages
 from .models import *
 from users.models import Trainer, Client
 from django.template import loader
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, user_passes_test
 from django.shortcuts import HttpResponse, redirect
 from datetime import datetime, timedelta
 from django.contrib.auth import login as login_django
@@ -27,8 +27,14 @@ def validate_capacity(capacity):
         val = True
     return val
 
+def is_trainer(user):
+    return Trainer.objects.filter(user = user).exists()
+
+def is_client(user):
+    return Client.objects.filter(user = user).exists()
 
 @login_required
+@user_passes_test(is_trainer)
 def create_announcement(request):
     if request.method == 'POST':
         title = request.POST.get('title', '')
@@ -87,10 +93,7 @@ def create_announcement(request):
             
             announcement.save()
             announcement.categories.set(categories)
-            template = loader.get_template("main.html") 
-            context = {}
-            return HttpResponse(template.render(context, request))
-
+            return redirect('/')
     elif request.method == 'GET':
         template = loader.get_template("form.html") 
 
@@ -98,6 +101,7 @@ def create_announcement(request):
         return HttpResponse(template.render(context, request))
     
 @login_required
+@user_passes_test(is_trainer)
 def edit_announcement(request, announcement_id):
     announcement = Announcement.objects.get(id = announcement_id)
     if request.method == 'POST':
@@ -147,21 +151,14 @@ def edit_announcement(request, announcement_id):
             finish_date = make_aware(finish_date)
             announcement.finish_date = finish_date
             announcement.save()
-            template = loader.get_template("main.html") 
-            context = {}
-            return HttpResponse(template.render(context, request))
+            return redirect('/')
     elif request.method == 'GET':
         template = loader.get_template("form.html") 
         context = {'a':announcement}
         return HttpResponse(template.render(context, request))
 
-
-def main(request):
-    template = loader.get_template("main.html") 
-    context = {}
-    return HttpResponse(template.render(context, request))
-
 @login_required
+@user_passes_test(is_trainer)
 def list_own_all(request):
     trainer = Trainer.objects.get(user=request.user)
     announcements = Announcement.objects.filter(trainer=trainer)
@@ -182,6 +179,7 @@ def list_own_all(request):
     return render(request, 'list_announcements.html', {'announcements': announcements})
 
 @login_required
+@user_passes_test(is_trainer)
 def list_max_capacity_announcements(request):
     trainer = Trainer.objects.get(user=request.user)
     announcements = Announcement.objects.filter(trainer=trainer).annotate(client_count=Count('clients')).filter(capacity=F('client_count'))
@@ -201,6 +199,7 @@ def list_max_capacity_announcements(request):
     return render(request, 'list_max_capacity_announ.html', {'announcements': announcements})
 
 @login_required
+@user_passes_test(is_trainer)
 def delete_announce(request, announcement_id):
     announcement = Announcement.objects.get(id = announcement_id)
     announcement.delete()
@@ -212,6 +211,7 @@ def delete_announce(request, announcement_id):
     return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
 @login_required
+@user_passes_test(is_trainer)
 def add_categories(request, announcement_id):
     if request.method == 'POST':
         category_name = request.POST.get('category', '')
@@ -231,6 +231,7 @@ def add_categories(request, announcement_id):
         return HttpResponse(template.render(context, request))
 
 @login_required
+@user_passes_test(is_trainer)
 def delete_categories(request, announcement_id, category_id):
     announcement = Announcement.objects.get(id = announcement_id)
     category = Category.objects.get(id = category_id)
@@ -238,6 +239,7 @@ def delete_categories(request, announcement_id, category_id):
     return redirect("/announcements/add-categories/"+str(announcement_id))
 
 @login_required
+@user_passes_test(is_client)
 def book_announcement(request, announcement_id):
     client = Client.objects.get(user = request.user)
     announcement = Announcement.objects.get(id = announcement_id)
@@ -253,6 +255,7 @@ def book_announcement(request, announcement_id):
     return redirect("/") 
 
 @login_required
+@user_passes_test(is_client)
 def cancel_book_announcement(request, announcement_id):
     client = Client.objects.get(user = request.user)
     announcement = Announcement.objects.get(id = announcement_id)

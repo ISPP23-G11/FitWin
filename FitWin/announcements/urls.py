@@ -4,7 +4,6 @@ from . import views
 urlpatterns = [
     path('announcements/create', views.create_announcement, name='create'),
     path('announcements/edit/<int:announcement_id>', views.edit_announcement, name='edit'),
-    path('', views.main, name='main'),
     path('announcements/list-own/all', views.list_own_all, name='list_own_all'),
     path('announcements/list-max-capacity-announ/all', views.list_max_capacity_announcements, name='list_max_capacity_announ'),
     path('announcements/add-categories/<int:announcement_id>', views.add_categories, name='add_categories'),

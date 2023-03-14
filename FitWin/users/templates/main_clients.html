@@ -1,0 +1,356 @@
+{% extends "navbar_clients.html" %}
+
+{% block body %}
+<style>
+	.cta-100 {
+  margin-top: 100px;
+  padding-left: 8%;
+  padding-top: 7%;
+}
+.col-md-12{
+    padding-bottom:20px;
+}
+
+.white {
+  color: #fff !important;
+}
+.mt{float: left;margin-top: -20px;padding-top: 20px;}
+.bg-blue-ui {
+  background-color: #708198 !important;
+}
+figure img{width:300px;}
+
+#blogCarousel {
+  padding-bottom: 100px;
+}
+
+.blog .carousel-indicators {
+  left: 0;
+  top: -50px;
+  height: 50%;
+}
+
+
+/* The colour of the indicators */
+
+.blog .carousel-indicators li {
+  background: #708198;
+  border-radius: 50%;
+  width: 8px;
+  height: 8px;
+}
+
+.blog .carousel-indicators .active {
+  background: #9d27bb;
+}
+
+
+
+
+.item-carousel-blog-block {
+  outline: medium none;
+  padding: 15px;
+}
+
+.item-box-blog {
+  border: 1px solid #dadada;
+  text-align: center;
+  z-index: 4;
+  padding: 20px;
+}
+
+.item-box-blog-image {
+  position: relative;
+}
+
+.item-box-blog-image figure img {
+  width: 100%;
+  height: auto;
+}
+
+.item-box-blog-date {
+  position: absolute;
+  z-index: 5;
+  padding: 4px 20px;
+  top: -20px;
+  right: 8px;
+  background-color: #41cb52;
+}
+
+.item-box-blog-date span {
+  color: #fff;
+  display: block;
+  text-align: center;
+  line-height: 1.2;
+}
+
+.item-box-blog-date span.mon {
+  font-size: 18px;
+}
+
+.item-box-blog-date span.day {
+  font-size: 16px;
+}
+
+.item-box-blog-body {
+  padding: 10px;
+}
+
+.item-heading-blog a h5 {
+  margin: 0;
+  line-height: 1;
+  text-decoration:none;
+  transition: color 0.3s;
+}
+
+.item-box-blog-heading a {
+    text-decoration: none;
+}
+
+.item-box-blog-data p {
+  font-size: 13px;
+}
+
+.item-box-blog-data p i {
+  font-size: 12px;
+}
+
+.item-box-blog-text {
+  max-height: 100px;
+  overflow: hidden;
+}
+
+.mt-10 {
+  float: left;
+  margin-top: -10px;
+  padding-top: 10px;
+}
+
+.btn.bg-blue-ui.white.read {
+  cursor: pointer;
+  padding: 4px 20px;
+  float: left;
+  margin-top: 10px;
+}
+
+.btn.bg-blue-ui.white.read:hover {
+  box-shadow: 0px 5px 15px inset #58286b;
+}
+
+.dm-service-banner{
+    background: #ebf9f9;
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    padding: 97px 0;
+    position: relative;
+}
+.dm-banner-title{
+    text-align: right;
+    padding: 57px 0px;
+}
+.dm-banner-title .back-box{
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    height: 100%;
+    width: 77%;
+    /* background: #fff; */
+    box-shadow: 0px 0px 5px 0px #ddd;
+    background: url('https://www.hummingwebians.com/public/images/dm-small.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.dm-banner-title .front-text-box{
+    position: relative;
+    z-index: 1;
+}
+.dm-banner-title h1 {
+    font-size: 57px;
+    font-weight: 400;
+    letter-spacing: 4px;
+    border-bottom: 1px solid #ca52d4;
+    padding-bottom: 14px;
+    text-shadow: 3px 3px 1px #d4d1d1;
+    color: #0e4e6d;
+}
+.dm-banner-text{
+    padding: 107px 0px;
+    font-size: 15px;
+    font-weight: 450;
+    color: #9340a3;
+}
+
+</style>
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
+
+
+<div class="container">
+	<div class="row">
+		<div class="col-md-12 text-center fw-light">
+			<h1 class="display-2 fw-bold">FitWin</h1>
+			<h1 class="display-3">Busca entrenadores que se adapten a tus necesidades.</h1>
+		</div>
+	</div>
+</div>
+
+<div class="container">
+	<div class="row">
+		<div class="col-md-12 text-center fw-light">
+			<form>
+				<div class="row">
+                    <div class="input-group mb-3 col-sm-12 col-lg-6">
+                        <span class="input-group-text">Precio</span>
+                        <input required type="number" id="price" name="price" step="0.01"class="form-control" aria-label="Precio" placeholder="10.23">
+					</div>
+					<div class="input-group mb-3 col-sm-12 col-lg-6">
+						<span class="input-group-text">Entrenador</span>
+						<input required type="text" id="trainer" name="trainer" class="form-control" placeholder="Jose">
+					</div>
+					<button type="submit" class="btn btn-primary btn-lg btn-block">Buscar</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+
+<hr/>
+
+<div class="dm-service-banner">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 ">
+                <div class="dm-banner-title">
+                    <div class="front-text-box">
+                        <h1>NUESTROS MEJORES<br>ENTRENADORES</h1>
+                    </div>
+                    <div class="back-box"></div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <p class="dm-banner-text">Los siguientes entrenadores son los 3 mejores de la plataforma. Mira sus clases disponibles, probablemente se ajustarán a tus necesidades.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+	<div class="container">
+	  <div class="row blog">
+		<div class="col-md-12">
+		  <div id="blogCarousel" class="carousel slide container-blog" data-ride="carousel">
+			<ol class="carousel-indicators">
+			  <li data-target="#blogCarousel" data-slide-to="0" class="active"></li>
+			  <li data-target="#blogCarousel" data-slide-to="1"></li>
+			  <li data-target="#blogCarousel" data-slide-to="2"></li>
+			</ol>
+			<!-- Carousel items -->
+			<div class="carousel-inner">
+
+			  <div class="carousel-item active">
+				<div class="row">
+				  <div class="col-md-12" >
+					<div class="item-box-blog">
+					  <div class="item-box-blog-image">
+						<!--Date-->
+						<div class="item-box-blog-date bg-blue-ui white"> <span class="mon">Entrenador 2</span> </div>
+						<!--Image-->
+						
+						<figure> <img alt="" src="../../../static/img/team-1.jpg""> </figure>
+					  </div>
+					  <div class="item-box-blog-body">
+						<!--Heading-->
+						<div class="item-box-blog-heading">
+						  <a href="#" tabindex="0">
+							<h5>Alberto</h5>
+						  </a>
+						</div>
+						<!--Data-->
+						<!--Text-->
+						<div class="item-box-blog-text">
+						  <p>Lorem ipsum dolor sit amet, adipiscing. Lorem ipsum dolor sit amet, consectetuer adipiscing. Lorem ipsum dolor sit amet, adipiscing. Lorem ipsum dolor sit amet, adipiscing. Lorem ipsum dolor sit amet, consectetuer adipiscing. Lorem ipsum dolor.</p>
+						</div>
+						<div class="mt"> <a href="#" tabindex="0" class="btn bg-blue-ui white read">ver sus clases</a> </div>
+						<!--Read More Button-->
+					  </div>
+					</div>
+				  </div>
+				</div>
+			  </div>
+
+
+			  <div class="carousel-item">
+				<div class="row">
+				  <div class="col-md-12" >
+					<div class="item-box-blog">
+					  <div class="item-box-blog-image">
+						<!--Date-->
+						<div class="item-box-blog-date bg-blue-ui white"> <span class="mon">Entrenador 2</span> </div>
+						<!--Image-->
+						<figure> <img alt="" src="../../../static/img/team-2.jpg"> </figure>
+					  </div>
+					  <div class="item-box-blog-body">
+						<!--Heading-->
+						<div class="item-box-blog-heading">
+						  <a href="#" tabindex="0">
+							<h5>Fernando</h5>
+						  </a>
+						</div>
+						<!--Text-->
+						<div class="item-box-blog-text">
+						  <p>Lorem ipsum dolor sit amet, adipiscing. Lorem ipsum dolor sit amet, consectetuer adipiscing. Lorem ipsum dolor sit amet, adipiscing. Lorem ipsum dolor sit amet, adipiscing. Lorem ipsum dolor sit amet, consectetuer adipiscing. Lorem ipsum dolor.</p>
+						</div>
+						<div class="mt"> <a href="#" tabindex="0" class="btn bg-blue-ui white read">ver sus clases</a> </div>
+						<!--Read More Button-->
+					  </div>
+					</div>
+				  </div>
+				</div>
+			  </div>
+
+
+
+			  <div class="carousel-item">
+				<div class="row">
+				  <div class="col-md-12" >
+					<div class="item-box-blog">
+					  <div class="item-box-blog-image">
+						<!--Date-->
+						<div class="item-box-blog-date bg-blue-ui white"> <span class="mon">Entrenador 3</span> </div>
+						<!--Image-->
+						<figure> <img alt="" src="../../../static/img/team-3.jpg""> </figure>
+					  </div>
+					  <div class="item-box-blog-body">
+						<!--Heading-->
+						<div class="item-box-blog-heading">
+						  <a href="#" tabindex="0">
+							<h5>Alicia</h5>
+						  </a>
+						</div>
+						<!--Text-->
+						<div class="item-box-blog-text">
+						  <p>Lorem ipsum dolor sit amet, adipiscing. Lorem ipsum dolor sit amet, consectetuer adipiscing. Lorem ipsum dolor sit amet, adipiscing. Lorem ipsum dolor sit amet, adipiscing. Lorem ipsum dolor sit amet, consectetuer adipiscing. Lorem ipsum dolor.</p>
+						</div>
+						<div class="mt"> <a href="#" tabindex="0" class="btn bg-blue-ui white read">ver sus clases</a> </div>
+						<!--Read More Button-->
+					  </div>
+					</div>
+				  </div>
+				</div>
+			  </div>
+
+			</div>
+		  </div>
+		</div>
+	  </div>
+	</div>
+
+
+	
+	{% include "footer.html" %}
+
+{% endblock %}
