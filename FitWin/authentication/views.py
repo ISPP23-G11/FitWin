@@ -4,6 +4,7 @@ from django.contrib.auth import authenticate
 from django.contrib import messages
 from django.shortcuts import HttpResponse, redirect
 from django.template import loader
+from users.models import Trainer, Client 
 
 def login(request):
     if request.method == 'POST':
@@ -13,8 +14,12 @@ def login(request):
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login_django(request, user)
-            messages.error(request, "Usuario autenticado")
-            return redirect('/')
+            trainer = Trainer.objects.filter(user = user)
+            client = Client.objects.filter(user = user)
+            if trainer:
+                return redirect('/trainers')
+            elif client:
+                return redirect('/clients')
     else:
         template = loader.get_template("account/login.html") 
         context = {}

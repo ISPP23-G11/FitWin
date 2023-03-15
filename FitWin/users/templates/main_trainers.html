@@ -1,0 +1,113 @@
+{% extends "navbar.html" %}
+
+{% block body %}
+<section class="jumbotron text-center">
+	<div class="container">
+	  <h1 class="display-2 fw-bold">FitWin</h1>
+	  <p class="lead text-muted display-3">Publica tus clases para que otras personas puedan contratarte.<p>
+	  <p>
+		<a href="/announcements/create" class="btn btn-primary btn-lg mt-4">Crear anuncio</a>
+		<a href="/announcements/list-own/all" class="btn btn-secondary btn-lg mt-4">Ver mis anuncios</a>
+	  </p>
+	</div>
+  </section>
+
+  <section class="services section-padding mt-5" id="services">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="section-header text-center pb-5">
+					<h2>Nuestros servicios</h2>
+				</div>
+			<div class="row">
+			<div class="col-12 col-md-12 col-lg-4">
+				<div class="card text-white text-center bg-dark pb-2" style="height: 380px">
+					<div class="card-body">
+						<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" fill="currentColor" class="bi bi-megaphone-fill" viewBox="0 0 16 16">
+							<path d="M13 2.5a1.5 1.5 0 0 1 3 0v11a1.5 1.5 0 0 1-3 0v-11zm-1 .724c-2.067.95-4.539 1.481-7 1.656v6.237a25.222 25.222 0 0 1 1.088.085c2.053.204 4.038.668 5.912 1.56V3.224zm-8 7.841V4.934c-.68.027-1.399.043-2.008.053A2.02 2.02 0 0 0 0 7v2c0 1.106.896 1.996 1.994 2.009a68.14 68.14 0 0 1 .496.008 64 64 0 0 1 1.51.048zm1.39 1.081c.285.021.569.047.85.078l.253 1.69a1 1 0 0 1-.983 1.187h-.548a1 1 0 0 1-.916-.599l-1.314-2.48a65.81 65.81 0 0 1 1.692.064c.327.017.65.037.966.06z"/>
+						  </svg>
+						<br>
+						<h3 class="card-title">Anuncios</h3>
+						<p class="lead">
+							</p><ul>
+								<br>
+								<li type="circle">
+									Publica anuncios personalizados
+								</li>
+								<br>
+								<li type="circle">
+									Asígnales categorias para que sea más fácil encontrarlos
+								</li>
+								<br>
+								<li type="circle">
+									5 anuncios gratis al mes
+								</li>
+								
+							</ul>
+					</div>
+				</div>
+			</div>
+			<div class="col-12 col-md-12 col-lg-4">
+				<div class="card text-white text-center bg-dark pb-2" style="height: 380px">
+					<div class="card-body">
+						<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" fill="currentColor" class="bi bi-calendar4-week" viewBox="0 0 16 16">
+							<path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM2 2a1 1 0 0 0-1 1v1h14V3a1 1 0 0 0-1-1H2zm13 3H1v9a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V5z"/>
+							<path d="M11 7.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm-3 0a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm-2 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm-3 0a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1z"/>
+						  </svg>
+						<br>
+						<h3 class="card-title">Calendario</h3>
+						<p class="lead">
+							</p><ul>
+								<br>
+								<li type="circle">
+									Organiza tus clases
+								</li>
+								<br>
+								<li type="circle">
+									Añade automaticamente tus eventos a Google Calendar
+								</li>
+								<br>
+								<li type="circle">
+									Pago online mediante al app
+								</li>
+								
+							</ul>
+					</div>
+				</div>
+			</div>
+			<div class="col-12 col-md-12 col-lg-4" style="color: darkturquoise;">
+				<div class="card text-white text-center bg-dark pb-2" style="height: 380px;">
+					<div class="card-body">
+						<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" fill="currentColor" class="bi bi-chat-left-text" viewBox="0 0 16 16">
+							<path d="M14 1a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H4.414A2 2 0 0 0 3 11.586l-2 2V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12.793a.5.5 0 0 0 .854.353l2.853-2.853A1 1 0 0 1 4.414 12H14a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
+							<path d="M3 3.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zM3 6a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9A.5.5 0 0 1 3 6zm0 2.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5z"/>
+						  </svg>
+						<br>
+						<h3 class="card-title">Trato cercano</h3>
+						<p class="lead">
+							</p><ul>
+								<li type="circle">
+									Posibilidad de publicitar fácilmente tus anuncios en redes sociales
+								</li>
+								<br>
+								<li type="circle">
+									Chat con tus clientes
+								</li>
+								<br>
+								<li type="circle">
+									Servicio técnico eficaz
+								</li>
+								<br>
+								
+							</ul>
+					</div>
+				</div>
+			</div>
+		</div></div>
+		</div>
+		
+	</div>
+</section>
+	{% include "footer.html" %}
+
+{% endblock %}
