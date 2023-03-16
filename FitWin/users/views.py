@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required, user_passes_test
-from .models import Trainer, Client, Rating
+from .models import Trainer, Client, Rating, Comment
 from django.template import loader
 from django.shortcuts import HttpResponse, redirect
 from django.contrib import messages
@@ -58,4 +58,29 @@ def rating_trainer(request, trainer_id):
             else:
                 rating_object = Rating(rating=int(rating), trainer=trainer, client=client)
             rating_object.save()
+        return redirect("/trainers/"+str(trainer_id))
+
+@login_required
+@user_passes_test(is_client)
+def comment_trainer(request, trainer_id):
+    if request.method == 'POST':
+        client = Client.objects.filter(user = request.user)
+        trainer = Trainer.objects.filter(id = trainer_id)
+        comment = request.POST.get('comment', '')
+
+        if not client or not trainer:
+            messages.error(request, "El cliente o el entrenador no existen")
+
+        if comment == '':
+            messages.error(request, "No se ha escrito ningun comentario")
+        else: 
+            client = client.get()
+            trainer = trainer.get()
+            comment_object = Comment.objects.filter(trainer = trainer, client = client)
+            if comment_object:
+                comment_object = comment_object.get()
+                comment_object.comment = comment
+            else:
+                comment_object = Comment(comment=comment, trainer=trainer, client=client)
+            comment_object.save()
         return redirect("/trainers/"+str(trainer_id))
