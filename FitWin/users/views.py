@@ -5,6 +5,7 @@ from django.template import loader
 from django.shortcuts import HttpResponse, redirect
 from django.contrib import messages
 from .forms import EditProfileForm, UserUpdateForm
+from datetime import datetime
 
 
 def is_trainer(user):
@@ -41,10 +42,19 @@ def EditTrainer(request):
     trainer = Trainer.objects.get(user__id=user)
 
     if request.method == 'POST':
+        birthday = request.POST.get("birthday", "")
+        errors=False
         
         u_form=UserUpdateForm(request.POST, instance=request.user)
         form = EditProfileForm(request.POST, request.FILES, instance=trainer)
-        if form.is_valid() and u_form.is_valid():
+       
+        birthday = datetime.strptime(birthday, '%Y-%m-%d')
+
+        if birthday >= datetime.now():
+            errors=True
+            messages.error(request, 'La fecha de cumpleaños tiene que ser anterior a hoy')
+
+        if form.is_valid() and u_form.is_valid() and not errors:
 
             trainer.picture = form.cleaned_data.get('picture')
             trainer.birthday = form.cleaned_data.get('birthday')
@@ -52,9 +62,12 @@ def EditTrainer(request):
 
             trainer.save()
             u_form.save()
-            messages.success(request, 'El perfil se ha editado correctamente')
-            return redirect('/trainer/edit')
+
+            
+            return redirect('/trainers')
+        
         else:
+
             messages.error(request, 'El perfil no se ha podido editar')
 
     else:
@@ -76,9 +89,21 @@ def EditClient(request):
     client = Client.objects.get(user__id=user)
 
     if request.method == 'POST':
+
+        birthday = request.POST.get("birthday", "")
+        errors=False
+        
         u_form=UserUpdateForm(request.POST, instance=request.user)
         form = EditProfileForm(request.POST, request.FILES, instance=client)
-        if form.is_valid() and u_form.is_valid():
+
+        birthday = datetime.strptime(birthday, '%Y-%m-%d')
+
+        if birthday >= datetime.now():
+            errors=True
+            messages.error(request, 'La fecha de cumpleaños tiene que ser anterior a hoy')
+
+
+        if form.is_valid() and u_form.is_valid() and not errors:
 
             client.picture = form.cleaned_data.get('picture')
             client.birthday = form.cleaned_data.get('birthday')
@@ -86,8 +111,8 @@ def EditClient(request):
 
             client.save()
             u_form.save()
-            messages.success(request, 'El perfil se ha editado correctamente')
-            return redirect('/client/edit')
+            
+            return redirect('/clients')
         else:
             messages.error(request, 'El perfil no se ha podido editar')
 
