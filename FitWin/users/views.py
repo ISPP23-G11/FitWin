@@ -41,6 +41,7 @@ def EditTrainer(request):
     trainer = Trainer.objects.get(user__id=user)
 
     if request.method == 'POST':
+        
         u_form=UserUpdateForm(request.POST, instance=request.user)
         form = EditProfileForm(request.POST, request.FILES, instance=trainer)
         if form.is_valid() and u_form.is_valid():
@@ -63,9 +64,10 @@ def EditTrainer(request):
     context = {
         'form':form,
         'u_form': u_form,
+        
     }
 
-    return render(request, 'edit.html', context)
+    return render(request, 'editTrainer.html', context)
 
 
 @login_required
@@ -96,6 +98,7 @@ def EditClient(request):
     context = {
         'form':form,
         'u_form': u_form,
+        
     }
 
-    return render(request, 'edit.html', context)
+    return render(request, 'editClient.html', context)

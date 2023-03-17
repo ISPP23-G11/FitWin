@@ -4,9 +4,9 @@ from django.contrib.auth.models import User
 
 class EditProfileForm(forms.ModelForm):
     
-    picture = forms.ImageField(label='Profile Picture',required=False, widget=forms.FileInput)
-    birthday = forms.DateField(required=False)
-    bio = forms.CharField(max_length=260, required=False)
+    picture = forms.ImageField(label='Profile Picture',required=False, widget=forms.FileInput(attrs={'class': 'form-control'}))
+    birthday = forms.DateField(required=False, widget=forms.DateInput(attrs={'class': 'form-control'}))
+    bio = forms.CharField(max_length=260, required=False, widget=forms.TextInput(attrs={'class': 'form-control'}))
     
 
     class Meta:
@@ -18,6 +18,10 @@ class EditProfileForm(forms.ModelForm):
 
 
 class UserUpdateForm(forms.ModelForm):
-	class Meta:
-		model = User
-		fields = ['first_name', 'last_name']
+
+    first_name=forms.CharField(required=False, widget=forms.TextInput(attrs={'class': 'form-control'}))
+    last_name=forms.CharField(required=False, widget=forms.TextInput(attrs={'class': 'form-control'}))
+
+    class Meta:
+        model = User
+        fields = ['first_name', 'last_name']
