@@ -4,45 +4,129 @@
 
 {% block body %}
 
-<form class="form" method="post" action="/clientRegister/" enctype="multipart/form-data">
-	{% csrf_token %}
-	<label>Nombre de usuario</label>
-	<input required type="text" name="username">
+<section class="mb-5 text-center">
+    <div class="container">
+      <div class="row justify-content-center align-items-center h-100">
+        <div class="col-12 col-lg-9 col-xl-7">
+          <div class="card shadow-2-strong card-registration" style="border-radius: 15px;">
+            <div class="card-body p-4 p-md-5">
+              <h1 class="mb-4 pb-2 pb-md-0 mb-md-5 display-3 color2">Registrate como cliente</h1>
 
-	<hr>
-	<label>Nombre</label>
-	<input required type="text" name="name">
+              {% if messages|length > 0 %}
+              {% for message in messages %}
+            <div class="alert alert-danger" role="alert">
+                {{ message }}
+            </div>
+            {% endfor %}
+            {% endif %}
 
-	<hr>
-	<label>Apellidos</label>
-	<input required type="text" name="last_name">
+	<form class="form" method="post" action="/clientRegister/" enctype="multipart/form-data">
+		{% csrf_token %}
+		<div class="row">
+			<div class="input-group mb-3 col-12">
+				<span class="input-group-text">Nombre de usuario</span>
+					<input required class="form-control" type="text" name="username">
+				</div>
+			</div>
+
+		<div class="row">
+			<div class="col">
+			<div class="form-outline">
+				<div class="input-group mb-3 col-sm-12 col-lg-6">
+				<span class="input-group-text">Nombre</span>
+					<input required class="form-control" type="text" name="name">
+				</div>
+			</div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col">
+			<div class="form-outline">
+				<div class="input-group mb-3 col-sm-12 col-lg-6">
+				<span class="input-group-text">Apellidos</span>
+					<input required class="form-control" type="text" name="last_name">
+				</div>
+			</div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col">
+			<div class="form-outline">
+				<div class="input-group mb-3 col-sm-12 col-lg-6">
+				<span class="input-group-text">Email</span>
+					<input required class="form-control" type="email" name="email">
+				</div>
+			</div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col">
+			<div class="form-outline">
+				<div class="input-group mb-3 col-sm-12 col-lg-6">
+				<span class="input-group-text">Contraseña</span>
+					<input required class="form-control" type="password" name="password">
+				</div>
+			</div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col">
+			<div class="form-outline">
+				<div class="input-group mb-3 col-sm-12 col-lg-6">
+				<span class="input-group-text">Repite la contraseña</span>
+					<input required class="form-control" type="password" name="password_again">
+				</div>
+			</div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col">
+			<div class="form-outline">
+				<div class="input-group mb-3 col-sm-12 col-lg-6">
+				<span class="input-group-text">Biografia</span>
+					<input required class="form-control" type="text" name="bio">
+				</div>
+			</div>
+			</div>
+		</div>
 
 
-	<hr>
-	<label>Email</label>
-	<input required type="email" name="email">
+		<div class="row">
+			<div class="col">
+			<div class="form-outline">
+				<div class="input-group mb-3 col-sm-12 col-lg-6">
+				<span class="input-group-text">Fecha de nacimiento</span>
+					<input required class="form-control" type="date" name="birthday">
+				</div>
+			</div>
+			</div>
+		</div>
 
-	<hr>
-	<label>Contraseña</label>
-	<input required type="password" name="password">
+		<div class="row">
+			<div class="col">
+			<div class="form-outline">
+				<div class="input-group mb-3 col-sm-12 col-lg-6">
+				<span class="input-group-text">Foto de perfil</span>
+					<input required class="form-control" type="file" name="picture" accept="image/*">
+				</div>
+			</div>
+			</div>
+		</div>
 
-	<hr>
-	<label>Repite la contraseña</label>
-	<input required type="password" name="password_again">
-
-	<hr>
-	<label>Biografia</label>
-	<input required type="text" name="bio">
-
-	<hr>
-	<label>Fecha de nacimiento</label>
-	<input required type="date" name="birthday">
-
-	<hr>
-	<label>Foto de perfil</label>
-	<input required type="file" name="picture" accept="image/*">
-
-	<button type="submit" id="submit">Registrarse</button>
-</form>
+		<div class="mt-4 pt-2">
+			<input class="btn btn-primary btn-lg" type="submit" value="Registrarse" style="border-radius: 2rem;"/>
+		</div>
+	</form>
+	</div>
+</div>
+</div>
+</div>
+</div>
+</section>
 
 {% endblock %}
