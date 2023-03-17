@@ -1,0 +1,92 @@
+{% extends "navbar.html" %}
+
+{% load static %}
+
+{% block body %}
+<section class="mb-5 text-center">
+    <div class="container">
+      <div class="row justify-content-center align-items-center h-100">
+        <div class="col-12 col-lg-9 col-xl-7">
+          <div class="card shadow-2-strong card-registration" style="border-radius: 15px;">
+            <div class="card-body p-4 p-md-5">
+              <h1 class="mb-4 pb-2 pb-md-0 mb-md-5 display-3 color2">Editar perfil</h1>
+
+              {% if messages|length > 0 %}
+              {% for message in messages %}
+            <div class="alert alert-danger" role="alert">
+                {{ message }}
+            </div>
+            {% endfor %}
+            {% endif %}
+
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="row">
+
+                    <div class="input-group mb-3 col-12">
+                        <span class="input-group-text" id="basic-addon1">Nombre</span>
+                        {{u_form.first_name}}
+                    </div>
+                </div>
+
+                <div class="row">
+
+                    <div class="input-group mb-3 col-12">
+                        <span class="input-group-text" id="basic-addon1">Apellidos</span>
+                        {{ u_form.last_name }}
+                    
+                    </div>
+                </div>
+        
+                <div class="row">
+        
+                    <div class="input-group mb-3 col-sm-12 col-lg-6">
+                        <span class="input-group-text">Fecha de nacimiento (YYYY-MM-DD)</span>
+        
+                        {{form.birthday}}
+                    </div>
+                </div>
+            
+                <div class="row">
+        
+                    <div class="input-group col">
+                        <span class="input-group-text">Biografía</span>
+                        {{ form.bio }}
+                      
+                    </div>
+                </div>
+                
+                <br>
+
+                <div class="row">
+        
+                    <div class="input-group col">
+                        <span class="input-group-text">Foto de perfil</span>
+                        {{form.picture}}
+                    </div>
+                </div>
+
+                
+
+
+                <div class="row mt-5 text-center">
+                    <div class="col col-lg-6 col-sm-12">
+                        <button type="submit" class="btn btn-primary btn-lg btn-block">
+                      Editar perfil
+                        </button>
+                    </div>
+                <div class="col col-sm-12 col-lg-6">
+                    <a href="/" class="btn btn-danger btn-lg btn-block">Cancelar</a>
+                </div>
+        
+                </div>
+
+  
+              </form>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+
+{% endblock %}

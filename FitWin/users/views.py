@@ -4,6 +4,8 @@ from .models import Trainer, Client
 from django.template import loader
 from django.shortcuts import HttpResponse, redirect
 from django.contrib import messages
+from .forms import EditProfileForm, UserUpdateForm
+
 
 def is_trainer(user):
     return Trainer.objects.filter(user = user).exists()
@@ -31,3 +33,69 @@ def handler_clients(request):
         context = {}
         template = loader.get_template("main_clients.html") 
         return HttpResponse(template.render(context, request))
+
+
+@login_required
+def EditTrainer(request):
+    user = request.user.id
+    trainer = Trainer.objects.get(user__id=user)
+
+    if request.method == 'POST':
+        u_form=UserUpdateForm(request.POST, instance=request.user)
+        form = EditProfileForm(request.POST, request.FILES, instance=trainer)
+        if form.is_valid() and u_form.is_valid():
+
+            trainer.picture = form.cleaned_data.get('picture')
+            trainer.birthday = form.cleaned_data.get('birthday')
+            trainer.bio = form.cleaned_data.get('bio')
+
+            trainer.save()
+            u_form.save()
+            messages.success(request, 'El perfil se ha editado correctamente')
+            return redirect('/trainer/edit')
+        else:
+            messages.error(request, 'El perfil no se ha podido editar')
+
+    else:
+        u_form=UserUpdateForm(instance=request.user)
+        form = EditProfileForm(instance=trainer)
+
+    context = {
+        'form':form,
+        'u_form': u_form,
+    }
+
+    return render(request, 'edit.html', context)
+
+
+@login_required
+def EditClient(request):
+    user = request.user.id
+    client = Client.objects.get(user__id=user)
+
+    if request.method == 'POST':
+        u_form=UserUpdateForm(request.POST, instance=request.user)
+        form = EditProfileForm(request.POST, request.FILES, instance=client)
+        if form.is_valid() and u_form.is_valid():
+
+            client.picture = form.cleaned_data.get('picture')
+            client.birthday = form.cleaned_data.get('birthday')
+            client.bio = form.cleaned_data.get('bio')
+
+            client.save()
+            u_form.save()
+            messages.success(request, 'El perfil se ha editado correctamente')
+            return redirect('/client/edit')
+        else:
+            messages.error(request, 'El perfil no se ha podido editar')
+
+    else:
+        u_form=UserUpdateForm(instance=request.user)
+        form = EditProfileForm(instance=client)
+
+    context = {
+        'form':form,
+        'u_form': u_form,
+    }
+
+    return render(request, 'edit.html', context)
