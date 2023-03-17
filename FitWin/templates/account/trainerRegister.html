@@ -4,9 +4,42 @@
 
 {% block body %}
 
-<form class="form" method="post">
+<form class="form" method="post" action="/trainerRegister/" enctype="multipart/form-data">
 	{% csrf_token %}
-	{{ form.as_p }}
+	<label>Nombre de usuario</label>
+	<input required type="text" name="username">
+
+	<hr>
+	<label>Nombre</label>
+	<input required type="text" name="name">
+
+	<hr>
+	<label>Apellidos</label>
+	<input required type="text" name="last_name">
+
+	<hr>
+	<label>Email</label>
+	<input required type="email" name="email">
+
+	<hr>
+	<label>Contraseña</label>
+	<input required type="password" name="password">
+
+	<hr>
+	<label>Repite la contraseña</label>
+	<input required type="password" name="password_again">
+
+	<hr>
+	<label>Biografia</label>
+	<input required type="text" name="bio">
+
+	<hr>
+	<label>Fecha de nacimiento</label>
+	<input required type="date" name="birthday">
+
+	<hr>
+	<label>Foto de perfil</label>
+	<input required type="file" name="picture" accept="image/*">
 
 	<button type="submit" id="submit">Registrarse</button>
 </form>
