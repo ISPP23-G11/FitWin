@@ -238,21 +238,28 @@ def delete_categories(request, announcement_id, category_id):
     announcement.categories.remove(category)
     return redirect("/announcements/add-categories/"+str(announcement_id))
 
+
 @login_required
 @user_passes_test(is_client)
 def book_announcement(request, announcement_id):
-    client = Client.objects.get(user = request.user)
-    announcement = Announcement.objects.get(id = announcement_id)
+    client = Client.objects.get(user=request.user)
+    announcement = Announcement.objects.get(id=announcement_id)
+
     if announcement.capacity > 0:
         announcement.clients.add(client.id)
         announcement.capacity = announcement.capacity - 1
-        announcement.save()
+        announcement.save()  # Guarda el modelo Announcement actualizado
 
         calendar = CalendarAPI(announcement.trainer.user)
         calendar.add_attendee_to_event(announcement.google_calendar_event_id, client.user)
+
+        messages.success(request, "¡Reserva realizada con éxito!")
     else:
-        messages.error(request, "No hay hueco para reservar esta clase")
-    return redirect("/") 
+        messages.error(request, "No hay suficiente capacidad para reservar esta clase")
+
+    return redirect('book_announcement', announcement_id=announcement.id)
+
+
 
 @login_required
 @user_passes_test(is_client)
@@ -276,3 +283,20 @@ def list_client_announcements(request):
     context = {}
     template = loader.get_template("list_client_announcements.html") 
     return HttpResponse(template.render(context, request))
+
+def list_announcements(request):
+    announcements = Announcement.objects.all()
+
+    paginator = Paginator(announcements, 4)  # muestra 4 elementos por página
+
+    page = request.GET.get('page')
+    try:
+        announcements = paginator.page(page)
+    except PageNotAnInteger:
+        page = 1  # establecer el valor predeterminado de la página en 1
+        announcements = paginator.page(page)
+    except EmptyPage:
+        page = paginator.num_pages  # establecer la página en la última página disponible
+        announcements = paginator.page(page)
+
+    return render(request, 'list_all_announcements.html', {'announcements': announcements})
