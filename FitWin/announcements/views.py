@@ -270,3 +270,9 @@ def cancel_book_announcement(request, announcement_id):
         messages.error(request, "Aún no estas inscrito a esta clase")
     return redirect("/") 
 
+@login_required
+@user_passes_test(is_client)
+def list_client_announcements(request):
+    context = {}
+    template = loader.get_template("list_client_announcements.html") 
+    return HttpResponse(template.render(context, request))
