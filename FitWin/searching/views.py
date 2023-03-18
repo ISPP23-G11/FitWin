@@ -14,6 +14,8 @@ def search_announcements(request):
     min_price = request.GET.get('min_price')
     max_price = request.GET.get('max_price')
     trainer = request.GET.get('trainer')
+    min_capacity = request.GET.get('min_capacity')
+    max_capacity = request.GET.get('max_capacity')
 
     # Convertir las cadenas de fecha y hora en objetos datetime
     start_date = parse_datetime(start_date_str) if start_date_str else None
@@ -45,6 +47,11 @@ def search_announcements(request):
         filters['price__lte'] = float(max_price)
     if trainer:
         filters['trainer__user__username__icontains'] = trainer
+    if min_capacity:
+        filters['capacity__gte'] = int(min_capacity)
+    if max_capacity:
+        filters['capacity__lte'] = int(max_capacity)
+
 
     # Realizar la consulta a la base de datos
     announcements = Announcement.objects.filter(**filters).distinct()
