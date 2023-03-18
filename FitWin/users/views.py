@@ -31,3 +31,9 @@ def handler_clients(request):
         context = {}
         template = loader.get_template("main_clients.html") 
         return HttpResponse(template.render(context, request))
+
+@login_required
+def handler_trainer_details(request):
+    context = {}
+    template = loader.get_template("trainer_details.html") 
+    return HttpResponse(template.render(context, request))
