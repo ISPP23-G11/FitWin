@@ -12,5 +12,8 @@ google-api-core==2.11.0
 google-api-python-client==2.80.0
 oauthlib==3.2.2
 
+# Social
+django-social-share==2.3.0
+
 # Config
 python-dotenv==1.0.0
