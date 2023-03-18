@@ -41,10 +41,10 @@
   <input type="text" class="form-control" id="place" name="place" value="{{ request.GET.place }}">
 
   <label for="price">Precio Minimo:</label>
-  <input type="number" class="form-control" id="price" name="min_price" value="{{ request.GET.price }}">
+  <input type="number" class="form-control" id="min_price" name="min_price" value="{{ request.GET.min_price }}">
 
   <label for="price">Precio Maximo:</label>
-  <input type="number" class="form-control" id="price" name="max_price" value="{{ request.GET.price }}">
+  <input type="number" class="form-control" id="max_price" name="max_price" value="{{ request.GET.max_price }}">
 
   <label for="start_date">Fecha de inicio:</label>
   <input type="datetime-local" class="form-control" id="start_date" name="start_date" value="{{ request.GET.start_date|default_if_none:'' }}">
