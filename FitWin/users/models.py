@@ -21,3 +21,10 @@ class Rating(models.Model):
     rating = models.IntegerField(validators=[MinValueValidator(0), MaxValueValidator(5)])
     trainer = models.ForeignKey(Trainer, on_delete=models.CASCADE)
     client = models.ForeignKey(Client, on_delete=models.CASCADE)
+
+class Comment(models.Model):
+    comment = models.TextField()
+    trainer = models.ForeignKey(Trainer, on_delete=models.CASCADE)
+    client = models.ForeignKey(Client, on_delete=models.CASCADE)
+    date = models.DateTimeField(auto_now=True)
+ 
