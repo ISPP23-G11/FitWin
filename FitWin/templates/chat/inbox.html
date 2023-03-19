@@ -1,0 +1,99 @@
+{% load static %}
+
+
+{% block content %}
+
+<h1>
+	Welcome {{user}}. 
+</h1>
+
+{% for inbox in inbox %}
+<div class="div_inbox">
+
+	
+	{% for second_user in inbox.channeluser_set.all %}
+
+		{% if second_user.user ==  request.user %}
+
+		{% else %}
+
+			<a href="{% url 'detailms' second_user.user.username %}">
+				<p>
+					{{second_user.user}}
+				</p>
+				<small>
+					({{inbox.channelmessage_set.count}}) Messages
+				</small>
+			</a>
+
+		{% endif %}
+
+	{% endfor %}
+
+	{% if inbox.channelmessage_set.count != 0 %}
+		<div class="div_ms_inbox">
+			
+			{% with ultimo_mensaje=inbox.channelmessage_set.last %}
+
+				<p>
+					<strong>Message: </strong>{{ultimo_mensaje.text}}
+				</p>
+
+				<p>
+					<strong>User: </strong> {{ultimo_mensaje.user}}
+				</p>
+
+			{% endwith %}
+		</div>	
+	{% else %}
+		<p>
+			No messages
+		</p>
+	{% endif %}
+
+
+
+</div>
+{% empty %}
+
+<h2>
+	Inbox Vacio
+</h2>
+
+{% endfor %}
+
+
+<style>
+	
+	.div_inbox{
+		width: 90%;
+		margin:10px auto;
+		background: #fff;
+		border-radius: 5px;
+		border:1px solid #e6e6e6;
+		padding: 5px;
+	}
+
+	@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
+	*{
+		margin: 0;
+		padding: 0;
+	}
+
+	body{
+		background:#fafafa;
+	}
+
+	h1, h2, h3, p, small{
+		font-family: 'Roboto', sans-serif;
+	}
+
+	.div_main{
+		width: 60%;
+		margin: 50px auto;
+	}
+
+</style>
+		
+{% endblock %}
