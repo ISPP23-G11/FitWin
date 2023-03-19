@@ -279,6 +279,11 @@ def cancel_book_announcement(request, announcement_id):
 
 @login_required
 @user_passes_test(is_client)
+def list_client_announcements(request):
+    context = {}
+    template = loader.get_template("list_client_announcements.html") 
+    return HttpResponse(template.render(context, request))
+
 def list_announcements(request):
     announcements = Announcement.objects.all()
 
@@ -295,4 +300,3 @@ def list_announcements(request):
         announcements = paginator.page(page)
 
     return render(request, 'list_all_announcements.html', {'announcements': announcements})
-
