@@ -33,7 +33,12 @@ def handler_clients(request):
         return HttpResponse(template.render(context, request))
 
 @login_required
-def handler_client_details(request):
-    context = {}
+def handler_client_details(request, client_id):
+    client = Client.objects.filter(id = client_id)
+    if client:
+        client = client.get()
+    else:
+        messages.error(request, "No se ha encontrado al cliente")
+    context = {'client':client}
     template = loader.get_template("client_details.html") 
     return HttpResponse(template.render(context, request))
