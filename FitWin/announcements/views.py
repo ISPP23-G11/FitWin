@@ -277,13 +277,31 @@ def cancel_book_announcement(request, announcement_id):
         messages.error(request, "Aún no estas inscrito a esta clase")
     return redirect("/") 
 
+
 @login_required
 @user_passes_test(is_client)
 def list_client_announcements(request):
-    context = {}
-    template = loader.get_template("list_client_announcements.html") 
-    return HttpResponse(template.render(context, request))
+    client_announcements = Announcement.objects.filter(clients__user=request.user)
+    
+    paginator = Paginator(client_announcements,3)
 
+    page = request.GET.get('page')
+    try:
+        client_announcements = paginator.page(page)
+    except PageNotAnInteger:
+        page = 1  # establecer el valor predeterminado de la página en 1
+        client_announcements = paginator.page(page)
+    except EmptyPage:
+        page = paginator.num_pages  # establecer la página en la última página disponible
+        client_announcements = paginator.page(page)
+
+ 
+    return render(request, "list_client_announcements.html", {'client_announcements': client_announcements}) 
+
+
+
+@login_required
+@user_passes_test(is_client)
 def list_announcements(request):
     announcements = Announcement.objects.all()
 
@@ -300,3 +318,4 @@ def list_announcements(request):
         announcements = paginator.page(page)
 
     return render(request, 'list_all_announcements.html', {'announcements': announcements})
+
