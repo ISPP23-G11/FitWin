@@ -1,4 +1,6 @@
-{% extends "navbar.html" %}
+{% extends template %}
+
+
 
 {% block body %}
 {% if trainer %}
@@ -15,28 +17,125 @@
             <img class="card-img-botton mt-3" src="{{ trainer.picture.url }}" alt="Card image cap">
           {% endif %}
             <div class="card-body">
-              <h2 class="card-title">{{ trainer.user.first_name }} {{ trainer.user.last_name }}
-                
-
-              </h2>
+              <h2 class="card-title">{{ trainer.user.first_name }} {{ trainer.user.last_name }}</h2>
               <h4 class="card-title">Email: {{ trainer.user.email }}</h4>
-              <img alt="..."  src="../../../static/img/star_yellow.png" width="25" height="25">
-              <img alt="..."  src="../../../static/img/star_yellow.png" width="25" height="25">
-              <img alt="..."  src="../../../static/img/star_yellow.png" width="25" height="25">
-              <img alt="..."  src="../../../static/img/star_yellow.png" width="25" height="25">
-              <img alt="..."  src="../../../static/img/star.png" width="25" height="25">
+              
+              <hr>
+              <span class="badge rounded-pill bg-warning text-dark fs-4"><img alt="..."  src="../../../static/img/star_yellow.png" width="25" height="25"> {{ mean|floatformat:2 }} <img alt="..."  src="../../../static/img/star_yellow.png" width="25" height="25"></span>
+              
+              {% if client %}
+                <form action="/clients/rating/{{ trainer.id }}" method="post" class="mt-3">
+                  {% csrf_token %}
+                  <select name="rating">
+                    <option value="0"
+                    {% if own_rating == 0.0 %}
+                      selected
+                    {% endif %}
+                    >&#9734;&#9734;&#9734;&#9734;&#9734;</option>
+                    <option value="1"
+                    {% if own_rating == 1.0 %}
+                      selected
+                    {% endif %}
+                    >&#9733;&#9734;&#9734;&#9734;&#9734;</option>
+                    <option value="2"
+                    {% if own_rating == 2.0 %}
+                      selected
+                    {% endif %}
+                    >&#9733;&#9733;&#9734;&#9734;&#9734;</option>
+                    <option value="3"
+                    {% if own_rating == 3.0 %}
+                      selected
+                    {% endif %}
+                    >&#9733;&#9733;&#9733;&#9734;&#9734;</option>
+                    <option value="4"
+                    {% if own_rating == 4 %}
+                      selected
+                    {% endif %}
+                    >&#9733;&#9733;&#9733;&#9733;&#9734;</option>
+                    <option value="5"
+                    {% if own_rating == 5 %}
+                      selected
+                    {% endif %}
+                    >&#9733;&#9733;&#9733;&#9733;&#9733;</option>
+                  </select>
+                 
+                  <button type="submit" class="btn btn-success"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-send" viewBox="0 0 16 16">
+                    <path d="M15.854.146a.5.5 0 0 1 .11.54l-5.819 14.547a.75.75 0 0 1-1.329.124l-3.178-4.995L.643 7.184a.75.75 0 0 1 .124-1.33L15.314.037a.5.5 0 0 1 .54.11ZM6.636 10.07l2.761 4.338L14.13 2.576 6.636 10.07Zm6.787-8.201L1.591 6.602l4.339 2.76 7.494-7.493Z"/>
+                  </svg></button>
+                </form>
+              {% endif %}
+                <hr>
               <p class="card-text"><strong>Descripción:</strong> {{ trainer.bio }} </p>
-
-              <a href="#" class="btn btn-primary btn-lg btn-block col-12">Ir a sus clases</a>
-    
+                {% if client %}
+                  <a href="#" class="btn btn-primary btn-lg btn-block col-12">Ir a sus clases</a>
+                {% endif %}
             </div>
           </div>
       </div>
   </section>
-  {% endif %}
-  
-  
 
-  {% include "footer.html" %}
+<hr>
+<h3 class="text-center mt-5">Comentarios</h3>
+
+{% if client %}
+<section class="mb-5 text-center">
+  <div class="container">
+      <div class="row justify-content-center align-items-center h-100">
+        <div class="col-12 col-lg-9 col-xl-7">
+          <div class="card shadow-2-strong card-registration" style="border-radius: 15px;">
+            <div class="card-body p-4 p-md-5">
+
+              {% if messages|length > 0 %}
+                {% for message in messages %}
+                  <div class="alert alert-danger" role="alert">
+                    {{ message }}
+                  </div>
+                {% endfor %}
+              {% endif %}
+
+              <form action="/clients/comment/{{ trainer.id }}" method="post">
+                {% csrf_token %}
+                <div class="form-outline">
+                  <div class="input-group mb-3 col-sm-12 col-lg-6">
+                    <span class="input-group-text">Cometario</span>
+                    <input type="text" minlength="10" required class="form-control form-control-lg" id="motivo" value="{{ own_comment.comment }}" name="comment">                         
+                  </div>
+                  <button type="submit" class="btn btn-success"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-send" viewBox="0 0 16 16">
+                    <path d="M15.854.146a.5.5 0 0 1 .11.54l-5.819 14.547a.75.75 0 0 1-1.329.124l-3.178-4.995L.643 7.184a.75.75 0 0 1 .124-1.33L15.314.037a.5.5 0 0 1 .54.11ZM6.636 10.07l2.761 4.338L14.13 2.576 6.636 10.07Zm6.787-8.201L1.591 6.602l4.339 2.76 7.494-7.493Z"/>
+                    </svg>
+                  </button>
+                </div>
+              </form>
+              </div>
+          </div>
+        </div>
+    </div>
+  </div>
+</section>
+{% endif %}
+
+{% for c in comments %}
+<div class="container">
+  <div class="row">
+    <div class="col col-xl-12 d-flex">
+        <div class="card mb-5" style="border-radius: 15px;">
+            <div class="row">
+              <span class="badge rounded-pill bg-light text-dark">
+                {% if c.client.picture %}
+                  <img width="32" height="32" class="card-img-botton" src="{{ c.client.picture.url }}" alt="Card image cap">
+                {% endif %}
+                  <a href="/clients/{{ c.client.id }}" style="outline: none;text-decoration: none;"><h4>{{ c.client.user.username }}</h4></a>
+              </span>
+                <p>{{ c.comment }}</p>
+            </div>
+        </div>
+    </div>
+  </div>
+</div>
+{% endfor %}
+
+{% endif %}  
+
+{% include "footer.html" %}
 
 {% endblock %}
