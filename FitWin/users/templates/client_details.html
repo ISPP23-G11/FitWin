@@ -1,0 +1,32 @@
+{% extends "navbar.html" %}
+
+{% block body %}
+{% if client %}
+<section class="jumbotron text-center">
+	<div class="container">
+    <div class="row">
+        <h1 class="display-2 fw-bold col-12">Detalles de {{ client.user.username }}</h1>
+    </div>
+	  
+      <div class="row ">
+        <div class="card mb-3 col-12">
+            <img class="card-img-botton mt-3" src="{{ client.picture.url }}" alt="Card image cap">
+            <div class="card-body">
+              <h2 class="card-title">{{ client.user.first_name }} {{ client.user.last_name }}
+                
+
+              </h2>
+              <h4 class="card-title">Email: {{ client.user.email }}</h4>
+              
+              <p class="card-text"><strong>Descripción:</strong> {{ client.bio }} </p>    
+            </div>
+          </div>
+      </div>
+  </section>
+{% endif %}
+  
+
+  
+	{% include "footer.html" %}
+
+{% endblock %}
