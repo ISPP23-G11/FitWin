@@ -88,7 +88,7 @@
                         <div><i class="fa fa-calendar-o"></i><span class="ml-2">{{ a.date }}</span></div>
                     </div>
                     <div class="d-flex flex-row mt-1 text-black-50 date-time">
-                        <div><i class="fa fa-calendar-o"></i><span class="ml-2">Aforo: {{ a.capacity }}</span></div>
+                        <div><i class="fa fa-calendar-o"></i><span class="ml-2">Aforo: {{ a.clients.count }}</span></div>
                     </div>
                     <div class="d-flex flex-row mt-1 text-black-50 date-time">
                         <div><i class="fa fa-calendar-o"></i><span class="ml-2">Precio: {{ a.price }} €</span></div>
@@ -117,7 +117,7 @@
             </div>
             <div class="d-flex flex-row align-items-center">
                 <div class="d-flex flex-column mr-2">
-                    <a href="/" class="btn btn-danger">Cancelar</a>
+                    <a href="{% url 'cancel_book' a.id %}" class="btn btn-danger">Cancelar reserva</a>
 
 
 

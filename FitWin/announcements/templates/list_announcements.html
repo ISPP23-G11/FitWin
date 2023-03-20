@@ -35,10 +35,11 @@
                       {{ client.user.first_name }} {{ client.user.last_name }}
                       {% if not forloop.last %}, {% endif %}
                     {% endfor %}
-                    <p><strong>Aforo máximo :</strong>  {{ a.capacity }}</p>
+                    <p><strong>Plazas restantes :</strong>  {{ a.capacity }}</p>
                   {% endwith %}
               {% else %}
               No hay clientes para este anuncio.
+              <p><strong>Plazas restantes :</strong>  {{ a.capacity }}</p>
               {% endif %}
           </p>
 
