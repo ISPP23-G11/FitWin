@@ -22,7 +22,7 @@
         <h5 class="mb-3">
             {% if a.categories.all %}
                 {% for category in a.categories.all %}
-                    <span class="badge text-bg-success">{{ category.name }}</span>
+                    <span class="badge text-bg-success">{{category.types}}: {{ category.name }}</span>
                 {% endfor %}
             {% else %}
                 No hay categorías para este anuncio.
