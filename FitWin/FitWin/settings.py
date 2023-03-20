@@ -58,6 +58,8 @@ INSTALLED_APPS = [
     'allauth.account',
     'allauth.socialaccount',
     'allauth.socialaccount.providers.google',
+
+   
 ]
 
 MIDDLEWARE = [
@@ -138,6 +140,8 @@ TIME_ZONE = 'CET'
 USE_I18N = True
 
 USE_TZ = True
+
+
 
 
 # Static files (CSS, JavaScript, Images)
