@@ -31,6 +31,14 @@ def handler_clients(request):
         context = {}
         template = loader.get_template("main_clients.html") 
         return HttpResponse(template.render(context, request))
+
+
+@login_required
+def handler_trainer_details(request):
+    context = {}
+    template = loader.get_template("trainer_details.html") 
+    return HttpResponse(template.render(context, request))
+
         
 @login_required
 def handler_client_details(request, client_id):
@@ -94,3 +102,4 @@ def comment_trainer(request, trainer_id):
                 comment_object = Comment(comment=comment, trainer=trainer, client=client)
             comment_object.save()
         return redirect("/trainers/"+str(trainer_id))
+
