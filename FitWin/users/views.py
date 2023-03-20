@@ -128,6 +128,25 @@ def EditClient(request):
 
     return render(request, 'editClient.html', context)
 
+
+def handler_trainer_details(request):
+    context = {}
+    template = loader.get_template("trainer_details.html") 
+    return HttpResponse(template.render(context, request))
+
+        
+@login_required
+def handler_client_details(request, client_id):
+    client = Client.objects.filter(id = client_id)
+    if client:
+        client = client.get()
+    else:
+        messages.error(request, "No se ha encontrado al cliente")
+    context = {'client':client}
+    template = loader.get_template("client_details.html") 
+    return HttpResponse(template.render(context, request))
+
+@login_required
 @user_passes_test(is_client)
 def rating_trainer(request, trainer_id):
     if request.method == 'POST':
