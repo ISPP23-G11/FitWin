@@ -128,21 +128,60 @@ def EditClient(request):
 
     return render(request, 'editClient.html', context)
 
-
-def handler_trainer_details(request):
+@login_required
+def handler_trainer_details(request, trainer_id):
     context = {}
+    trainer = Trainer.objects.filter(id = trainer_id)
+    user = Client.objects.filter(user = request.user)
+    context["template"] = "navbar.html"
+    if trainer:
+        trainer = trainer.get()
+        if user:
+            user = user.get()
+            context["client"] = True
+            context["template"] = "navbar_clients.html"
+            own_rating = Rating.objects.filter(trainer = trainer, client=user)
+            own_comment = Comment.objects.filter(trainer = trainer, client = user)
+            if own_rating:
+                context["own_rating"] = own_rating.get().rating
+            if own_comment:
+                context['own_comment'] = own_comment.get()
+
+        comments = Comment.objects.filter(trainer = trainer).order_by('date')
+        context['comments'] = comments
+
+        ratings = Rating.objects.filter(trainer = trainer)
+        if ratings:
+            sum = 0.0
+            for r in ratings:
+                sum += r.rating
+            mean = sum / len(ratings)
+            context['mean'] = mean
+
+        else:
+            mean = "No hay calificaciones para este entrenador"
+        context['trainer'] = trainer
+    else:
+        messages.error(request, "Entrenador no encontrado")
+    
     template = loader.get_template("trainer_details.html") 
     return HttpResponse(template.render(context, request))
 
         
 @login_required
 def handler_client_details(request, client_id):
+    context = {}
     client = Client.objects.filter(id = client_id)
+    user = Client.objects.filter(user = request.user)
+    context["template"] = "navbar.html"
+    if user:
+        context["template"] = "navbar_clients.html"
     if client:
         client = client.get()
+        context['client'] = client
     else:
         messages.error(request, "No se ha encontrado al cliente")
-    context = {'client':client}
+    
     template = loader.get_template("client_details.html") 
     return HttpResponse(template.render(context, request))
 
