@@ -327,3 +327,25 @@ def list_announcements(request):
 
     return render(request, 'list_all_announcements.html', {'announcements': announcements})
 
+
+@login_required
+@user_passes_test(is_client)
+def show_his_announcements(request, trainer_id):
+    trainer = Trainer.objects.get(id = trainer_id)
+    announcements = Announcement.objects.filter(trainer=trainer)
+    client = Client.objects.get(user = request.user)
+
+    paginator = Paginator(announcements, 2)  # muestra 2 elementos por página
+
+    page = request.GET.get('page')
+    try:
+        announcements = paginator.page(page)
+    except PageNotAnInteger:
+        page = 1  # establecer el valor predeterminado de la página en 1
+        announcements = paginator.page(page)
+    except EmptyPage:
+        page = paginator.num_pages  # establecer la página en la última página disponible
+        announcements = paginator.page(page)
+
+    return render(request, 'list_announcements_trainers.html', {'announcements': announcements, 'trainer':trainer, 'client':client})
+
