@@ -252,7 +252,7 @@ def book_announcement(request, announcement_id):
     client = Client.objects.get(user=request.user)
     announcement = Announcement.objects.get(id=announcement_id)
 
-    if announcement.capacity > 0:
+    if announcement.capacity > 0 and client not in announcement.clients.all():
         announcement.clients.add(client.id)
         announcement.capacity = announcement.capacity - 1
         announcement.save()  # Guarda el modelo Announcement actualizado
@@ -263,9 +263,10 @@ def book_announcement(request, announcement_id):
         messages.success(request, "¡Reserva realizada con éxito!")
     else:
 
-        messages.error(request, "No hay suficiente capacidad para reservar esta clase")
+        messages.error(request, "No hay suficiente capacidad para reservar esta clase o ya esta apuntado a esta clase")
+        
 
-    return redirect('book_announcement', announcement_id=announcement.id)
+    return redirect('/announcements/list_client_announcements', announcement_id=announcement.id)
 
 
 @login_required
@@ -282,7 +283,7 @@ def cancel_book_announcement(request, announcement_id):
         calendar.remove_attendee_from_event(announcement.google_calendar_event_id, client.user)
     else:
         messages.error(request, "Aún no estas inscrito a esta clase")
-    return redirect("/trainers") 
+    return redirect("/announcements/list_client_announcements") 
 
 
 @login_required
