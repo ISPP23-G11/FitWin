@@ -33,7 +33,12 @@ def handler_clients(request):
         return HttpResponse(template.render(context, request))
 
 @login_required
-def handler_trainer_details(request):
-    context = {}
+def handler_trainer_details(request, trainer_id):
+    trainer = Trainer.objects.filter(id = trainer_id)
+    if trainer:
+        trainer = trainer.get()
+    else:
+        messages.error(request, "Entrenador no encontrado")
+    context = {'trainer':trainer}
     template = loader.get_template("trainer_details.html") 
     return HttpResponse(template.render(context, request))

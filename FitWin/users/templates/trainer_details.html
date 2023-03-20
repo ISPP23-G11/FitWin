@@ -1,38 +1,42 @@
 {% extends "navbar.html" %}
 
 {% block body %}
+{% if trainer %}
+
 <section class="jumbotron text-center">
 	<div class="container">
     <div class="row">
-        <h1 class="display-2 fw-bold col-12">Detalles del entrenador.</h1>
+        <h1 class="display-2 fw-bold col-12">Detalles de {{ trainer.user.username }}</h1>
     </div>
 	  
       <div class="row ">
         <div class="card mb-3 col-12">
-            <img class="card-img-botton mt-3" src="https://www.ictiva.com/blog/wp-content/uploads/2015/07/entrenamiento-fitness.jpg" alt="Card image cap">
+          {% if trainer.picture %}
+            <img class="card-img-botton mt-3" src="{{ trainer.picture.url }}" alt="Card image cap">
+          {% endif %}
             <div class="card-body">
-              <h2 class="card-title">Luisa Montoto Perez 
+              <h2 class="card-title">{{ trainer.user.first_name }} {{ trainer.user.last_name }}
                 
 
               </h2>
-              <h4 class="card-title">Email: luisa@gmail.com</h4>
+              <h4 class="card-title">Email: {{ trainer.user.email }}</h4>
               <img alt="..."  src="../../../static/img/star_yellow.png" width="25" height="25">
               <img alt="..."  src="../../../static/img/star_yellow.png" width="25" height="25">
               <img alt="..."  src="../../../static/img/star_yellow.png" width="25" height="25">
               <img alt="..."  src="../../../static/img/star_yellow.png" width="25" height="25">
               <img alt="..."  src="../../../static/img/star.png" width="25" height="25">
-              <p class="card-text"><strong>Descripción:</strong> Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500, cuando un impresor (N. del T. persona que se dedica a la imprenta) desconocido usó una galería de textos y los mezcló de tal manera que logró hacer un libro de textos especimen. No sólo sobrevivió 500 años, sino que tambien ingresó como texto de relleno en documentos electrónicos, quedando esencialmente igual al original. Fue popularizado en los 60s con la creación de las hojas "Letraset", las cuales contenian pasajes de Lorem Ipsum, y más recientemente con software de autoedición, como por ejemplo Aldus PageMaker, el cual incluye versiones de Lorem Ipsum.</p>
+              <p class="card-text"><strong>Descripción:</strong> {{ trainer.bio }} </p>
 
-              <button type="button" class="btn btn-primary btn-lg btn-block col-12">Ir a sus clases</button>
+              <a href="#" class="btn btn-primary btn-lg btn-block col-12">Ir a sus clases</a>
     
             </div>
           </div>
       </div>
   </section>
+  {% endif %}
   
   
 
-  
-	{% include "footer.html" %}
+  {% include "footer.html" %}
 
 {% endblock %}
