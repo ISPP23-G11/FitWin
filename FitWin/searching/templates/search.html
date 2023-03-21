@@ -72,8 +72,8 @@
   <label for="start_date">Fecha de inicio:</label>
   <input type="datetime-local" class="form-control" id="start_date" name="start_date" value="{{ request.GET.start_date|default_if_none:'' }}">
 
-  <label for="finish_date">Fecha de fin:</label>
-  <input type="datetime-local" class="form-control" id="finish_date" name="finish_date" value="{{ request.GET.finish_date|default_if_none:'' }}">
+  <label for="end_date">Fecha de fin:</label>
+  <input type="datetime-local" class="form-control" id="end_date" name="end_date" value="{{ request.GET.end_date|default_if_none:'' }}">
 
   <label for='trainer'>Entrenador:</label>
   <input type="text" class="form-control" id="trainer" name="trainer" value="{{request.GET.trainer}}">
