@@ -1,6 +1,7 @@
 
 <!DOCTYPE html>
 {% load static %}
+
 <html lang="en">
 <!--divinectorweb.com-->
 
@@ -29,28 +30,44 @@
 
 {% block content %}
 <h1>Lista de Anuncios</h1>
-<div class="">
-<form method="GET" class="form-group">
-  <label for="title">Título:</label>
-  <input type="text" class="form-control" id="title" name="title" value="{{ request.GET.title }}">
+<div class="row justify-content-center align-items-center h-50 mt-4">
+<form method="GET" class="form-group card mb-5" style="border-radius: 15px; margin: 15px; padding: 15px;">
+  <div class="row">
+    <div class="col-md-4">
+      <label for="title">Título:</label>
+      <input type="text" class="form-control" id="title" name="title" value="{{ request.GET.title }}">
+    </div>
+    <div class="col-md-4">
+      <label for="place">Lugar:</label>
+      <input type="text" class="form-control" id="place" name="place" value="{{ request.GET.place }}">
+    </div>
+  </div>
 
   <label for="description">Descripción:</label>
   <input type="text" class="form-control" id="description" name="description" value="{{ request.GET.description }}">
 
-  <label for="place">Lugar:</label>
-  <input type="text" class="form-control" id="place" name="place" value="{{ request.GET.place }}">
+  
+  <div class="row">
+    <div class="col-md-4">
+      <label for="min_price">Precio Minimo:</label>
+      <input type="number" class="form-control" id="min_price" name="min_price" value="{{ request.GET.min_price }}">
+    </div>
+    <div class="col-md-4">
+      <label for="max_price">Precio Maximo:</label>
+      <input type="number" class="form-control" id="max_price" name="max_price" value="{{ request.GET.max_price }}">
+    </div>
+  </div>
 
-  <label for="min_price">Precio Minimo:</label>
-  <input type="number" class="form-control" id="min_price" name="min_price" value="{{ request.GET.min_price }}">
-
-  <label for="max_price">Precio Maximo:</label>
-  <input type="number" class="form-control" id="max_price" name="max_price" value="{{ request.GET.max_price }}">
-
-  <label for="min_capacity">Aforo Minimo:</label>
-  <input type="number" class="form-control" id="min_capacity" name="min_capacity" value="{{ request.GET.min_capacity }}">
-
-  <label for="max_capacity">Aforo Maximo:</label>
-  <input type="number" class="form-control" id="max_capacity" name="max_capacity" value="{{ request.GET.max_capacity }}">
+  <div class="row">
+    <div class="col-md-4">
+      <label for="min_capacity">Aforo Minimo:</label>
+      <input type="number" class="form-control" id="min_capacity" name="min_capacity" value="{{ request.GET.min_capacity }}">
+    </div>
+    <div class="col-md-4">
+      <label for="max_capacity">Aforo Maximo:</label>
+      <input type="number" class="form-control" id="max_capacity" name="max_capacity" value="{{ request.GET.max_capacity }}">
+    </div>
+  </div>
 
   <label for="start_date">Fecha de inicio:</label>
   <input type="datetime-local" class="form-control" id="start_date" name="start_date" value="{{ request.GET.start_date|default_if_none:'' }}">
@@ -87,7 +104,9 @@
     {% endfor %}
   </select>
 
-  <button type="submit" class="btn btn-primary">Filtrar</button>
+  <div class="row justify-content-center align-items-center h-50 mt-4">
+    <button type="submit" class="btn btn-primary">Filtrar</button>
+  </div>
 </form>
 </div>
 
@@ -113,14 +132,11 @@
           {% endif %}</h5>
       <p><strong>Clientes apuntados:</strong>
               {% if a.clients.all %}
-              {% for client in a.clients.all %}
-              {{ client.user.first_name}} {{ client.user.last_name }}
-              {% if not forloop.last %}, {% endif %}
-              {% endfor %}
+                {{a.clients.all.count}}
               {% else %}
-              No hay clientes para este anuncio.
+                No hay clientes para este anuncio.
               {% endif %}</p>
-      <p class="mb-3">Hay hueco para {{ a.capacity }} personas más</p>
+      <p class="mb-3">Hay hueco para {{ a.capacity }} personas en total</p>
       <p class="small mb-0"><i class="far fa-star fa-lg"></i>
         {{ a.description }}
       </p>
@@ -129,7 +145,7 @@
       <hr class="my-2">
 
       <div class="dropdown">
-        <a class="btn btn-info" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+        <a class="btn btn-info" href="#" role="button" id="details" data-bs-toggle="button" aria-expanded="false">
           Ver anuncio
         </a>
 
