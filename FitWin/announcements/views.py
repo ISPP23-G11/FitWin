@@ -23,6 +23,7 @@ def validate_dates(start_date, finish_date):
 
 def validate_capacity(capacity):
     val = False
+    capacity = int(capacity)
     if capacity <= 0:
         val = True
     return val
@@ -47,25 +48,24 @@ def create_announcement(request):
         day = request.POST.get('day', '')
         start_date = request.POST.get('start_date', '')
         finish_date = request.POST.get('finish_date', '')
-
-        start_date = datetime.strptime(start_date, '%H:%M').time()
-        finish_date = datetime.strptime(finish_date, '%H:%M').time()
-        day = datetime.strptime(day, '%Y-%m-%d').date()
-
-        start_date = datetime.combine(day, start_date)
-        finish_date = datetime.combine(day, finish_date)
-
-        capacity = int(capacity)
-        price = float(price)
-
         errors = False
 
-        if validate_dates(start_date, finish_date):
-            errors = True
-            messages.error(request, "Las fechas son incorrectas")
         if validate_capacity(capacity):
             errors = True
             messages.error(request, "La capacidad no puede ser 0")
+        if title == '' or description == '' or place == '' or price == '' or capacity == '' or day == '' or start_date == '' or finish_date == '':
+            errors = True
+            messages.error(request, "Todos los datos son obligatorios")
+        if errors == False:
+            start_date = datetime.strptime(start_date, '%H:%M').time()
+            finish_date = datetime.strptime(finish_date, '%H:%M').time()
+            day = datetime.strptime(day, '%Y-%m-%d').date()
+
+            start_date = datetime.combine(day, start_date)
+            finish_date = datetime.combine(day, finish_date)
+            if validate_dates(start_date, finish_date):
+                errors = True
+                messages.error(request, "Las fechas son incorrectas")
 
         if errors == True:
             template = loader.get_template("form.html") 
@@ -73,6 +73,9 @@ def create_announcement(request):
             return HttpResponse(template.render(context, request))
 
         else:
+            capacity = int(capacity)
+            price = float(price)
+
             calendar = CalendarAPI(request.user)
             calendar.create_calendar()
             event_id = calendar.create_event(title,description,start_date.isoformat(),
@@ -93,7 +96,7 @@ def create_announcement(request):
             
             announcement.save()
             announcement.categories.set(categories)
-            return redirect('/')
+            return redirect('/trainers')
     elif request.method == 'GET':
         template = loader.get_template("form.html") 
 
@@ -107,37 +110,41 @@ def edit_announcement(request, announcement_id):
     if request.method == 'POST':
         title = request.POST.get('title', '')
         description = request.POST.get('description', '')
-        place = request.POST.get('place', 'No definido')
-        price = request.POST.get('price', '0.0')
+        place = request.POST.get('place', '')
+        price = request.POST.get('price', '')
         capacity = request.POST.get('capacity', '0')
         day = request.POST.get('day', '')
         start_date = request.POST.get('start_date', '')
         finish_date = request.POST.get('finish_date', '')
 
-        start_date = datetime.strptime(start_date, '%H:%M').time()
-        finish_date = datetime.strptime(finish_date, '%H:%M').time()
         
-        day = datetime.strptime(day, '%Y-%m-%d').date()
-
-        start_date = datetime.combine(day, start_date)
-        finish_date = datetime.combine(day, finish_date)
-
-        capacity = int(capacity)
-        price = float(price)
 
         errors = False
-
-        if validate_dates(start_date, finish_date):
-            errors = True
-            messages.error(request, "Las fechas son incorrectas")
         if validate_capacity(capacity):
             errors = True
             messages.error(request, "La capacidad no puede ser 0")
+        if title == '' or description == '' or place == '' or price == '' or capacity == '' or day == '' or start_date == '' or finish_date == '':
+            errors = True
+            messages.error(request, "Todos los datos son obligatorios")
+        if errors == False:
+            start_date = datetime.strptime(start_date, '%H:%M').time()
+            finish_date = datetime.strptime(finish_date, '%H:%M').time()
+            
+            day = datetime.strptime(day, '%Y-%m-%d').date()
+
+            start_date = datetime.combine(day, start_date)
+            finish_date = datetime.combine(day, finish_date)
+            if validate_dates(start_date, finish_date):
+                errors = True
+                messages.error(request, "Las fechas son incorrectas")
 
         if errors == True:
             return redirect("/announcements/edit/"+str(announcement.id))
 
         else:
+            capacity = int(capacity)
+            price = float(price)
+
             calendar = CalendarAPI(request.user)
             calendar.edit_event(announcement.google_calendar_event_id, title, description,
                                 start_date.isoformat(), finish_date.isoformat())
@@ -151,7 +158,7 @@ def edit_announcement(request, announcement_id):
             finish_date = make_aware(finish_date)
             announcement.finish_date = finish_date
             announcement.save()
-            return redirect('/')
+            return redirect('/trainers')
     elif request.method == 'GET':
         template = loader.get_template("form.html") 
         context = {'a':announcement}
@@ -245,7 +252,7 @@ def book_announcement(request, announcement_id):
     client = Client.objects.get(user=request.user)
     announcement = Announcement.objects.get(id=announcement_id)
 
-    if announcement.capacity > 0:
+    if announcement.capacity > 0 and client not in announcement.clients.all():
         announcement.clients.add(client.id)
         announcement.capacity = announcement.capacity - 1
         announcement.save()  # Guarda el modelo Announcement actualizado
@@ -255,10 +262,11 @@ def book_announcement(request, announcement_id):
 
         messages.success(request, "¡Reserva realizada con éxito!")
     else:
-        messages.error(request, "No hay suficiente capacidad para reservar esta clase")
 
-    return redirect('book_announcement', announcement_id=announcement.id)
+        messages.error(request, "No hay suficiente capacidad para reservar esta clase o ya esta apuntado a esta clase")
+        
 
+    return redirect('/announcements/list_client_announcements', announcement_id=announcement.id)
 
 
 @login_required
@@ -275,7 +283,30 @@ def cancel_book_announcement(request, announcement_id):
         calendar.remove_attendee_from_event(announcement.google_calendar_event_id, client.user)
     else:
         messages.error(request, "Aún no estas inscrito a esta clase")
-    return redirect("/") 
+    return redirect("/announcements/list_client_announcements") 
+
+
+@login_required
+@user_passes_test(is_client)
+def list_client_announcements(request):
+    client_announcements = Announcement.objects.filter(clients__user=request.user)
+    
+    paginator = Paginator(client_announcements,3)
+
+    page = request.GET.get('page')
+    try:
+        client_announcements = paginator.page(page)
+    except PageNotAnInteger:
+        page = 1  # establecer el valor predeterminado de la página en 1
+        client_announcements = paginator.page(page)
+    except EmptyPage:
+        page = paginator.num_pages  # establecer la página en la última página disponible
+        client_announcements = paginator.page(page)
+
+ 
+    return render(request, "list_client_announcements.html", {'client_announcements': client_announcements}) 
+
+
 
 @login_required
 @user_passes_test(is_client)
@@ -295,4 +326,26 @@ def list_announcements(request):
         announcements = paginator.page(page)
 
     return render(request, 'list_all_announcements.html', {'announcements': announcements})
+
+
+@login_required
+@user_passes_test(is_client)
+def show_his_announcements(request, trainer_id):
+    trainer = Trainer.objects.get(id = trainer_id)
+    announcements = Announcement.objects.filter(trainer=trainer)
+    client = Client.objects.get(user = request.user)
+
+    paginator = Paginator(announcements, 2)  # muestra 2 elementos por página
+
+    page = request.GET.get('page')
+    try:
+        announcements = paginator.page(page)
+    except PageNotAnInteger:
+        page = 1  # establecer el valor predeterminado de la página en 1
+        announcements = paginator.page(page)
+    except EmptyPage:
+        page = paginator.num_pages  # establecer la página en la última página disponible
+        announcements = paginator.page(page)
+
+    return render(request, 'list_announcements_trainers.html', {'announcements': announcements, 'trainer':trainer, 'client':client})
 

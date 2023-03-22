@@ -27,7 +27,7 @@
             {% else %}
                 No hay categorías para este anuncio.
             {% endif %}</h5>
-        <p><strong>Aforo máximo:</strong> {{ a.capacity }} personas</p>
+        <p><strong>Plazas restantes:</strong> {{ a.capacity }} personas</p>
 
         <p class="mb-3"><strong>Hay:</strong> {{ a.clients.count }} plazas ocupadas</p>
 
@@ -39,7 +39,7 @@
 
         <hr class="my-2">
         <div class="dropdown text-center">
-          <a class="btn btn-info" href="#" onclick="if(confirm('¿Estás seguro de que quieres reservar esta clase?')) { confirmBooking({{ a.id }}) }">Reservar clase</a>
+          <a class="btn btn-info" href="{% url 'book_announcement' a.id %}" onclick="if(confirm('¿Estás seguro de que quieres reservar esta clase?')) { confirmBooking({{ a.id }}) }">Reservar clase</a>
         </div>
         
         
