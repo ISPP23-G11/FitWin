@@ -67,7 +67,10 @@
                 <hr>
               <p class="card-text"><strong>Descripción:</strong> {{ trainer.bio }} </p>
                 {% if client %}
-                  <a href="/announcements/list-his/{{ trainer.id }}" class="btn btn-primary btn-lg btn-block col-12">Ir a sus clases</a>
+                <p>
+                  <a href="/announcements/list-his/{{ trainer.id }}" class="btn btn-primary btn-lg btn-block">Ir a sus clases</a>
+                  <a href="/chat/ms/{{ trainer.user.username}}" class="btn btn-outline-primary btn-lg btn-block">Chat</a>
+                </p>
                 {% endif %}
             </div>
           </div>

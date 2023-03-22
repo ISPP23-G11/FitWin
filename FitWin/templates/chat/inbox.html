@@ -4,7 +4,7 @@
 {% block content %}
 
 <h1>
-	Welcome {{user}}. 
+	Mensajes directos de {{user}}
 </h1>
 
 {% for inbox in inbox %}
@@ -36,18 +36,18 @@
 			{% with ultimo_mensaje=inbox.channelmessage_set.last %}
 
 				<p>
-					<strong>Message: </strong>{{ultimo_mensaje.text}}
+					<strong>Mensaje: </strong>{{ultimo_mensaje.text}}
 				</p>
 
 				<p>
-					<strong>User: </strong> {{ultimo_mensaje.user}}
+					<strong>Usuario: </strong> {{ultimo_mensaje.user}}
 				</p>
 
 			{% endwith %}
 		</div>	
 	{% else %}
 		<p>
-			No messages
+			No hay mensajes
 		</p>
 	{% endif %}
 
@@ -57,7 +57,7 @@
 {% empty %}
 
 <h2>
-	Inbox Vacio
+	No hay mensajes
 </h2>
 
 {% endfor %}
