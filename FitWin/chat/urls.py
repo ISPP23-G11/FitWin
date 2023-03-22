@@ -7,8 +7,8 @@ UUID_CHANNEL_REGEX= r'channel/(?P<pk>[a-f0-9]{8}-?[a-f0-9]{4}-?4[a-f0-9]{3}-?[89
 
 urlpatterns=[
 
-    re_path(UUID_CHANNEL_REGEX, ChannelDetailView.as_view()),
-    path("chat/<str:username>", private_messages),
+    re_path(UUID_CHANNEL_REGEX, ChannelDetailView.as_view(), name="uuid"),
+    path("chat/<str:username>", private_messages, name="private-messages"),
     path("ms/<str:username>", DetailMs.as_view(), name="detailms"),
 
     path("", Inbox.as_view(), name="inbox"),

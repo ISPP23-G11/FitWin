@@ -8,6 +8,8 @@
 </h1>
 
 {% for inbox in inbox %}
+
+{% if inbox.channelmessage_set.count != 0 %}
 <div class="div_inbox">
 
 	
@@ -22,7 +24,7 @@
 					{{second_user.user}}
 				</p>
 				<small>
-					({{inbox.channelmessage_set.count}}) Messages
+					({{inbox.channelmessage_set.count}}) Mensajes
 				</small>
 			</a>
 
@@ -54,12 +56,8 @@
 
 
 </div>
-{% empty %}
 
-<h2>
-	No hay mensajes
-</h2>
-
+{% endif %}
 {% endfor %}
 
 
