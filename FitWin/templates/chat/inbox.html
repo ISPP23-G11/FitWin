@@ -1,11 +1,49 @@
-{% load static %}
+{% if request.user.client %}
+
+	{% include "navbar_clients.html" %}
+
+{% else %}
+
+	{% include "navbar.html" %}
+
+{% endif %}
 
 
 {% block content %}
 
-<h1>
-	Mensajes directos de {{user}}
-</h1>
+<head>
+    <meta charset="UTF-8">
+    <meta content="IE=edge" http-equiv="X-UA-Compatible">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+   
+
+
+</head>
+
+<div class="container text-center">
+	<div class="row">
+		
+
+		<div class="col-12">
+
+			<br>
+			<h1>
+				Mensajes directos de {{user}}
+			</h1>
+			<br><br>
+		</div>
+		
+
+	</div>
+	
+
+	<div class="row">
+
+		
+
+
 
 {% for inbox in inbox %}
 
@@ -21,11 +59,12 @@
 
 			<a href="{% url 'detailms' second_user.user.username %}">
 				<p>
-					{{second_user.user}}
+					<button type="button" class="btn btn-info">{{second_user.user}}</button>
 				</p>
-				<small>
-					({{inbox.channelmessage_set.count}}) Mensajes
-				</small>
+
+				<h4>({{inbox.channelmessage_set.count}}) Mensajes</h4>
+					
+				
 			</a>
 
 		{% endif %}
@@ -59,7 +98,9 @@
 
 {% endif %}
 {% endfor %}
-
+		
+	</div>
+</div>
 
 <style>
 	
