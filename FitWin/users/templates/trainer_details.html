@@ -21,7 +21,15 @@
               <h4 class="card-title">Email: {{ trainer.user.email }}</h4>
               
               <hr>
-              <span class="badge rounded-pill bg-warning text-dark fs-4"><img alt="..."  src="../../../static/img/star_yellow.png" width="25" height="25"> {{ mean|floatformat:2 }} <img alt="..."  src="../../../static/img/star_yellow.png" width="25" height="25"></span>
+                {% if mean %}
+                  <span class="badge rounded-pill bg-warning text-dark fs-4">
+                    <img alt="..."  src="../../../static/img/star_yellow.png" width="25" height="25"> 
+                      {{ mean|floatformat:2 }} 
+                    <img alt="..."  src="../../../static/img/star_yellow.png" width="25" height="25">
+                  </span>
+                {% else %}
+                  <p>No hay valoraciones para este entrenador</p>
+                {% endif %}
               
               {% if client %}
                 <form action="/clients/rating/{{ trainer.id }}" method="post" class="mt-3">
