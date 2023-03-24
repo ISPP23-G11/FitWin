@@ -38,16 +38,16 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item">
-                        <a class="nav-link text-white h6" href="/trainers">Inicio</a>
-                    </li>
-                    <li class="nav-item active">
-                        <a class="nav-link text-white h6" href="/search">Buscar Anuncios <span class="sr-only"></span></a>
-                    </li>
-                    <li class="nav-item active">
-                        <a class="nav-link text-white h6" href="{% url 'list_own_all' %}">Mis anuncios<span class="sr-only"></span></a>
+                        <a class="nav-link text-white h6" href="/clients">Inicio</a>
                     </li>
                     <li class="nav-item active ">
-                        <a class="nav-link text-white h6" href="#">Mi plan</a>
+                        <a class="nav-link text-white h6" href="#">Búsqueda avanzada de clases</a>
+                    </li>
+                    <li class="nav-item active ">
+                        <a class="nav-link text-white h6" href="/announcements/list-all">Todos los anuncios</a>
+                    </li>
+                    <li class="nav-item active ">
+                        <a class="nav-link text-white h6" href="/announcements/list_client_announcements">Mis reservas</a>
                     </li>
                 </ul>
                 <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
@@ -56,7 +56,7 @@
                             <a class="nav-link text-white h6" href="#">Hola, {{ user.username }}</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-white h6" href="{% url 'edit-trainer' %}">Editar perfil</a>
+                            <a class="nav-link text-white h6" href="{% url 'edit-client' %}">Editar perfil</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link text-white h6" href="#">Mi perfil</a>
