@@ -197,8 +197,7 @@ def list_own_all(request):
 @user_passes_test(is_trainer)
 def list_max_capacity_announcements(request):
     trainer = Trainer.objects.get(user=request.user)
-    announcements = Announcement.objects.filter(trainer=trainer).annotate(client_count=Count('clients')).filter(capacity=F('client_count'))
-
+    announcements = Announcement.objects.filter(trainer=trainer)
     paginator = Paginator(announcements, 2)
 
     page = request.GET.get('page')
