@@ -1,11 +1,7 @@
-{% extends "navbar.html" %}
+{% extends "navbar_clients.html" %}
 
 {% block body %}
-<h1 class="display-4 text-center">Mis anuncios publicados</h1>
-
-<div class="d-flex justify-content-end mb-4">
-  <a href="{% url 'list_max_capacity_announ' %}" class="btn btn-primary btn-lg btn-gradient">Ver anuncios con aforo máximo</a>
-</div>
+<h1 class="display-4 text-center">Anuncios de {{ trainer.user.username }}</h1>
 
 <div class="row justify-content-center align-items-center h-50 mt-4">
     <div class="col col-xl-6">
@@ -47,38 +43,22 @@
         <p class="small mb-0"><i class="far fa-star fa-lg"></i>
           {{ a.description }}
         </p>
-
-
-        <hr class="my-2">
-
-        <div class="dropdown">
-          <a class="btn btn-info dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
-            Opciones
-          </a>
-        
-          <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuLink">
-            <li><a class="dropdown-item text-center" href="/announcements/edit/{{ a.id }}">Editar</a></li>
-            <li><a class="dropdown-item text-center" href="/announcements/add-categories/{{ a.id }}">Asignar Categorias</a></li>
-            <li><a class="dropdown-item text-center" href="/announcements/delete-announce/{{ a.id }}" onclick="return confirm('¿Estás seguro de que quieres borrar este anuncio?')">Borrar</a></li>
-
-          </ul>
-        </div>
-
+        {% if client in a.clients.all %}
+          <a class="btn btn-danger" href="/announcements/cancelBook/{{ a.id }}">Cancelar Reserva</a>
+        {% else %}
+          <a class="btn btn-primary" href="/announcements/book/{{ a.id }}">Reservar</a>
+        {% endif %}
       </div>
     </div>
-
-    
-    
-
     {% endfor %}
 
 </div>
    
 </div>
 
-    {% else %}
-      <p class="alert alert-danger">No se encontraron anuncios</p>
-    {% endif %}
+{% else %}
+    <p class="alert alert-danger">No se encontraron anuncios</p>
+{% endif %}
 
 
     
