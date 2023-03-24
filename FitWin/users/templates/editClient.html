@@ -41,9 +41,10 @@
                 <div class="row">
         
                     <div class="input-group mb-3 col-sm-12 col-lg-6">
-                        <span class="input-group-text">Fecha de nacimiento (YYYY-MM-DD)</span>
+                        <span class="input-group-text">Fecha de nacimiento</span>
         
-                        {{form.birthday}}
+                        <input type="date" class="form-control" name="{{ form.birthday.name }}" value="{{ form.birthday.value|date:"Y-m-d" }}" id="{{ form.birthday.id_for_label }}" {% if form.birthday.required %}required{% endif %}>
+
                     </div>
                 </div>
             
@@ -70,14 +71,18 @@
 
 
                 <div class="row mt-5 text-center">
+                    
+                    
+                    <div class="col col-sm-12 col-lg-6">
+                    <a href="/clients" class="btn btn-danger btn-lg btn-block">Cancelar</a>
+                    </div>
+                    
                     <div class="col col-lg-6 col-sm-12">
                         <button type="submit" class="btn btn-primary btn-lg btn-block">
                       Editar perfil
                         </button>
                     </div>
-                <div class="col col-sm-12 col-lg-6">
-                    <a href="/clients" class="btn btn-danger btn-lg btn-block">Cancelar</a>
-                </div>
+                
         
                 </div>
 
