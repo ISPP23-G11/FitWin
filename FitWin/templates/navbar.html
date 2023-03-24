@@ -56,7 +56,7 @@
                             <a class="nav-link text-white h6" href="{% url 'edit-trainer' %}">Editar perfil</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-white h6" href="#">Mi perfil</a>
+                            <a class="nav-link text-white h6" href="/trainers/{{ user.trainer.id }}">Mi perfil</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link text-white h6" href="/logout">Salir</a>
