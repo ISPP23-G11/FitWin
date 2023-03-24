@@ -45,9 +45,16 @@
                     </div>
         
                         <div class="input-group mb-3 col-sm-12 col-lg-6">
-                            <span class="input-group-text">Aforo</span>
-        
-                            <input required type="number" id="capacity" name="capacity" placeholder="1"  value="{{ a.capacity }}" class="form-control" placeholder="5" aria-label="Aforo">
+                            {% if a %}
+                                <span class="input-group-text">Huecos Libres</span>
+                            {% else %}
+                                <span class="input-group-text">Aforo</span>
+                            {% endif %}
+                            <input required type="number" id="capacity" name="capacity" value="{{ a.capacity }}" class="form-control" placeholder="5" aria-label="Aforo"
+                            {% if not a %}
+                                min="1"
+                            {% endif %}
+                            >
                         </div>
                 </div>
         

@@ -125,14 +125,9 @@ def edit_announcement(request, announcement_id):
         capacity = request.POST.get('capacity', '0')
         day = request.POST.get('day', '')
         start_date = request.POST.get('start_date', '')
-        finish_date = request.POST.get('finish_date', '')
-
-        
+        finish_date = request.POST.get('finish_date', '')        
 
         errors = False
-        if validate_capacity(capacity):
-            errors = True
-            messages.error(request, "La capacidad no puede ser 0")
         if validate_price(price):
             errors = True
             messages.error(request, "El precio no puede ser menor o igual que cero")
@@ -166,7 +161,7 @@ def edit_announcement(request, announcement_id):
             announcement.description = description
             announcement.place = place
             announcement.price = price
-            announcement.capacity = capacity - len(announcement.clients.all())
+            announcement.capacity = capacity
             announcement.start_date = make_aware(start_date)
             finish_date = make_aware(finish_date)
             announcement.finish_date = finish_date
