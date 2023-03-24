@@ -28,6 +28,13 @@ def validate_capacity(capacity):
         val = True
     return val
 
+def validate_price(price):
+    val = False
+    price = float(price)
+    if price <= 0.0:
+        val = True
+    return val
+
 def is_trainer(user):
     return Trainer.objects.filter(user = user).exists()
 
@@ -53,6 +60,9 @@ def create_announcement(request):
         if validate_capacity(capacity):
             errors = True
             messages.error(request, "La capacidad no puede ser 0")
+        if validate_price(price):
+            errors = True
+            messages.error(request, "El precio no puede ser menor o igual que cero")
         if title == '' or description == '' or place == '' or price == '' or capacity == '' or day == '' or start_date == '' or finish_date == '':
             errors = True
             messages.error(request, "Todos los datos son obligatorios")
@@ -123,6 +133,9 @@ def edit_announcement(request, announcement_id):
         if validate_capacity(capacity):
             errors = True
             messages.error(request, "La capacidad no puede ser 0")
+        if validate_price(price):
+            errors = True
+            messages.error(request, "El precio no puede ser menor o igual que cero")
         if title == '' or description == '' or place == '' or price == '' or capacity == '' or day == '' or start_date == '' or finish_date == '':
             errors = True
             messages.error(request, "Todos los datos son obligatorios")
