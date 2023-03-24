@@ -124,20 +124,14 @@
 
 {% for c in comments %}
 <div class="container">
-  <div class="row">
-    <div class="col col-xl-12 d-flex">
-        <div class="card mb-5" style="border-radius: 15px;">
-            <div class="row">
-              <span class="badge rounded-pill bg-light text-dark">
-                {% if c.client.picture %}
-                  <img width="32" height="32" class="card-img-botton" src="{{ c.client.picture.url }}" alt="Card image cap">
-                {% endif %}
-                  <a href="/clients/{{ c.client.id }}" style="outline: none;text-decoration: none;"><h4>{{ c.client.user.username }}</h4></a>
-              </span>
-                <p>{{ c.comment }}</p>
-            </div>
-        </div>
-    </div>
+  <div class="mx-auto card mb-5" style="border-radius: 15px;">
+    <span class="badge rounded-pill bg-light text-dark">
+      {% if c.client.picture %}
+        <img width="32" height="32" class="card-img-botton" src="{{ c.client.picture.url }}" alt="Card image cap">
+      {% endif %}
+        <a href="/clients/{{ c.client.id }}" style="outline: none;text-decoration: none;"><h4>{{ c.client.user.username }}</h4></a>
+    </span>
+      <p>{{ c.comment }}</p>
   </div>
 </div>
 {% endfor %}
