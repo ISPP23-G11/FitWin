@@ -1,4 +1,5 @@
 {% extends "navbar_clients.html" %}
+{% load social_share %}
 
 
 {% block body %}
@@ -36,14 +37,15 @@
           {{ a.description }}
         </p>
 
+        <div class="row my-2">
+          <span style="float:left;margin-left:10px;" class="nav-item">{% post_to_facebook object_or_url '<i class="fab fa-facebook fa-2x"></i>' %}</span>
+        </div>
 
         <hr class="my-2">
+
         <div class="dropdown text-center">
           <a class="btn btn-info" href="{% url 'book_announcement' a.id %}" onclick="if(confirm('¿Estás seguro de que quieres reservar esta clase?')) { confirmBooking({{ a.id }}) }">Reservar clase</a>
-        </div>
-        
-        
-      
+        </div>     
 
       </div>
     </div>
