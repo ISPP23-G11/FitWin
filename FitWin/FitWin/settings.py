@@ -53,6 +53,8 @@ INSTALLED_APPS = [
 
     'landingPage',
 
+    'django_social_share',
+
     # 3rd party authentication
     'allauth',
     'allauth.account',
