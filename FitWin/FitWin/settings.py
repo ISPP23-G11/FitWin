@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     'payment',
     'searching',
     'users',
+    'chat',
 
     'landingPage',
 
