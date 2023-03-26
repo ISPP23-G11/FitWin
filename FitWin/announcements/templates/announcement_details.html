@@ -1,0 +1,34 @@
+{% extends "navbar_clients.html" %}
+
+
+{% block body %}
+
+<h1 class="display-4 text-center">Detalles de la clase</h1>
+
+
+<div class="row justify-content-center align-items-center h-50 mt-4">
+    <div class="col col-xl-6">
+        <div class="card-body p-4">
+            <h3 class="mb-3"><b>{{ announcement.title }}</b></h3>
+            <h5 class="mb-3">{{ announcement.place }}</h5>
+            <h5 class="mb-3">{{ announcement.price|floatformat:2 }} €</h5>
+            <h5 class="mb-3">{{ announcement.start_date|date:"d-m-Y" }} | {{ announcement.start_date|date:"H:i" }} - {{ announcement.finish_date|date:"H:i" }}</h5>
+            <h5 class="mb-3">
+                {% if announcement.categories.all %}
+                    {% for category in announcement.categories.all %}
+                        <span class="badge text-bg-success">{{ category.name }}</span>
+                    {% endfor %}
+                {% else %}
+                    No hay categorías para este announcement.
+                {% endif %}</h5>
+            <p><strong>Plazas restantes:</strong> {{ announcement.capacity }} personas</p>
+            <p class="mb-3"><strong>Hay:</strong> {{ announcement.clients.count }} plazas ocupadas</p>
+            <p class="small mb-0"><i class="far fa-star fa-lg"></i> {{ announcement.description }}</p>
+        </div>
+    </div>
+</div>
+
+
+{% include "footer.html" %}
+
+{% endblock %}
