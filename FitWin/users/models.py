@@ -17,6 +17,7 @@ class Trainer(models.Model):
     date_created = models.DateField(auto_now_add=True)
     birthday=models.DateField(null=True, blank=True)
     bio = models.TextField(max_length=150, null=True, blank=True)
+    is_distinguished = models.BooleanField(default=False)
 
 
 

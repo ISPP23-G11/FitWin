@@ -237,3 +237,15 @@ def comment_trainer(request, trainer_id):
             comment_object.save()
         return redirect("/trainers/"+str(trainer_id))
 
+
+
+
+
+@login_required
+def distinguished_trainers(request):
+    distinguished_trainers = Trainer.objects.filter(is_distinguished=True)[:3]
+    context = {'distinguished_trainers': distinguished_trainers}
+    return render(request, 'main_clients.html', context)
+
+
+

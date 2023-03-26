@@ -239,115 +239,48 @@ figure img{width:300px;}
 </div>
 
 <div class="container">
-	<div class="container">
-	  <div class="row blog">
-		<div class="col-md-12">
-		  <div id="blogCarousel" class="carousel slide container-blog" data-ride="carousel">
-			<ol class="carousel-indicators">
-			  <li data-target="#blogCarousel" data-slide-to="0" class="active"></li>
-			  <li data-target="#blogCarousel" data-slide-to="1"></li>
-			  <li data-target="#blogCarousel" data-slide-to="2"></li>
-			</ol>
-			<!-- Carousel items -->
-			<div class="carousel-inner">
+  <div class="row blog">
+    <div class="col-md-12">
+      <div id="blogCarousel" class="carousel slide container-blog" data-ride="carousel">
+        <!-- Carousel items -->
+        <div class="carousel-inner">
+          {% for trainer in distinguished_trainers %}
+            <div class="carousel-item{% if forloop.first %} active{% endif %}">
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="item-box-blog">
+                    <div class="item-box-blog-image">
+                      <!--Date-->
+                      <div class="item-box-blog-date bg-blue-ui white"><span class="mon">Entrenador {{ trainer.user.uernmae }}</span></div>
+                      <!--Image-->
+                      <figure><img alt="" src="{{ trainer.photo.url }}"></figure>
+                    </div>
+                    <div class="item-box-blog-body">
+                      <!--Heading-->
+                      <div class="item-box-blog-heading">
+                        <a href="#" tabindex="0">
+                          <h5>{{ trainer.user.first_name }}</h5>
+                        </a>
+                      </div>
+                      <!--Data-->
+                      <!--Text-->
+                      <div class="item-box-blog-text">
+                        <p>{{ trainer.bio }}</p>
+                      </div>
+                      <div class="mt"><a href="#" tabindex="0" class="btn bg-blue-ui white read">ver sus clases</a></div>
+                      <!--Read More Button-->
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
-			  <div class="carousel-item active">
-				<div class="row">
-				  <div class="col-md-12" >
-					<div class="item-box-blog">
-					  <div class="item-box-blog-image">
-						<!--Date-->
-						<div class="item-box-blog-date bg-blue-ui white"> <span class="mon">Entrenador 2</span> </div>
-						<!--Image-->
-						
-						<figure> <img alt="" src="../../../static/img/team-1.jpg""> </figure>
-					  </div>
-					  <div class="item-box-blog-body">
-						<!--Heading-->
-						<div class="item-box-blog-heading">
-						  <a href="#" tabindex="0">
-							<h5>Alberto</h5>
-						  </a>
-						</div>
-						<!--Data-->
-						<!--Text-->
-						<div class="item-box-blog-text">
-						  <p>Lorem ipsum dolor sit amet, adipiscing. Lorem ipsum dolor sit amet, consectetuer adipiscing. Lorem ipsum dolor sit amet, adipiscing. Lorem ipsum dolor sit amet, adipiscing. Lorem ipsum dolor sit amet, consectetuer adipiscing. Lorem ipsum dolor.</p>
-						</div>
-						<div class="mt"> <a href="#" tabindex="0" class="btn bg-blue-ui white read">ver sus clases</a> </div>
-						<!--Read More Button-->
-					  </div>
-					</div>
-				  </div>
-				</div>
-			  </div>
-
-
-			  <div class="carousel-item">
-				<div class="row">
-				  <div class="col-md-12" >
-					<div class="item-box-blog">
-					  <div class="item-box-blog-image">
-						<!--Date-->
-						<div class="item-box-blog-date bg-blue-ui white"> <span class="mon">Entrenador 2</span> </div>
-						<!--Image-->
-						<figure> <img alt="" src="../../../static/img/team-2.jpg"> </figure>
-					  </div>
-					  <div class="item-box-blog-body">
-						<!--Heading-->
-						<div class="item-box-blog-heading">
-						  <a href="#" tabindex="0">
-							<h5>Fernando</h5>
-						  </a>
-						</div>
-						<!--Text-->
-						<div class="item-box-blog-text">
-						  <p>Lorem ipsum dolor sit amet, adipiscing. Lorem ipsum dolor sit amet, consectetuer adipiscing. Lorem ipsum dolor sit amet, adipiscing. Lorem ipsum dolor sit amet, adipiscing. Lorem ipsum dolor sit amet, consectetuer adipiscing. Lorem ipsum dolor.</p>
-						</div>
-						<div class="mt"> <a href="#" tabindex="0" class="btn bg-blue-ui white read">ver sus clases</a> </div>
-						<!--Read More Button-->
-					  </div>
-					</div>
-				  </div>
-				</div>
-			  </div>
-
-
-
-			  <div class="carousel-item">
-				<div class="row">
-				  <div class="col-md-12" >
-					<div class="item-box-blog">
-					  <div class="item-box-blog-image">
-						<!--Date-->
-						<div class="item-box-blog-date bg-blue-ui white"> <span class="mon">Entrenador 3</span> </div>
-						<!--Image-->
-						<figure> <img alt="" src="../../../static/img/team-3.jpg""> </figure>
-					  </div>
-					  <div class="item-box-blog-body">
-						<!--Heading-->
-						<div class="item-box-blog-heading">
-						  <a href="#" tabindex="0">
-							<h5>Alicia</h5>
-						  </a>
-						</div>
-						<!--Text-->
-						<div class="item-box-blog-text">
-						  <p>Lorem ipsum dolor sit amet, adipiscing. Lorem ipsum dolor sit amet, consectetuer adipiscing. Lorem ipsum dolor sit amet, adipiscing. Lorem ipsum dolor sit amet, adipiscing. Lorem ipsum dolor sit amet, consectetuer adipiscing. Lorem ipsum dolor.</p>
-						</div>
-						<div class="mt"> <a href="#" tabindex="0" class="btn bg-blue-ui white read">ver sus clases</a> </div>
-						<!--Read More Button-->
-					  </div>
-					</div>
-				  </div>
-				</div>
-			  </div>
-
-			</div>
-		  </div>
-		</div>
-	  </div>
-	</div>
 
 
 	
