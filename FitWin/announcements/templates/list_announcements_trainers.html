@@ -47,7 +47,8 @@
 
         <div class="row my-4">
           {% url 'announcement_details' announcement_id=a.id as announcement_details_id %}
-          <span style="float:left;margin-left:10px;" class="nav-item">{% post_to_facebook announcement_details_id '<i class="fab fa-facebook fa-2x"></i>' %}</span>
+          <span style="width: fit-content;" >{% post_to_facebook announcement_details_id '<i class="fab fa-facebook fa-2x"></i>' %}</span>
+          <span style="width: fit-content;" >{% post_to_twitter "Nueva clase: {{a.title}}. {{a.description}}. El día {{a.start_date|date:'d-m-Y'}} de {{ a.start_date|date:'H:i' }} hasta {{ a.finish_date|date:'H:i' }}. Echa un vistazo!" object_or_url "<i class='fab fa-twitter fa-2x' ></i>" %}</span>
         </div>
 
         {% if client in a.clients.all %}
