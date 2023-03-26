@@ -1,4 +1,5 @@
 {% extends "navbar.html" %}
+{% load social_share %}
 
 {% block body %}
 <h1 class="display-4 text-center">Mis anuncios publicados</h1>
@@ -48,6 +49,10 @@
           {{ a.description }}
         </p>
 
+        <div class="row my-4">
+          {% url 'announcement_details' announcement_id=a.id as announcement_details_id %}
+          <span style="float:left;margin-left:10px;" class="nav-item">{% post_to_facebook announcement_details_id '<i class="fab fa-facebook fa-2x"></i>' %}</span>
+        </div>
 
         <hr class="my-2">
 

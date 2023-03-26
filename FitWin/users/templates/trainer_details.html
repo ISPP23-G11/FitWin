@@ -1,6 +1,5 @@
 {% extends template %}
-
-
+{% load social_share %}
 
 {% block body %}
 {% if trainer %}
@@ -72,6 +71,12 @@
                   <a href="/chat/ms/{{ trainer.user.username}}" class="btn btn-outline-primary btn-lg btn-block">Chat</a>
                 </p>
                 {% endif %}
+                
+                <div class="row my-4">
+                  {% url 'trainer_details' trainer_id=trainer.id as trainer_details_id %}
+                  <span style="float:left;margin-left:10px;" class="nav-item">{% post_to_facebook trainer_details_id '<i class="fab fa-facebook fa-2x"></i>' %}</span>
+                </div>
+
             </div>
           </div>
       </div>
