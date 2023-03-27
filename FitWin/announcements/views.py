@@ -356,3 +356,16 @@ def show_his_announcements(request, trainer_id):
 
     return render(request, 'list_announcements_trainers.html', {'announcements': announcements, 'trainer':trainer, 'client':client})
 
+@login_required
+def handler_announcement_details(request, announcement_id):
+    context = {}
+    announcement = Announcement.objects.filter(id=announcement_id).first()
+    if not announcement:
+        messages.error(request, "El anuncio no existe.")
+        return redirect('announcement_list')
+    context['announcement'] = announcement
+    return render(request, 'announcement_details.html', context)
+
+
+
+

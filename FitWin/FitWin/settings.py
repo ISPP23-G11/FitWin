@@ -50,8 +50,11 @@ INSTALLED_APPS = [
     'payment',
     'searching',
     'users',
+    'chat',
 
     'landingPage',
+
+    'django_social_share',
 
     # 3rd party authentication
     'allauth',

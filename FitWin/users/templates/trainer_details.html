@@ -1,6 +1,5 @@
 {% extends template %}
-
-
+{% load social_share %}
 
 {% block body %}
 {% if trainer %}
@@ -75,8 +74,19 @@
                 <hr>
               <p class="card-text"><strong>Biografía:</strong> {{ trainer.bio }} </p>
                 {% if client %}
-                  <a href="/announcements/list-his/{{ trainer.id }}" class="btn btn-primary btn-lg btn-block col-12">Ir a sus clases</a>
+                <p>
+                  <a href="/announcements/list-his/{{ trainer.id }}" class="btn btn-primary btn-lg btn-block">Ir a sus clases</a>
+                  <a href="/chat/ms/{{ trainer.user.username}}" class="btn btn-outline-primary btn-lg btn-block">Chat</a>
+                </p>
                 {% endif %}
+                
+                <div class="row my-4">
+                  {% url 'trainer_details' trainer_id=trainer.id as trainer_details_id %}
+                  <span style="width: fit-content;" >{% post_to_facebook trainer_details_id '<i class="fab fa-facebook fa-2x"></i>' %}</span>
+                  <span style="width: fit-content;" >{% post_to_whatsapp announcement_details_id "<i class='fab fa-whatsapp fa-2x'></i>" %}</span>
+                <span style="width: fit-content;" >{% post_to_twitter "Nueva clase: {{a.title}}. {{a.description}}. El día {{a.start_date|date:'d-m-Y'}} de {{ a.start_date|date:'H:i' }} hasta {{ a.finish_date|date:'H:i' }}. Echa un vistazo!" announcement_details_id "<i class='fab fa-twitter fa-2x' ></i>" %}</span>
+                </div>
+
             </div>
           </div>
       </div>
