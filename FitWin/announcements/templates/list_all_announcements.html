@@ -38,9 +38,15 @@
 
 
         <hr class="my-2">
-        <div class="dropdown text-center">
-          <a class="btn btn-info" href="{% url 'book_announcement' a.id %}" onclick="if(confirm('¿Estás seguro de que quieres reservar esta clase?')) { confirmBooking({{ a.id }}) }">Reservar clase</a>
-        </div>
+        {% if not user.client in a.clients.all %}
+          <div class="dropdown text-center">
+            <a class="btn btn-info" href="{% url 'book_announcement' a.id %}" onclick="if(confirm('¿Estás seguro de que quieres reservar esta clase?')) { confirmBooking({{ a.id }}) }">Reservar clase</a>
+          </div>
+        {% else %}
+          <div class="dropdown text-center">
+            <a class="btn btn-danger" href="/announcements/cancelBook/{{ a.id }}">Cancelar Reserva</a>
+          </div>
+        {% endif %}
         
         
       
