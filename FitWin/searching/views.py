@@ -1,7 +1,14 @@
 from django.shortcuts import render
 from django.utils.dateparse import parse_datetime
 from announcements.models import Announcement, Category
+from users.models import Client
+from django.contrib.auth.decorators import login_required, user_passes_test
 
+def is_client(user):
+    return Client.objects.filter(user = user).exists()
+
+@login_required
+@user_passes_test(is_client)
 def search_announcements(request):
     # Obtener los datos del formulario
     category_diff = request.GET.get('category_difficulty')
