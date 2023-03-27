@@ -5,6 +5,7 @@ gunicorn==20.1.0
 psycopg2==2.9.5
 Pillow==9.4.0
 django-allauth==0.52.0
+django-social-share==2.3.0
 
 # Google
 google-auth==2.16.2

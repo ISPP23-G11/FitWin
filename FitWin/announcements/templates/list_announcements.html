@@ -1,10 +1,20 @@
 {% extends "navbar.html" %}
+{% load social_share %}
 
 {% block body %}
-<h1 class="display-4 text-center">Mis anuncios publicados</h1>
 
-<div class="d-flex justify-content-end mb-4">
-  <a href="{% url 'list_max_capacity_announ' %}" class="btn btn-primary btn-lg btn-gradient">Ver anuncios con aforo máximo</a>
+<div class="row text-center">
+
+  <div class="col-12">
+      <h1 class="display-4 text-center">Mis anuncios publicados</h1>
+      <br>
+
+      <a href="{% url 'list_max_capacity_announ' %}" class="btn btn-success btn-lg">Ver anuncios con aforo máximo</a>
+      
+  </div>
+
+
+
 </div>
 
 <div class="row justify-content-center align-items-center h-50 mt-4">
@@ -22,7 +32,7 @@
         <h5 class="mb-3">
             {% if a.categories.all %}
                 {% for category in a.categories.all %}
-                    <span class="badge text-bg-success">{{ category.name }}</span>
+                    <span class="badge text-bg-success">{{category.types}}: {{ category.name }}</span>
                 {% endfor %}
             {% else %}
                 No hay categorías para este anuncio.
@@ -48,6 +58,12 @@
           {{ a.description }}
         </p>
 
+        <div class="row my-4">
+          {% url 'announcement_details' announcement_id=a.id as announcement_details_id %}
+          <span style="width: fit-content;" >{% post_to_facebook announcement_details_id '<i class="fab fa-facebook fa-2x"></i>' %}</span>
+          <span style="width: fit-content;" >{% post_to_whatsapp announcement_details_id "<i class='fab fa-whatsapp fa-2x'></i>" %}</span>
+          <span style="width: fit-content;" >{% post_to_twitter "Nueva clase: {{a.title}}. {{a.description}}. El día {{a.start_date|date:'d-m-Y'}} de {{ a.start_date|date:'H:i' }} hasta {{ a.finish_date|date:'H:i' }}. Echa un vistazo!" announcement_details_id "<i class='fab fa-twitter fa-2x' ></i>" %}</span>
+        </div>
 
         <hr class="my-2">
 

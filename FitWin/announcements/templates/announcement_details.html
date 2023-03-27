@@ -1,0 +1,52 @@
+{% extends "navbar_clients.html" %}
+{% load social_share %}
+
+{% block body %}
+
+<h1 class="display-4 text-center">Detalles de la clase</h1>
+
+
+<div class="row justify-content-center align-items-center h-50 mt-4">
+    <div class="col col-xl-6">
+        <div class="card-body p-4">
+            <h3 class="mb-3"><b>{{ announcement.title }}</b></h3>
+            <h5 class="mb-3">{{ announcement.place }}</h5>
+            <h5 class="mb-3">{{ announcement.price|floatformat:2 }} €</h5>
+            <h5 class="mb-3">{{ announcement.start_date|date:"d-m-Y" }} | {{ announcement.start_date|date:"H:i" }} - {{ announcement.finish_date|date:"H:i" }}</h5>
+            <h5 class="mb-3">
+                {% if announcement.categories.all %}
+                    {% for category in announcement.categories.all %}
+                        <span class="badge text-bg-success">{{ category.name }}</span>
+                    {% endfor %}
+                {% else %}
+                    No hay categorías para este announcement.
+                {% endif %}</h5>
+            <p><strong>Plazas restantes:</strong> {{ announcement.capacity }} personas</p>
+            <p class="mb-3"><strong>Hay:</strong> {{ announcement.clients.count }} plazas ocupadas</p>
+            <p class="small mb-0"><i class="far fa-star fa-lg"></i> {{ announcement.description }}</p>
+            
+            <div class="row my-4">
+                {% url 'announcement_details' announcement_id=a.id as announcement_details_id %}
+                <span style="width: fit-content;" >{% post_to_facebook announcement_details_id '<i class="fab fa-facebook fa-2x"></i>' %}</span>
+                <span style="width: fit-content;" >{% post_to_whatsapp announcement_details_id "<i class='fab fa-whatsapp fa-2x'></i>" %}</span>
+                <span style="width: fit-content;" >{% post_to_twitter "Nueva clase: {{a.title}}. {{a.description}}. El día {{a.start_date|date:'d-m-Y'}} de {{ a.start_date|date:'H:i' }} hasta {{ a.finish_date|date:'H:i' }}. Echa un vistazo!" announcement_details_id "<i class='fab fa-twitter fa-2x' ></i>" %}</span>
+              </div>
+              {% if not user.client in announcement.clients.all %}
+              <div class="dropdown text-center">
+                <a class="btn btn-info" href="{% url 'book_announcement' announcement.id %}" onclick="if(confirm('¿Estás seguro de que quieres reservar esta clase?')) { confirmBooking({{ announcement.id }}) }">Reservar clase</a>
+              </div>
+            {% else %}
+              <div class="dropdown text-center">
+                <a class="btn btn-danger" href="/announcements/cancelBook/{{ announcement.id }}">Cancelar Reserva</a>
+              </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+
+
+
+{% include "footer.html" %}
+
+{% endblock %}
