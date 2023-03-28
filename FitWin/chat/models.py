@@ -3,7 +3,7 @@ import uuid
 from django.conf import settings
 from django.db.models import Count
 from django.apps import apps
-from django.contrib.auth.models import User
+from users.models import User
 
 # Create your models here.
 

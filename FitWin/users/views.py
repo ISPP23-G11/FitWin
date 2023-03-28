@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required, user_passes_test
-from .models import Trainer, Client, Rating, Comment
+from .models import User, Rating, Comment, is_client, is_trainer
 from django.template import loader
 from django.shortcuts import HttpResponse, redirect
 from django.contrib import messages
@@ -8,17 +8,11 @@ from .forms import EditProfileForm, UserUpdateForm
 from datetime import datetime
 
 
-def is_trainer(user):
-    return Trainer.objects.filter(user = user).exists()
-
-def is_client(user):
-    return Client.objects.filter(user = user).exists()
-
 @login_required
 @user_passes_test(is_trainer)
 def handler_trainers(request):
     user = request.user
-    trainer = Trainer.objects.filter(user = user)
+    trainer = User.objects.filter(user = user)
     if trainer:
         context = {}
         template = loader.get_template("main_trainers.html") 
@@ -29,7 +23,7 @@ def handler_trainers(request):
 @user_passes_test(is_client)
 def handler_clients(request):
     user = request.user
-    client = Client.objects.filter(user = user)
+    client = User.objects.filter(user = user)
     if client:
         context = {}
         template = loader.get_template("main_clients.html") 
@@ -39,7 +33,7 @@ def handler_clients(request):
 @login_required
 def EditTrainer(request):
     user = request.user.id
-    trainer = Trainer.objects.get(user__id=user)
+    trainer = User.objects.get(user__id=user)
 
     if request.method == 'POST':
         birthday = request.POST.get("birthday", "")
@@ -63,11 +57,9 @@ def EditTrainer(request):
             trainer.save()
             u_form.save()
 
-            
             return redirect('/trainers')
         
         else:
-
             messages.error(request, 'El perfil no se ha podido editar')
 
     else:
@@ -79,14 +71,13 @@ def EditTrainer(request):
         'u_form': u_form,
         
     }
-
     return render(request, 'editTrainer.html', context)
 
 
 @login_required
 def EditClient(request):
     user = request.user.id
-    client = Client.objects.get(user__id=user)
+    client = User.objects.get(user__id=user)
 
     if request.method == 'POST':
 
@@ -101,7 +92,6 @@ def EditClient(request):
         if birthday >= datetime.now():
             errors=True
             messages.error(request, 'La fecha de cumpleaños tiene que ser anterior a hoy')
-
 
         if form.is_valid() and u_form.is_valid() and not errors:
 
@@ -125,17 +115,17 @@ def EditClient(request):
         'u_form': u_form,
         
     }
-
     return render(request, 'editClient.html', context)
 
 @login_required
 def handler_trainer_details(request, trainer_id):
     context = {}
-    trainer = Trainer.objects.filter(id = trainer_id)
-    user = Client.objects.filter(user = request.user)
+    trainer = User.objects.filter(id = trainer_id)
+    user = User.objects.filter(user = request.user)
     context["template"] = "navbar.html"
     if trainer:
         trainer = trainer.get()
+        context['trainer'] = trainer
         if user:
             user = user.get()
             context["client"] = True
@@ -160,7 +150,6 @@ def handler_trainer_details(request, trainer_id):
 
         else:
             mean = "No hay calificaciones para este entrenador"
-        context['trainer'] = trainer
     else:
         messages.error(request, "Entrenador no encontrado")
     
@@ -171,8 +160,8 @@ def handler_trainer_details(request, trainer_id):
 @login_required
 def handler_client_details(request, client_id):
     context = {}
-    client = Client.objects.filter(id = client_id)
-    user = Client.objects.filter(user = request.user)
+    client = User.objects.filter(id = client_id)
+    user = User.objects.filter(user = request.user)
     context["template"] = "navbar.html"
     if user:
         context["template"] = "navbar_clients.html"
@@ -189,8 +178,8 @@ def handler_client_details(request, client_id):
 @user_passes_test(is_client)
 def rating_trainer(request, trainer_id):
     if request.method == 'POST':
-        client = Client.objects.filter(user = request.user)
-        trainer = Trainer.objects.filter(id = trainer_id)
+        client = User.objects.filter(user = request.user)
+        trainer = User.objects.filter(id = trainer_id)
         rating = request.POST.get('rating', '0')
 
         if not client or not trainer:
@@ -216,8 +205,8 @@ def rating_trainer(request, trainer_id):
 @user_passes_test(is_client)
 def comment_trainer(request, trainer_id):
     if request.method == 'POST':
-        client = Client.objects.filter(user = request.user)
-        trainer = Trainer.objects.filter(id = trainer_id)
+        client = User.objects.filter(user = request.user)
+        trainer = User.objects.filter(id = trainer_id)
         comment = request.POST.get('comment', '')
 
         if not client or not trainer:

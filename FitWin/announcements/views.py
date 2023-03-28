@@ -1,13 +1,12 @@
 from django.shortcuts import render, get_object_or_404
 from django.contrib import messages
 from .models import *
-from users.models import Trainer, Client
+from users.models import User, is_client, is_trainer
 from django.template import loader
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.shortcuts import HttpResponse, redirect
 from datetime import datetime, timedelta
 from django.contrib.auth import login as login_django
-from django.contrib.auth.models import User
 from django.utils.timezone import make_aware
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.db.models import F, Count
@@ -28,12 +27,6 @@ def validate_capacity(capacity):
         val = True
     return val
 
-def is_trainer(user):
-    return Trainer.objects.filter(user = user).exists()
-
-def is_client(user):
-    return Client.objects.filter(user = user).exists()
-
 @login_required
 @user_passes_test(is_trainer)
 def create_announcement(request):
@@ -44,7 +37,7 @@ def create_announcement(request):
         price = request.POST.get('price', '0.0')
         capacity = request.POST.get('capacity', '0')
         user = request.user
-        trainer = Trainer.objects.get(user = user)
+        trainer = User.objects.get(user = user)
         day = request.POST.get('day', '')
         start_date = request.POST.get('start_date', '')
         finish_date = request.POST.get('finish_date', '')
@@ -167,7 +160,7 @@ def edit_announcement(request, announcement_id):
 @login_required
 @user_passes_test(is_trainer)
 def list_own_all(request):
-    trainer = Trainer.objects.get(user=request.user)
+    trainer = User.objects.get(id=request.user.id)
     announcements = Announcement.objects.filter(trainer=trainer)
 
     paginator = Paginator(announcements, 2)  # muestra 2 elementos por página
@@ -188,7 +181,7 @@ def list_own_all(request):
 @login_required
 @user_passes_test(is_trainer)
 def list_max_capacity_announcements(request):
-    trainer = Trainer.objects.get(user=request.user)
+    trainer = User.objects.get(id=request.user.id)
     announcements = Announcement.objects.filter(trainer=trainer).annotate(client_count=Count('clients')).filter(capacity=F('client_count'))
 
     paginator = Paginator(announcements, 2)
@@ -249,7 +242,7 @@ def delete_categories(request, announcement_id, category_id):
 @login_required
 @user_passes_test(is_client)
 def book_announcement(request, announcement_id):
-    client = Client.objects.get(user=request.user)
+    client = User.objects.get(id=request.user.id)
     announcement = Announcement.objects.get(id=announcement_id)
 
     if announcement.capacity > 0 and client not in announcement.clients.all():
@@ -272,7 +265,7 @@ def book_announcement(request, announcement_id):
 @login_required
 @user_passes_test(is_client)
 def cancel_book_announcement(request, announcement_id):
-    client = Client.objects.get(user = request.user)
+    client = User.objects.get(user = request.user)
     announcement = Announcement.objects.get(id = announcement_id)
     if client in announcement.clients.all():
         announcement.clients.remove(client.id)
@@ -289,7 +282,7 @@ def cancel_book_announcement(request, announcement_id):
 @login_required
 @user_passes_test(is_client)
 def list_client_announcements(request):
-    client_announcements = Announcement.objects.filter(clients__user=request.user)
+    client_announcements = Announcement.objects.filter(id=request.user.id)
     
     paginator = Paginator(client_announcements,3)
 
@@ -331,9 +324,9 @@ def list_announcements(request):
 @login_required
 @user_passes_test(is_client)
 def show_his_announcements(request, trainer_id):
-    trainer = Trainer.objects.get(id = trainer_id)
+    trainer = User.objects.get(id = trainer_id)
     announcements = Announcement.objects.filter(trainer=trainer)
-    client = Client.objects.get(user = request.user)
+    client = User.objects.get(user = request.user)
 
     paginator = Paginator(announcements, 2)  # muestra 2 elementos por página
 

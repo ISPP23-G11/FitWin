@@ -1,6 +1,5 @@
 from django import forms
-from .models import Trainer, Client
-from django.contrib.auth.models import User
+from .models import User
 
 class EditProfileForm(forms.ModelForm):
     
@@ -10,12 +9,8 @@ class EditProfileForm(forms.ModelForm):
     
 
     class Meta:
-        model = Trainer
+        model = User
         fields = ('picture','birthday','bio')
-        
-
-
-
 
 class UserUpdateForm(forms.ModelForm):
 

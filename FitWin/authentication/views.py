@@ -4,12 +4,11 @@ from django.contrib.auth import authenticate
 from django.contrib import messages
 from django.shortcuts import HttpResponse, redirect
 from django.template import loader
-from users.models import Trainer, Client 
+from users.models import User
 from django.views.generic import View
 from .forms import SignUpForm
 from django.db.models.signals import post_save
 from django.dispatch import receiver
-from django.contrib.auth.models import User
 from datetime import datetime
 
 def login(request):
@@ -20,8 +19,8 @@ def login(request):
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login_django(request, user)
-            trainer = Trainer.objects.filter(user = user)
-            client = Client.objects.filter(user = user)
+            trainer = User.objects.filter(user = user)
+            client = User.objects.filter(user = user)
             if trainer:
                 return redirect('/trainers')
             elif client:
@@ -46,6 +45,7 @@ def trainer_register(request):
         picture = request.FILES["picture"]
         name = request.POST.get("name", "")
         last_name = request.POST.get("last_name", "")
+        roles = ["trainer"]
 
         old_user = User.objects.filter(username = username)
 
@@ -68,9 +68,10 @@ def trainer_register(request):
             messages.error(request, "La fecha de naciemiento es obligatoria")
 
         if not errors:
-            user = User.objects.create_user(username = username, password=password, email=email, first_name=name, last_name=last_name)
+            user = User.objects.create_user(username = username, password=password,
+                                            email=email, first_name=name, last_name=last_name, roles=roles)
             user.save()
-            trainer = Trainer(user = user, bio=bio, birthday=birthday)
+            trainer = User(user = user, bio=bio, birthday=birthday)
             trainer.picture.save(picture.name, picture)
             trainer.save()
             return redirect("/login")
@@ -92,7 +93,7 @@ def client_register(request):
         picture = request.FILES["picture"]
         name = request.POST.get("name", "")
         last_name = request.POST.get("last_name", "")
-
+        roles = ["client"]
 
         old_user = User.objects.filter(username = username)
 
@@ -115,9 +116,10 @@ def client_register(request):
             messages.error(request, "La fecha de naciemiento es obligatoria")
 
         if not errors:
-            user = User.objects.create_user(username = username, password=password, email=email, first_name=name, last_name=last_name)
+            user = User.objects.create_user(username = username, password=password,
+                                            email=email, first_name=name, last_name=last_name, roles = roles)
             user.save()
-            client = Client(user = user, bio=bio, birthday=birthday)
+            client = User(user = user, bio=bio, birthday=birthday)
             client.picture.save(picture.name, picture)
             client.save()
             return redirect("/login")
