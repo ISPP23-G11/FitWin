@@ -25,7 +25,7 @@
 
                     <div class="input-group mb-3 col-12">
                         <span class="input-group-text" id="basic-addon1">Nombre</span>
-                        {{u_form.first_name}}
+                        <input required class="form-control" type="text" name="{{u_form.first_name.name}}" maxlength="30" value="{{u_form.first_name.value}}">    
                     </div>
                 </div>
 
@@ -33,7 +33,7 @@
 
                     <div class="input-group mb-3 col-12">
                         <span class="input-group-text" id="basic-addon1">Apellidos</span>
-                        {{ u_form.last_name }}
+                        <input required class="form-control" type="text" name="{{ u_form.last_name.name }}" maxlength="150" value="{{ u_form.last_name.value }}">
                     
                     </div>
                 </div>
@@ -52,8 +52,7 @@
         
                     <div class="input-group col">
                         <span class="input-group-text">Biografía</span>
-                        {{ form.bio }}
-                      
+                        <input required class="form-control" type="text" name="{{ form.bio.name }}" maxlength="150" value="{{ form.bio.value }}"> 
                     </div>
                 </div>
                 
@@ -64,7 +63,6 @@
                     <div class="input-group col">
                         <span class="input-group-text">Foto de perfil</span>
                         {{form.picture}}
-          
                     </div>
                     
                 </div>
