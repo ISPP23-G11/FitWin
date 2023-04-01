@@ -10,6 +10,7 @@ from .forms import SignUpForm
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from datetime import datetime
+import re
 
 def login(request):
     if request.method == 'POST':
@@ -67,6 +68,11 @@ def trainer_register(request):
             errors = True
             messages.error(request, "La fecha de naciemiento es obligatoria")
 
+        email_val = re.fullmatch("([A-Za-z0-9]+[.-_])*[A-Za-z0-9]+@[A-Za-z0-9-]+(\.[A-Z|a-z]{2,})+", email)
+        if not email_val:
+            errors = True
+            messages.error(request, 'El email no sigue un formato valido. Por ejemplo: prueba@host.com')
+
         if not errors:
             user = User.objects.create_user(username = username, password=password,
                                             email=email, first_name=name, last_name=last_name, roles=roles)
@@ -114,6 +120,11 @@ def client_register(request):
         else:
             errors = True
             messages.error(request, "La fecha de naciemiento es obligatoria")
+
+        email_val = re.fullmatch("([A-Za-z0-9]+[.-_])*[A-Za-z0-9]+@[A-Za-z0-9-]+(\.[A-Z|a-z]{2,})+", email)
+        if not email_val:
+            errors = True
+            messages.error(request, 'El email no sigue un formato valido. Por ejemplo: prueba@host.com')
 
         if not errors:
             user = User.objects.create_user(username = username, password=password,

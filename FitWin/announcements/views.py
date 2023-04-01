@@ -27,6 +27,13 @@ def validate_capacity(capacity):
         val = True
     return val
 
+def validate_price(price):
+    val = False
+    price = float(price)
+    if price <= 0.0:
+        val = True
+    return val
+
 @login_required
 @user_passes_test(is_trainer)
 def create_announcement(request):
@@ -46,6 +53,9 @@ def create_announcement(request):
         if validate_capacity(capacity):
             errors = True
             messages.error(request, "La capacidad no puede ser 0")
+        if validate_price(price):
+            errors = True
+            messages.error(request, "El precio no puede ser menor o igual que cero")
         if title == '' or description == '' or place == '' or price == '' or capacity == '' or day == '' or start_date == '' or finish_date == '':
             errors = True
             messages.error(request, "Todos los datos son obligatorios")
@@ -108,14 +118,12 @@ def edit_announcement(request, announcement_id):
         capacity = request.POST.get('capacity', '0')
         day = request.POST.get('day', '')
         start_date = request.POST.get('start_date', '')
-        finish_date = request.POST.get('finish_date', '')
-
-        
+        finish_date = request.POST.get('finish_date', '')        
 
         errors = False
-        if validate_capacity(capacity):
+        if validate_price(price):
             errors = True
-            messages.error(request, "La capacidad no puede ser 0")
+            messages.error(request, "El precio no puede ser menor o igual que cero")
         if title == '' or description == '' or place == '' or price == '' or capacity == '' or day == '' or start_date == '' or finish_date == '':
             errors = True
             messages.error(request, "Todos los datos son obligatorios")
@@ -146,7 +154,7 @@ def edit_announcement(request, announcement_id):
             announcement.description = description
             announcement.place = place
             announcement.price = price
-            announcement.capacity = capacity - len(announcement.clients.all())
+            announcement.capacity = capacity
             announcement.start_date = make_aware(start_date)
             finish_date = make_aware(finish_date)
             announcement.finish_date = finish_date

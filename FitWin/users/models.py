@@ -1,6 +1,8 @@
 from django.db import models
 from django.contrib.postgres.fields import ArrayField
 
+import os
+
 from django.contrib.auth.models import AbstractUser
 from django.db.models.signals import post_save
 from django.dispatch import receiver
@@ -16,11 +18,14 @@ class User(AbstractUser):
     date_created = models.DateField(auto_now_add=True)
     birthday=models.DateField(null=True, blank=True)
     bio = models.TextField(max_length=15, null=True, blank=True)
+    is_premium = models.BooleanField(default=False)
+    date_premium = models.DateField(null=True, blank=True)
     roles = ArrayField(
         models.CharField(max_length=50),
         blank=True,
         null=True
     )
+
 
 class Rating(models.Model):
     rating = models.IntegerField(validators=[MinValueValidator(0), MaxValueValidator(5)])

@@ -98,7 +98,8 @@ def EditClient(request):
             client.picture = form.cleaned_data.get('picture')
             client.birthday = form.cleaned_data.get('birthday')
             client.bio = form.cleaned_data.get('bio')
-
+            
+          
             client.save()
             u_form.save()
             

@@ -30,6 +30,7 @@ class Announcement(models.Model):
     categories = models.ManyToManyField(Category, blank=True)
     start_date = models.DateTimeField(auto_now_add=False, verbose_name='Fecha de inicio')
     finish_date = models.DateTimeField(auto_now_add=False, verbose_name='Fecha de fin')
+    date_created = models.DateField(auto_now_add=True)
     invitation_sent = models.BooleanField(default=False)
     google_calendar_event_id = models.CharField(max_length=120, blank=True, null=True)
 

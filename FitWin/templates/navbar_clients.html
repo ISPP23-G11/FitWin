@@ -45,7 +45,7 @@
                         <a class="nav-link text-white h6" href="/clients">Inicio</a>
                     </li>
                     <li class="nav-item active ">
-                        <a class="nav-link text-white h6" href="#">Búsqueda avanzada de clases</a>
+                        <a class="nav-link text-white h6" href="/search">Búsqueda avanzada de clases</a>
                     </li>
                     <li class="nav-item active ">
                         <a class="nav-link text-white h6" href="/announcements/list-all">Todos los anuncios</a>
@@ -66,7 +66,7 @@
                             <a class="nav-link text-white h6" href="{% url 'edit-client' %}">Editar perfil</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-white h6" href="#">Mi perfil</a>
+                            <a class="nav-link text-white h6" href="/clients/{{ user.client.id }}">Mi perfil</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link text-white h6" href="/logout">Salir</a>

@@ -44,13 +44,21 @@
                     <span style="width: fit-content;" >{% post_to_twitter "Nueva clase: {{a.title}}. {{a.description}}. El día {{a.start_date|date:'d-m-Y'}} de {{ a.start_date|date:'H:i' }} hasta {{ a.finish_date|date:'H:i' }}. Echa un vistazo!" announcement_details_id "<i class='fab fa-twitter fa-2x' ></i>" %}</span>
             </div>
 
-            <hr class="my-2">
-
-            <div class="dropdown text-center">
-              <a class="btn btn-info" href="{% url 'book_announcement' a.id %}" onclick="if(confirm('¿Estás seguro de que quieres reservar esta clase?')) { confirmBooking({{ a.id }}) }">Reservar clase</a>
-            </div>
+        <hr class="my-2">
+        {% if not user.client in a.clients.all %}
+          <div class="dropdown text-center">
+            <a class="btn btn-info" href="{% url 'book_announcement' a.id %}" onclick="if(confirm('¿Estás seguro de que quieres reservar esta clase?')) { confirmBooking({{ a.id }}) }">Reservar clase</a>
           </div>
-        </div>
+        {% else %}
+          <div class="dropdown text-center">
+            <a class="btn btn-danger" href="/announcements/cancelBook/{{ a.id }}">Cancelar Reserva</a>
+          </div>
+        {% endif %}
+      </div>
+    </div>
+   
+    
+    
 
     {% endfor %}
   </div>   
