@@ -1,4 +1,4 @@
-{% extends template %}
+{% extends "navbar.html" %}
 {% load social_share %}
 
 {% block body %}
@@ -93,7 +93,8 @@
   </section>
 
 <hr>
-<h3 class="text-center mt-5">Comentarios</h3>
+<h3 class="text-center mt-5">Comentarios</h3>{% extends 'base.html' %}
+
 
 {% if client %}
 <section class="mb-5 text-center">

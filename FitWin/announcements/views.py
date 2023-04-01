@@ -308,9 +308,6 @@ def list_client_announcements(request):
     return render(request, "list_client_announcements.html", {'client_announcements': client_announcements}) 
 
 
-
-@login_required
-@user_passes_test(is_client)
 def list_announcements(request):
     announcements = Announcement.objects.all()
 

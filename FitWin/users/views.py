@@ -123,7 +123,6 @@ def handler_trainer_details(request, trainer_id):
     context = {}
     trainer = User.objects.filter(id = trainer_id)
     user = User.objects.filter(user = request.user)
-    context["template"] = "navbar.html"
     if trainer:
         trainer = trainer.get()
         context['trainer'] = trainer
@@ -163,9 +162,7 @@ def handler_client_details(request, client_id):
     context = {}
     client = User.objects.filter(id = client_id)
     user = User.objects.filter(user = request.user)
-    context["template"] = "navbar.html"
-    if user:
-        context["template"] = "navbar_clients.html"
+
     if client:
         client = client.get()
         context['client'] = client
