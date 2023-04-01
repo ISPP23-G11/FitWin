@@ -5,8 +5,8 @@ from django.template import loader
 from django.shortcuts import HttpResponse, redirect
 from django.contrib import messages
 from .forms import EditProfileForm, UserUpdateForm
-from datetime import datetime
-
+from datetime import datetime, timedelta
+from django.utils import timezone
 
 def is_trainer(user):
     return Trainer.objects.filter(user = user).exists()
@@ -238,3 +238,34 @@ def comment_trainer(request, trainer_id):
             comment_object.save()
         return redirect("/trainers/"+str(trainer_id))
 
+
+#Llamar a esta funcion en la creación de anuncios, en la edicion de 
+# anuncios y antes de poder suscribirme de nuevo para gestionar errores
+def is_premium(trainer):
+    premium_check = trainer.is_premium
+
+    if premium_check:
+        date_premium = trainer.date_premium
+        now = timezone.now().date()
+        month_ago = now - timedelta(days=30)
+        if date_premium <= month_ago:
+            downgrade_suscription(trainer)
+            return False
+        else:
+            print("El entrenador es PRTEMIUM")
+            return True
+    else:
+        print("El entrenador es NORMAL")
+        return False
+
+
+def downgrade_suscription(trainer):
+    trainer.is_premium = False
+    trainer.save()
+    print(trainer.user.username + " ahora es usuario NORMAL")
+
+def upgrade_suscription(trainer):
+    trainer.is_premium = True
+    trainer.date_premium = timezone.now().date()
+    trainer.save()
+    print(trainer.user.username + " ahora es usuario PREMIUM")
