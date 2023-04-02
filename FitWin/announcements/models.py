@@ -1,6 +1,7 @@
 from django.db import models
 from users.models import User
 
+
 class Category(models.Model):
     DIFFICULTY = 'difficulty'
     OBJECTIVES = 'objectives'

@@ -1,17 +1,18 @@
-from django.shortcuts import render, get_object_or_404
-from django.contrib import messages
-from .models import *
-from users.models import User, is_client, is_trainer
-from django.template import loader
-from django.contrib.auth.decorators import login_required, user_passes_test
-from django.shortcuts import HttpResponse, redirect
 from datetime import datetime, timedelta
-from django.contrib.auth import login as login_django
-from django.utils.timezone import make_aware
-from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from django.db.models import F, Count
+
+from django.contrib import messages
+from django.contrib.auth.decorators import login_required, user_passes_test
+from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
+from django.db.models import Count, F
 from django.http import HttpResponseRedirect
+from django.shortcuts import HttpResponse, redirect, render
+from django.template import loader
+from django.utils.timezone import make_aware
+from users.models import User, is_client, is_trainer
+
 from .gcalendar import CalendarAPI
+from .models import *
+
 
 def validate_dates(start_date, finish_date):
     now_date = (datetime.now()+ timedelta(hours=1))
@@ -71,7 +72,7 @@ def create_announcement(request):
                 messages.error(request, "Las fechas son incorrectas")
 
         if errors == True:
-            template = loader.get_template("form.html") 
+            template = loader.get_template("form.html")
             context = {}
             return HttpResponse(template.render(context, request))
 
@@ -101,7 +102,7 @@ def create_announcement(request):
             announcement.categories.set(categories)
             return redirect('/trainers')
     elif request.method == 'GET':
-        template = loader.get_template("form.html") 
+        template = loader.get_template("form.html")
 
         context = {}
         return HttpResponse(template.render(context, request))
@@ -161,7 +162,7 @@ def edit_announcement(request, announcement_id):
             announcement.save()
             return redirect('/trainers')
     elif request.method == 'GET':
-        template = loader.get_template("form.html") 
+        template = loader.get_template("form.html")
         context = {'a':announcement}
         return HttpResponse(template.render(context, request))
 
@@ -234,7 +235,7 @@ def add_categories(request, announcement_id):
     elif request.method == 'GET':
         announcement = Announcement.objects.get(id = announcement_id)
         categories = Category.objects.all()
-        template = loader.get_template("add_categories.html") 
+        template = loader.get_template("add_categories.html")
         context = {'categories':categories, 'a':announcement}
         return HttpResponse(template.render(context, request))
 
@@ -265,7 +266,7 @@ def book_announcement(request, announcement_id):
     else:
 
         messages.error(request, "No hay suficiente capacidad para reservar esta clase o ya esta apuntado a esta clase")
-        
+
 
     return redirect('/announcements/list_client_announcements', announcement_id=announcement.id)
 

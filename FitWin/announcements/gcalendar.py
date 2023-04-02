@@ -1,10 +1,10 @@
-from authentication.credentials import get_google_credentials
-
-from .models import Calendar
 from allauth.socialaccount.models import EmailAddress
-
+from authentication.credentials import get_google_credentials
 from googleapiclient.discovery import build
 from googleapiclient.errors import HttpError
+
+from .models import Calendar
+
 
 class CalendarAPI():
 
@@ -58,7 +58,7 @@ class CalendarAPI():
                                                 body=event).execute()
                 created = event['id']
         return created
-    
+
     def edit_event(self,event_id,title,description,start_date,finish_date):
         edited = None
         if self.credentials is not None and self.user_has_calendar():
@@ -86,7 +86,7 @@ class CalendarAPI():
                 except HttpError:
                     pass
         return edited
-    
+
     def delete_event(self, event_id):
         if self.credentials is not None and self.user_has_calendar():
             with build('calendar', 'v3', credentials=self.credentials) as service:
@@ -121,7 +121,7 @@ class CalendarAPI():
                 except HttpError:
                     pass
         return edited
-    
+
     def remove_attendee_from_event(self, event_id, user):
         edited = None
         if self.credentials is not None and self.user_has_calendar():

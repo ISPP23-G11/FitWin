@@ -30,7 +30,7 @@ def login(request):
             messages.error(request, 'El usuario y la contraseña son incorrectos')
             return redirect('/login')
     else:
-        template = loader.get_template('account/login.html') 
+        template = loader.get_template('account/login.html')
         context = {}
         return HttpResponse(template.render(context, request))
 
@@ -68,7 +68,7 @@ def register(request, role):
         return HttpResponse(template.render(context, request))
 
 def validate_register_form(request, username, email, password, password_again, bio, birthday,
-                           picture, name, last_name, roles): 
+                           picture, name, last_name, roles):
     old_user = User.objects.filter(username = username)
 
     errors = False
@@ -93,14 +93,14 @@ def validate_register_form(request, username, email, password, password_again, b
     if not email_val:
         errors = True
         messages.error(request, 'El email no sigue un formato valido. Por ejemplo: prueba@host.com')
-    
+
     return errors
 
 
 @receiver(user_signed_up)
 def assign_role_to_user(sender, request, user, **kwargs):
     '''
-    Assign role to user after social (google) sign-up 
+    Assign role to user after social (google) sign-up
     '''
     role = request.session['role']
     if role in ['client', 'trainer']:

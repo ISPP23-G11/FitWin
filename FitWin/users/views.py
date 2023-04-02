@@ -1,11 +1,12 @@
-from django.shortcuts import render
-from django.contrib.auth.decorators import login_required, user_passes_test
-from .models import User, Rating, Comment, is_client, is_trainer
-from django.template import loader
-from django.shortcuts import HttpResponse, redirect
-from django.contrib import messages
-from .forms import EditProfileForm, UserUpdateForm
 from datetime import datetime
+
+from django.contrib import messages
+from django.contrib.auth.decorators import login_required, user_passes_test
+from django.shortcuts import HttpResponse, redirect, render
+from django.template import loader
+
+from .forms import EditProfileForm, UserUpdateForm
+from .models import Comment, Rating, User, is_client, is_trainer
 
 
 @login_required
@@ -14,7 +15,7 @@ def handler_trainers(request):
     trainer = request.user
     if trainer:
         context = {}
-        template = loader.get_template("main_trainers.html") 
+        template = loader.get_template("main_trainers.html")
         return HttpResponse(template.render(context, request))
 
 
@@ -24,7 +25,7 @@ def handler_clients(request):
     client = request.user
     if client:
         context = {}
-        template = loader.get_template("main_clients.html") 
+        template = loader.get_template("main_clients.html")
         return HttpResponse(template.render(context, request))
 
 
@@ -36,10 +37,10 @@ def EditTrainer(request):
     if request.method == 'POST':
         birthday = request.POST.get("birthday", "")
         errors=False
-        
+
         u_form=UserUpdateForm(request.POST, instance=request.user)
         form = EditProfileForm(request.POST, request.FILES, instance=trainer)
-       
+
         birthday = datetime.strptime(birthday, '%Y-%m-%d')
 
         if birthday >= datetime.now():
@@ -56,7 +57,7 @@ def EditTrainer(request):
             u_form.save()
 
             return redirect('/trainers')
-        
+
         else:
             messages.error(request, 'El perfil no se ha podido editar')
 
@@ -96,11 +97,10 @@ def EditClient(request):
             client.picture = form.cleaned_data.get('picture')
             client.birthday = form.cleaned_data.get('birthday')
             client.bio = form.cleaned_data.get('bio')
-            
-          
+
             client.save()
             u_form.save()
-            
+
             return redirect('/clients')
         else:
             messages.error(request, 'El perfil no se ha podido editar')
@@ -112,7 +112,6 @@ def EditClient(request):
     context = {
         'form':form,
         'u_form': u_form,
-        
     }
     return render(request, 'editClient.html', context)
 
@@ -150,7 +149,7 @@ def handler_trainer_details(request, trainer_id):
     else:
         messages.error(request, "Entrenador no encontrado")
     
-    template = loader.get_template("trainer_details.html") 
+    template = loader.get_template("trainer_details.html")
     return HttpResponse(template.render(context, request))
 
         
@@ -158,15 +157,14 @@ def handler_trainer_details(request, trainer_id):
 def handler_client_details(request, client_id):
     context = {}
     client = User.objects.filter(id = client_id)
-    user = request.user
 
     if client:
         client = client.get()
         context['client'] = client
     else:
         messages.error(request, "No se ha encontrado al cliente")
-    
-    template = loader.get_template("client_details.html") 
+
+    template = loader.get_template("client_details.html")
     return HttpResponse(template.render(context, request))
 
 @login_required

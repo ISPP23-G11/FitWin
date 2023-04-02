@@ -1,6 +1,3 @@
-import os
-
-import allauth
 from allauth.account.utils import get_next_redirect_url
 from allauth.socialaccount.models import SocialLogin
 from allauth.utils import get_request_param
@@ -8,8 +5,6 @@ from django.contrib.auth.models import AbstractUser
 from django.contrib.postgres.fields import ArrayField
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
-from django.db.models.signals import post_save
-from django.dispatch import receiver
 
 
 def user_directory_path(instance, filename):
@@ -72,4 +67,4 @@ def state_from_request(cls, request):
 
     return state
 
-allauth.socialaccount.models.SocialLogin.state_from_request = state_from_request
+SocialLogin.state_from_request = state_from_request

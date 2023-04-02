@@ -1,8 +1,8 @@
+from announcements.models import Announcement, Category
+from django.contrib.auth.decorators import login_required, user_passes_test
 from django.shortcuts import render
 from django.utils.dateparse import parse_datetime
-from announcements.models import Announcement, Category
 from users.models import is_client
-from django.contrib.auth.decorators import login_required, user_passes_test
 
 
 @login_required
