@@ -11,8 +11,7 @@ from datetime import datetime
 @login_required
 @user_passes_test(is_trainer)
 def handler_trainers(request):
-    user = request.user
-    trainer = User.objects.filter(user = user)
+    trainer = request.user
     if trainer:
         context = {}
         template = loader.get_template("main_trainers.html") 
@@ -22,8 +21,7 @@ def handler_trainers(request):
 @login_required
 @user_passes_test(is_client)
 def handler_clients(request):
-    user = request.user
-    client = User.objects.filter(user = user)
+    client = request.user
     if client:
         context = {}
         template = loader.get_template("main_clients.html") 
@@ -33,7 +31,7 @@ def handler_clients(request):
 @login_required
 def EditTrainer(request):
     user = request.user.id
-    trainer = User.objects.get(user__id=user)
+    trainer = User.objects.get(id=user)
 
     if request.method == 'POST':
         birthday = request.POST.get("birthday", "")
@@ -77,7 +75,7 @@ def EditTrainer(request):
 @login_required
 def EditClient(request):
     user = request.user.id
-    client = User.objects.get(user__id=user)
+    client = User.objects.get(id=user)
 
     if request.method == 'POST':
 
@@ -122,12 +120,11 @@ def EditClient(request):
 def handler_trainer_details(request, trainer_id):
     context = {}
     trainer = User.objects.filter(id = trainer_id)
-    user = User.objects.filter(user = request.user)
+    user = request.user
     if trainer:
         trainer = trainer.get()
         context['trainer'] = trainer
         if user:
-            user = user.get()
             context["client"] = True
             context["template"] = "navbar_clients.html"
             own_rating = Rating.objects.filter(trainer = trainer, client=user)
@@ -161,7 +158,7 @@ def handler_trainer_details(request, trainer_id):
 def handler_client_details(request, client_id):
     context = {}
     client = User.objects.filter(id = client_id)
-    user = User.objects.filter(user = request.user)
+    user = request.user
 
     if client:
         client = client.get()
@@ -176,7 +173,7 @@ def handler_client_details(request, client_id):
 @user_passes_test(is_client)
 def rating_trainer(request, trainer_id):
     if request.method == 'POST':
-        client = User.objects.filter(user = request.user)
+        client = request.user
         trainer = User.objects.filter(id = trainer_id)
         rating = request.POST.get('rating', '0')
 
@@ -188,7 +185,6 @@ def rating_trainer(request, trainer_id):
         elif int(rating) < 0:
             messages.error(request, "No se pueden dar puntuaciones negativas")
         else: 
-            client = client.get()
             trainer = trainer.get()
             rating_object = Rating.objects.filter(trainer = trainer, client = client)
             if rating_object:
@@ -203,7 +199,7 @@ def rating_trainer(request, trainer_id):
 @user_passes_test(is_client)
 def comment_trainer(request, trainer_id):
     if request.method == 'POST':
-        client = User.objects.filter(user = request.user)
+        client = request.user
         trainer = User.objects.filter(id = trainer_id)
         comment = request.POST.get('comment', '')
 
@@ -213,7 +209,6 @@ def comment_trainer(request, trainer_id):
         if comment == '':
             messages.error(request, "No se ha escrito ningun comentario")
         else: 
-            client = client.get()
             trainer = trainer.get()
             comment_object = Comment.objects.filter(trainer = trainer, client = client)
             if comment_object:

@@ -7,7 +7,7 @@
 <section class="jumbotron text-center">
 	<div class="container">
     <div class="row">
-        <h1 class="display-2 fw-bold col-12">Detalles de {{ trainer.user.username }}</h1>
+        <h1 class="display-2 fw-bold col-12">Detalles de {{ trainer.username }}</h1>
     </div>
 	  
       <div class="row ">
@@ -16,8 +16,8 @@
             <img class="card-img-botton mt-3" src="{{ trainer.picture.url }}" alt="Card image cap">
           {% endif %}
             <div class="card-body">
-              <h2 class="card-title">{{ trainer.user.first_name }} {{ trainer.user.last_name }}</h2>
-              <h4 class="card-title">Email: {{ trainer.user.email }}</h4>
+              <h2 class="card-title">{{ trainer.first_name }} {{ trainer.last_name }}</h2>
+              <h4 class="card-title">Email: {{ trainer.email }}</h4>
               
               <hr>
                 {% if mean %}
@@ -76,7 +76,7 @@
                 {% if client %}
                 <p>
                   <a href="/announcements/list-his/{{ trainer.id }}" class="btn btn-primary btn-lg btn-block">Ir a sus clases</a>
-                  <a href="/chat/ms/{{ trainer.user.username}}" class="btn btn-outline-primary btn-lg btn-block">Chat</a>
+                  <a href="/chat/ms/{{ trainer.username}}" class="btn btn-outline-primary btn-lg btn-block">Chat</a>
                 </p>
                 {% endif %}
                 
@@ -93,7 +93,7 @@
   </section>
 
 <hr>
-<h3 class="text-center mt-5">Comentarios</h3>{% extends 'base.html' %}
+<h3 class="text-center mt-5">Comentarios</h3>
 
 
 {% if client %}
@@ -116,7 +116,7 @@
                 {% csrf_token %}
                 <div class="form-outline">
                   <div class="input-group mb-3 col-sm-12 col-lg-6">
-                    <span class="input-group-text">Cometario</span>
+                    <span class="input-group-text">Comentario</span>
                     <input type="text" minlength="10" required class="form-control form-control-lg" id="motivo" value="{{ own_comment.comment }}" name="comment">                         
                   </div>
                   <button type="submit" class="btn btn-success"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-send" viewBox="0 0 16 16">
@@ -140,7 +140,7 @@
       {% if c.client.picture %}
         <img width="32" height="32" class="card-img-botton" src="{{ c.client.picture.url }}" alt="Card image cap">
       {% endif %}
-        <a href="/clients/{{ c.client.id }}" style="outline: none;text-decoration: none;"><h4>{{ c.client.user.username }}</h4></a>
+        <a href="/clients/{{ c.client.id }}" style="outline: none;text-decoration: none;"><h4>{{ c.client.username }}</h4></a>
     </span>
       <p>{{ c.comment }}</p>
   </div>
