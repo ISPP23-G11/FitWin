@@ -97,7 +97,7 @@ def create_announcement(request):
             announcement.google_calendar_event_id = event_id
 
             categories = list()
-            
+
             announcement.save()
             announcement.categories.set(categories)
             return redirect('/trainers')
@@ -106,7 +106,7 @@ def create_announcement(request):
 
         context = {}
         return HttpResponse(template.render(context, request))
-    
+
 @login_required
 @user_passes_test(is_trainer)
 def edit_announcement(request, announcement_id):
@@ -119,7 +119,7 @@ def edit_announcement(request, announcement_id):
         capacity = request.POST.get('capacity', '0')
         day = request.POST.get('day', '')
         start_date = request.POST.get('start_date', '')
-        finish_date = request.POST.get('finish_date', '')        
+        finish_date = request.POST.get('finish_date', '')
 
         errors = False
         if validate_price(price):
@@ -285,14 +285,14 @@ def cancel_book_announcement(request, announcement_id):
         calendar.remove_attendee_from_event(announcement.google_calendar_event_id, client)
     else:
         messages.error(request, "Aún no estas inscrito a esta clase")
-    return redirect("/announcements/list_client_announcements") 
+    return redirect("/announcements/list_client_announcements")
 
 
 @login_required
 @user_passes_test(is_client)
 def list_client_announcements(request):
     client_announcements = Announcement.objects.filter(id=request.user.id)
-    
+
     paginator = Paginator(client_announcements,3)
 
     page = request.GET.get('page')
@@ -305,8 +305,7 @@ def list_client_announcements(request):
         page = paginator.num_pages  # establecer la página en la última página disponible
         client_announcements = paginator.page(page)
 
- 
-    return render(request, "list_client_announcements.html", {'client_announcements': client_announcements}) 
+    return render(request, "list_client_announcements.html", {'client_announcements': client_announcements})
 
 
 def list_announcements(request):
@@ -357,7 +356,3 @@ def handler_announcement_details(request, announcement_id):
         return redirect('announcement_list')
     context['announcement'] = announcement
     return render(request, 'announcement_details.html', context)
-
-
-
-

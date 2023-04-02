@@ -68,7 +68,6 @@ def EditTrainer(request):
     context = {
         'form':form,
         'u_form': u_form,
-        
     }
     return render(request, 'editTrainer.html', context)
 
@@ -138,10 +137,10 @@ def handler_trainer_details(request, trainer_id):
 
         ratings = Rating.objects.filter(trainer = trainer)
         if ratings:
-            sum = 0.0
+            sum_ratings = 0.0
             for r in ratings:
-                sum += r.rating
-            mean = sum / len(ratings)
+                sum_ratings += r.rating
+            mean = sum_ratings / len(ratings)
             context['mean'] = mean
 
         else:
@@ -182,7 +181,7 @@ def rating_trainer(request, trainer_id):
             messages.error(request, "No se ha seleccionado puntuación")
         elif int(rating) < 0:
             messages.error(request, "No se pueden dar puntuaciones negativas")
-        else: 
+        else:
             trainer = trainer.get()
             rating_object = Rating.objects.filter(trainer = trainer, client = client)
             if rating_object:
@@ -216,4 +215,3 @@ def comment_trainer(request, trainer_id):
                 comment_object = Comment(comment=comment, trainer=trainer, client=client)
             comment_object.save()
         return redirect("/trainers/"+str(trainer_id))
-
