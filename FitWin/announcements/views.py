@@ -11,7 +11,7 @@ from django.utils.timezone import make_aware
 from users.models import User, is_client, is_trainer
 
 from .gcalendar import CalendarAPI
-from .models import *
+from .models import Announcement, Category
 
 
 def validate_dates(start_date, finish_date):
