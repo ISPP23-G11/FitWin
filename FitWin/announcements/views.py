@@ -259,7 +259,7 @@ def book_announcement(request, announcement_id):
         announcement.save()  # Guarda el modelo Announcement actualizado
 
         calendar = CalendarAPI(announcement.trainer.user)
-        calendar.add_attendee_to_event(announcement.google_calendar_event_id, client.user)
+        calendar.add_attendee_to_event(announcement.google_calendar_event_id, client)
 
         messages.success(request, "¡Reserva realizada con éxito!")
     else:
@@ -281,7 +281,7 @@ def cancel_book_announcement(request, announcement_id):
         announcement.save()
 
         calendar = CalendarAPI(announcement.trainer.user)
-        calendar.remove_attendee_from_event(announcement.google_calendar_event_id, client.user)
+        calendar.remove_attendee_from_event(announcement.google_calendar_event_id, client)
     else:
         messages.error(request, "Aún no estas inscrito a esta clase")
     return redirect("/announcements/list_client_announcements") 
