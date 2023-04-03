@@ -181,7 +181,7 @@ def rating_trainer(request, trainer_id):
             messages.error(request, "No se ha seleccionado puntuación")
         elif int(rating) < 0:
             messages.error(request, "No se pueden dar puntuaciones negativas")
-        else:
+        else: 
             trainer = trainer.get()
             rating_object = Rating.objects.filter(trainer = trainer, client = client)
             if rating_object:
