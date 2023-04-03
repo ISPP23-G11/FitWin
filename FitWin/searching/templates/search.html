@@ -1,36 +1,49 @@
 
 <!DOCTYPE html>
-{% load static %}
-<html lang="en">
-<!--divinectorweb.com-->
+{% extends 'navbar_clients.html' %}
 
-<head>
-    <meta charset="UTF-8">
-    <meta content="IE=edge" http-equiv="X-UA-Compatible">
-    <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <title>FitWin</title>
-    <link rel="icon" href="{% static 'img/logo.png' %}">
-    <!-- All CSS -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
-        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-        crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js"
-        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
-        crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js"
-        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
-        crossorigin="anonymous"></script>
-    <link href="{% static 'css/menu.css' %}" rel="stylesheet">
+{% block body %}
+<div class="">
+  <h1>Recomendaciones</h1>
+  <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Título</th>
+          <th>Descripción</th>
+          <th>Lugar</th>
+          <th>Precio</th>
+          <th>Fecha de inicio</th>
+          <th>Fecha de fin</th>
+          <th>Categorías</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+          {% for recommendation in recommended%}
+          <tr>
+              <td>{{ recommendation.title }}</td>
+              <td>{{ recommendation.description }}</td>
+              <td>{{ recommendation.place }}</td>
+              <td>{{ recommendation.price }}</td>
+              <td>{{ recommendation.start_date|date:'d/m/Y H:i' }}</td>
+              <td>{{ recommendation.finish_date|date:'d/m/Y H:i' }}</td>
+              <td>
+                  {% for category in recommendation.categories.all %}
+                  {{ category.name }}{% if not forloop.last %}, {% endif %}
+                  {% empty %}
+                  N/A
+                  {% endfor %}
+              </td>
+              <td>
+                  <a href="/example" class="btn btn-info">Ver</a>
+              </td>
+          </tr>
+          {%endfor%}
 
-
-</head>
-
-{% block content %}
+</div>
 <h1>Lista de Anuncios</h1>
 <div class="">
-<form method="GET" class="form-group">
+  <form method="GET" class="form-group">
   <label for="title">Título:</label>
   <input type="text" class="form-control" id="title" name="title" value="{{ request.GET.title }}">
 
@@ -79,7 +92,7 @@
   </select>
 
   <button type="submit" class="btn btn-primary">Filtrar</button>
-</form>
+  </form>
 </div>
 
 {% if announcements %}
