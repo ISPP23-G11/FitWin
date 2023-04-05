@@ -1,0 +1,43 @@
+<html>
+<head>
+ <title>Gracias por suscribirte!</title>
+ <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+</head>
+<body>
+ <div class="container">
+ <p>
+ <div class="alert alert-success" role="alert">
+ 	<h3>Pago correctamente efectuado</h3>
+ </div>
+ <p>Muchas gracias por su compra.</p>
+
+ <p>Serás redireccionado en <span id="seconds">7</span> segundos.</p>
+ </p>
+ </div>
+ <script>
+  var seconds = 7; // seconds for HTML
+  var foo; // variable for clearInterval() function
+
+  function redirect() {
+      document.location.href = '/trainers';
+  }
+
+  function updateSecs() {
+      document.getElementById("seconds").innerHTML = seconds;
+      seconds--;
+      if (seconds == -1) {
+          clearInterval(foo);
+          redirect();
+      }
+  }
+
+  function countdownTimer() {
+      foo = setInterval(function () {
+          updateSecs()
+      }, 1000);
+  }
+
+  countdownTimer();
+ </script>
+</body>
+</html>

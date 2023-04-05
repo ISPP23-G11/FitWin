@@ -30,6 +30,9 @@ GOOGLE_CLIENT_SECRET = str(os.getenv('GOOGLE_CLIENT_SECRET'))
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'django-insecure-8zxdpip+15qrv8i_86$5s=3%(ygo9p=ung=f)c_us2ffn!_5eo'
 
+
+BASEURL = 'http://127.0.0.1:8000'
+
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
@@ -52,6 +55,7 @@ INSTALLED_APPS = [
     'searching',
     'users',
     'chat',
+    'payments',
 
     'landingPage',
 
@@ -200,3 +204,7 @@ except ImportError:
 MEDIA_ROOT = os.path.join(BASE_DIR,'media')
 
 MEDIA_URL = '/media/'
+
+STRIPE_PUBLISHABLE_KEY = os.environ.get('STRIPE_PUBLISHABLE_KEY')
+STRIPE_SECRET_KEY = os.environ.get('STRIPE_SECRET_KEY')
+

@@ -14,9 +14,11 @@ from .models import Comment, Rating, User, is_client, is_trainer
 @user_passes_test(is_trainer)
 def handler_trainers(request):
     trainer = request.user
+    #trainer = User.objects.filter(user = user)
+    url = '/payments/create-checkout-session/'
     if trainer:
-        context = {}
-        template = loader.get_template("main_trainers.html")
+        context = {'url':url, 'trainer':trainer}
+        template = loader.get_template("main_trainers.html") 
         return HttpResponse(template.render(context, request))
 
 
