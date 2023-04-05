@@ -366,9 +366,3 @@ def handler_announcement_details(request, announcement_id):
     context['announcement'] = announcement
     return render(request, 'announcement_details.html', context)
 
-
-
-
-def plans(request):
-    template = loader.get_template('plans.html')
-    return HttpResponse(template.render())

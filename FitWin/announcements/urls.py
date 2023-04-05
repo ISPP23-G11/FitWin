@@ -15,5 +15,5 @@ urlpatterns = [
     path('announcements/list-his/<int:trainer_id>', views.show_his_announcements),
     path('announcements/list-all', views.list_announcements, name='list_all'),
     path('announcements/<int:announcement_id>', views.handler_announcement_details, name='announcement_details'),
-    path('plans/', views.plans, name='plans'),
+    
 ]
