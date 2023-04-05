@@ -44,8 +44,7 @@ def create_announcement(request):
         place = request.POST.get('place', 'No definido')
         price = request.POST.get('price', '0.0')
         capacity = request.POST.get('capacity', '0')
-        user = request.user
-        trainer = User.objects.get(user = user)
+        trainer = request.user
         day = request.POST.get('day', '')
         start_date = request.POST.get('start_date', '')
         finish_date = request.POST.get('finish_date', '')
