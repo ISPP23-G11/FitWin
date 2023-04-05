@@ -21,7 +21,7 @@ class Trainer(models.Model):
     bio = models.TextField(max_length=150, null=True, blank=True)
     is_premium = models.BooleanField(default=False)
     date_premium = models.DateField(null=True, blank=True)
-
+    num_announcements = models.PositiveIntegerField(default=0)
 
 
 class Client(models.Model):
