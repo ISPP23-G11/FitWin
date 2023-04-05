@@ -46,7 +46,8 @@ def register(request, role):
         picture = request.FILES['picture']
         name = request.POST.get('name', '')
         last_name = request.POST.get('last_name', '')
-        roles = [role]
+        if validate_role(role):
+            roles = [role]
 
         errors = validate_register_form(request, username, email, password, password_again,
                                         bio, birthday, picture, name, last_name, roles)
@@ -59,7 +60,7 @@ def register(request, role):
             user.save()
             return redirect('/login')
         else:
-            return redirect('/register/trainer')
+            return redirect('/register/'+role)
     else:
         template = loader.get_template('account/register.html')
         context = {
@@ -103,6 +104,9 @@ def assign_role_to_user(sender, request, user, **kwargs):
     Assign role to user after social (google) sign-up
     '''
     role = request.session['role']
-    if role in ['client', 'trainer']:
+    if validate_role(role):
         user.roles = [role]
     user.save()
+
+def validate_role(role):
+    return role in ['client', 'trainer']
