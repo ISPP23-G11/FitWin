@@ -60,3 +60,14 @@ def create_checkout_session(request):
     else:
         messages.error(request, "Ya eres entrenador premium")
         return redirect('/trainers')
+
+
+def plans(request):
+    user = request.user
+    trainer = Trainer.objects.filter(user = user)
+    url = '/payments/create-checkout-session/'
+    trainer=trainer.get()
+
+    context = {'url':url, 'trainer':trainer}
+    template = loader.get_template('payments/plans.html')
+    return HttpResponse(template.render(context, request))

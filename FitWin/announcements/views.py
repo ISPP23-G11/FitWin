@@ -366,6 +366,3 @@ def handler_announcement_details(request, announcement_id):
     context['announcement'] = announcement
     return render(request, 'announcement_details.html', context)
 
-
-
-
