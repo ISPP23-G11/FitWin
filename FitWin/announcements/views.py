@@ -369,3 +369,6 @@ def handler_announcement_details(request, announcement_id):
 
 
 
+def plans(request):
+    template = loader.get_template('plans.html')
+    return HttpResponse(template.render())
