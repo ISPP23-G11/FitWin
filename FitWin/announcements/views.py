@@ -70,6 +70,10 @@ def create_announcement(request):
                 errors = True
                 messages.error(request, "Las fechas son incorrectas")
 
+        if not trainer.is_premium and trainer.num_announcements >= 5:
+            errors = True
+            messages.error(request, "Ha alcanzado el número máximo de anuncios permitidos como usuario Free")
+
         if errors == True:
             template = loader.get_template("form.html")
             context = {}
@@ -99,7 +103,12 @@ def create_announcement(request):
 
             announcement.save()
             announcement.categories.set(categories)
+
+            trainer.num_announcements += 1
+            trainer.save()
+
             return redirect('/trainers')
+        
     elif request.method == 'GET':
         template = loader.get_template("form.html")
 
@@ -110,6 +119,13 @@ def create_announcement(request):
 @user_passes_test(is_trainer)
 def edit_announcement(request, announcement_id):
     announcement = Announcement.objects.get(id = announcement_id)
+
+    # Verificar si la fecha de finalización del anuncio ya ha pasado
+    now = timezone.now()
+    if announcement.finish_date < now:
+        messages.error(request, "No se puede editar este anuncio porque ya ha finalizado.")
+        return redirect('/announcements/list-own/all')
+
     if request.method == 'POST':
         title = request.POST.get('title', '')
         description = request.POST.get('description', '')

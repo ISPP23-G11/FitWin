@@ -22,6 +22,7 @@ class User(AbstractUser):
         blank=True,
         null=True
     )
+    num_announcements = models.PositiveIntegerField(default=0)
 
 class Rating(models.Model):
     rating = models.IntegerField(validators=[MinValueValidator(0), MaxValueValidator(5)])

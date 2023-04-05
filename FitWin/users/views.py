@@ -249,3 +249,4 @@ def upgrade_suscription(trainer):
     trainer.date_premium = timezone.now().date()
     trainer.save()
     print(trainer.username + " ahora es usuario PREMIUM")
+
