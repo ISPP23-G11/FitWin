@@ -125,7 +125,7 @@ def handler_trainer_details(request, trainer_id):
     if trainer:
         trainer = trainer.get()
         context['trainer'] = trainer
-        if user:
+        if is_client(user):
             context["client"] = True
             context["template"] = "navbar_clients.html"
             own_rating = Rating.objects.filter(trainer = trainer, client=user)
