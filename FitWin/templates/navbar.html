@@ -74,13 +74,7 @@
 
             </div>
         </nav>
-            {% if messages|length > 0 %}
-                {% for message in messages %}
-                    <h3>
-                        {{ message }}
-                    </h3>
-                {% endfor %}
-            {% endif %}
+          
         <br>
     {% block body %}
     {% endblock %}

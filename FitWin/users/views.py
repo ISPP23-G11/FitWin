@@ -19,8 +19,10 @@ def is_client(user):
 def handler_trainers(request):
     user = request.user
     trainer = Trainer.objects.filter(user = user)
+    url = '/payments/create-checkout-session/'
     if trainer:
-        context = {}
+        trainer=trainer.get()
+        context = {'url':url, 'trainer':trainer}
         template = loader.get_template("main_trainers.html") 
         return HttpResponse(template.render(context, request))
 
