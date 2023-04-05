@@ -36,7 +36,7 @@
             <ul class="navbar-nav mr-auto">
                 
                 <li class="nav-item">
-                    <a class="nav-link text-white h6" href="/clients">Inicio</a>
+                    <a class="nav-link text-white h6" href="/">Inicio</a>
                 </li>
                 <li class="nav-item active ">
                     <a class="nav-link text-white h6" href="{% url 'list_all' %}">
@@ -80,16 +80,18 @@
                         </li>
                         {% if "client" in request.user.roles %}
                             {% url 'client_details' client_id=request.user.id as user_details %}
+                            {% url 'client_edit' as user_edit %}
                         {% elif "trainer" in request.user.roles %}
                             {% url 'trainer_details' trainer_id=request.user.id as user_details %}
+                            {% url 'trainer_edit' as user_edit %}
                         {% endif %}
                         <li class="nav-item">
-                            <a class="nav-link text-white h6" href="{{ user_details }}">
+                            <a class="nav-link text-white h6" href="{{ user_edit }}">
                                 Editar perfil
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-white h6" href="#">Mi perfil</a>
+                            <a class="nav-link text-white h6" href="{{ user_details }}">Mi perfil</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link text-white h6" href="/logout">Salir</a>
