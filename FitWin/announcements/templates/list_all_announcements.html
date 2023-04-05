@@ -1,4 +1,5 @@
 {% extends "navbar_clients.html" %}
+{% load social_share %}
 
 
 {% block body %}
@@ -12,7 +13,7 @@
     {% if announcements|length > 0 %}
 
     {% for a in announcements %}
-      
+    <a href="{% url 'announcement_details' a.id %}" style="text-decoration: none;">
     <div class="card mb-5" style="border-radius: 15px;">
       <div class="card-body p-4">
         <h3 class="mb-3"><b>{{ a.title }}</b></h3>
@@ -36,18 +37,21 @@
           {{ a.description }}
         </p>
 
+        <div class="row my-4">
+          {% url 'announcement_details' announcement_id=a.id as announcement_details_id %}
+          <span style="width: fit-content;" >{% post_to_facebook announcement_details_id '<i class="fab fa-facebook fa-2x"></i>' %}</span>
+          <span style="width: fit-content;" >{% post_to_whatsapp announcement_details_id "<i class='fab fa-whatsapp fa-2x'></i>" %}</span>
+                <span style="width: fit-content;" >{% post_to_twitter "Nueva clase: {{a.title}}. {{a.description}}. El día {{a.start_date|date:'d-m-Y'}} de {{ a.start_date|date:'H:i' }} hasta {{ a.finish_date|date:'H:i' }}. Echa un vistazo!" announcement_details_id "<i class='fab fa-twitter fa-2x' ></i>" %}</span>
+        </div>
 
         <hr class="my-2">
+
         <div class="dropdown text-center">
           <a class="btn btn-info" href="{% url 'book_announcement' a.id %}" onclick="if(confirm('¿Estás seguro de que quieres reservar esta clase?')) { confirmBooking({{ a.id }}) }">Reservar clase</a>
         </div>
-        
-        
-      
-
       </div>
     </div>
-
+    </a>
     
     
 

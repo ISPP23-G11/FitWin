@@ -1,4 +1,5 @@
 {% extends "navbar_clients.html" %}
+{% load social_share %}
 
 {% block body %}
 <style>
@@ -110,19 +111,21 @@
 
                         </div>
                     </div>
-
-
-
                 </div>
             </div>
             <div class="d-flex flex-row align-items-center">
                 <div class="d-flex flex-column mr-2">
                     <a href="{% url 'cancel_book' a.id %}" class="btn btn-danger">Cancelar reserva</a>
-
-
-
                 </div>
             </div>
+
+            <div class="row my-4">
+                {% url 'announcement_details' announcement_id=a.id as announcement_details_id %}
+                <span style="width: fit-content;" >{% post_to_facebook announcement_details_id '<i class="fab fa-facebook fa-2x"></i>' %}</span>
+                <span style="width: fit-content;" >{% post_to_whatsapp announcement_details_id "<i class='fab fa-whatsapp fa-2x'></i>" %}</span>
+                <span style="width: fit-content;" >{% post_to_twitter "Nueva clase: {{a.title}}. {{a.description}}. El día {{a.start_date|date:'d-m-Y'}} de {{ a.start_date|date:'H:i' }} hasta {{ a.finish_date|date:'H:i' }}. Echa un vistazo!" announcement_details_id "<i class='fab fa-twitter fa-2x' ></i>" %}</span>
+              </div>
+
         </li>
         {% endfor %}   
     </ul>

@@ -43,7 +43,7 @@ class Announcement(models.Model):
             place_similarity = sum(a==b for a,b in zip(self.place,announcement.place)) / min(len(self.place),len(announcement.place))
             trainer_similarity = 1 if self.trainer == announcement.trainer else 0.5
             trainer_recomendation =  announcement.trainer.get_average_ratings()
-            #trainer_weight = 1 if announcement.trainer.has_paid() else 0 #Esta parte esta por implementar
+            #trainer_weight = 2/3 if announcement.trainer.has_paid() else 0 #Esta parte esta por implementar
             similarity = 10*(0.5*categories_similarities+0.15 * price_similarity +0.05* place_similarity +0.3* (trainer_similarity + trainer_recomendation/5)/2) #* trainer_weight
             print(announcement)
             print(f'Category: {categories_similarities}\tPrice: {price_similarity}\tPlace: {place_similarity}\tTrainer: {trainer_similarity+trainer_recomendation}')
