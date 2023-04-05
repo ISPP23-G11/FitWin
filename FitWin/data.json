@@ -331,7 +331,8 @@
     "picture": "",
     "date_created": "2023-03-06",
     "birthday": "1990-03-06",
-    "bio": "Soy un entrenador personal con experiencia de 10 a�os. Estudios de ciencias del deporte y titulo oficial de entrenador de baloncesto."
+    "bio": "Soy un entrenador personal con experiencia de 10 a�os. Estudios de ciencias del deporte y titulo oficial de entrenador de baloncesto.",
+    "num_announcements": 1
   }
 },
 {
@@ -342,7 +343,8 @@
     "picture": "",
     "date_created": "2023-03-06",
     "birthday": "1995-10-04",
-    "bio": "Mi nombre es Alicia y tengo el t�tulo del TAFAD as� como m�ltiples cursos de entrenamiento. Tengo experiencia con alumn@s de todas las edades."
+    "bio": "Mi nombre es Alicia y tengo el t�tulo del TAFAD as� como m�ltiples cursos de entrenamiento. Tengo experiencia con alumn@s de todas las edades.",
+    "num_announcements": 1
   }
 },
 {
@@ -353,7 +355,8 @@
     "picture": "",
     "date_created": "2023-03-06",
     "birthday": "2001-05-04",
-    "bio": "Mi nombre es Ana, he terminado hace poco la carrera de Ciencias del deporte. LLevo poco tiempo dando clases pero sigo formandome todo lo que pueda."
+    "bio": "Mi nombre es Ana, he terminado hace poco la carrera de Ciencias del deporte. LLevo poco tiempo dando clases pero sigo formandome todo lo que pueda.",
+    "num_announcements": 1
   }
 },
 {
@@ -364,7 +367,8 @@
     "picture": "",
     "date_created": "2023-03-06",
     "birthday": "1980-12-01",
-    "bio": "Hola, soy Fernando y he sido profesor de nataci�n en varios lugares. Tengo a�os de experiencia."
+    "bio": "Hola, soy Fernando y he sido profesor de nataci�n en varios lugares. Tengo a�os de experiencia.",
+    "num_announcements": 1
   }
 },
 {
@@ -375,7 +379,8 @@
     "picture": "",
     "date_created": "2023-03-06",
     "birthday": "1979-01-06",
-    "bio": "Empec� como preparador f�sico de un peque�o equipo de f�tbol y con el tiempo fui trabajando para equipos mas grandes. Lo compagino con clases privadas"
+    "bio": "Empec� como preparador f�sico de un peque�o equipo de f�tbol y con el tiempo fui trabajando para equipos mas grandes. Lo compagino con clases privadas",
+    "num_announcements": 1
   }
 },
 {
@@ -386,7 +391,8 @@
     "picture": "",
     "date_created": "2023-03-06",
     "birthday": "1990-09-22",
-    "bio": "Mi nombre es Sonia y llevo trabajando varios a�os como entrenadora personal en distintos gimnasios."
+    "bio": "Mi nombre es Sonia y llevo trabajando varios a�os como entrenadora personal en distintos gimnasios.",
+    "num_announcements": 1
   }
 },
 {
@@ -397,7 +403,8 @@
     "picture": "",
     "date_created": "2023-03-06",
     "birthday": "1995-09-09",
-    "bio": "Soy Marta y soy experta en crossfit. LLevo un par de a�os dando clases en un gimnasio."
+    "bio": "Soy Marta y soy experta en crossfit. LLevo un par de a�os dando clases en un gimnasio.",
+    "num_announcements": 1
   }
 },
 {
@@ -606,6 +613,7 @@
     "trainer": 8,
     "start_date": "2023-03-06T17:45:40.415Z",
     "finish_date": "2023-03-06T17:45:40.415Z",
+    "date_created": "2023-03-06",
     "clients": [
       1,
       2,
@@ -628,6 +636,7 @@
     "trainer": 3,
     "start_date": "2023-03-06T17:51:42.372Z",
     "finish_date": "2023-03-06T17:51:42.372Z",
+    "date_created": "2023-03-06",
     "clients": [
       1
     ],
@@ -648,6 +657,7 @@
     "trainer": 6,
     "start_date": "2023-03-06T17:53:49.664Z",
     "finish_date": "2023-03-06T17:53:49.664Z",
+    "date_created": "2023-03-06",
     "clients": [
       7
     ],
@@ -668,6 +678,7 @@
     "trainer": 5,
     "start_date": "2023-03-06T17:56:35.751Z",
     "finish_date": "2023-03-06T17:56:35.751Z",
+    "date_created": "2023-03-06",
     "clients": [
       6
     ],
@@ -688,6 +699,7 @@
     "trainer": 2,
     "start_date": "2023-03-06T17:57:52.992Z",
     "finish_date": "2023-03-06T17:57:52.992Z",
+    "date_created": "2023-03-06",
     "clients": [
       10
     ],
@@ -708,6 +720,7 @@
     "trainer": 4,
     "start_date": "2023-03-06T17:59:23.286Z",
     "finish_date": "2023-03-06T17:59:23.286Z",
+    "date_created": "2023-03-06",
     "clients": [
       8
     ],
@@ -728,6 +741,7 @@
     "trainer": 7,
     "start_date": "2023-03-06T18:01:08.392Z",
     "finish_date": "2023-03-06T18:01:08.392Z",
+    "date_created": "2023-03-06",
     "clients": [
       5
     ],
