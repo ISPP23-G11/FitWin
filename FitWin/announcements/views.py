@@ -274,7 +274,7 @@ def book_announcement(request, announcement_id):
         announcement.capacity = announcement.capacity - 1
         announcement.save()  # Guarda el modelo Announcement actualizado
 
-        calendar = CalendarAPI(announcement.trainer.user)
+        calendar = CalendarAPI(announcement.trainer)
         calendar.add_attendee_to_event(announcement.google_calendar_event_id, client)
 
         messages.success(request, "¡Reserva realizada con éxito!")
@@ -306,7 +306,7 @@ def cancel_book_announcement(request, announcement_id):
 @login_required
 @user_passes_test(is_client)
 def list_client_announcements(request):
-    client_announcements = Announcement.objects.filter(id=request.user.id)
+    client_announcements = Announcement.objects.filter(clients__in=[request.user])
 
     paginator = Paginator(client_announcements,3)
 

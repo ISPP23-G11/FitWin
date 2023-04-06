@@ -63,10 +63,10 @@ def create_checkout_session(request):
 
 
 def plans(request):
-    user = request.user
-    trainer = Trainer.objects.filter(user = user)
+    trainer = request.user
+    #trainer = Trainer.objects.filter(user = user)
     url = '/payments/create-checkout-session/'
-    trainer=trainer.get()
+    #trainer=trainer.get()
 
     context = {'url':url, 'trainer':trainer}
     template = loader.get_template('payments/plans.html')
