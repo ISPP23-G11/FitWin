@@ -1,13 +1,4 @@
-{% if request.user.client %}
-
-	{% include "navbar_clients.html" %}
-
-{% else %}
-
-	{% include "navbar.html" %}
-
-{% endif %}
-
+{% include "navbar.html" %}
 
 {% block content %}
 
