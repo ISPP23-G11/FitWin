@@ -1,15 +1,9 @@
 {% extends "navbar.html" %}
 {% load social_share %}
 {% load announcements_extras %}
-{% load social_share %}
 
 {% block body %}
 
-<!-- Font Awesome -->
-<link
-  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
-  rel="stylesheet"
-/>
 <!-- Google Fonts -->
 <link
   href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
@@ -237,6 +231,10 @@
                         {{ announcement.description|slice:":200" }}
                         {% if announcement.description|length > 200%}...{% endif %}
                       </p>
+
+                      {% for category in announcement.categories.all %}
+                          <span class="badge text-bg-info">{{category.types}}: {{ category.name }}</span>
+                      {% endfor %}
                     </div>
                     <div class="col-xl-3 col-md-3 col-sm-5">
                       <div class="d-flex flex-row align-items-center mb-1">
