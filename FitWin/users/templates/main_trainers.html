@@ -17,8 +17,8 @@
 	  <h1 class="display-2 fw-bold">FitWin</h1>
 	  <p class="lead text-muted display-3">Publica tus clases para que otras personas puedan contratarte.<p>
 	  <p>
-		<a href="/announcements/create" class="btn btn-primary btn-lg mt-4">Crear anuncio</a>
-		<a href="/announcements/list-own/all" class="btn btn-secondary btn-lg mt-4">Ver mis anuncios</a>
+		<a href="{% url 'create_announcement' %}" class="btn btn-primary btn-lg mt-4">Crear anuncio</a>
+		<a href="{% url 'list_announcements' %}?trainerId={{request.user.id}}" class="btn btn-secondary btn-lg mt-4">Ver mis anuncios</a>
 
 		
 	  </p>
