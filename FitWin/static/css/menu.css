@@ -1,28 +1,42 @@
 .color1 {
   color: #5580e9;
 }
-
 .color2 {
   color: #84ceeb;
 }
-
 .color3 {
   color: #5ab8eb;
 }
-
 .color4 {
   color: #c1c8e4;
 }
-
 .color5 {
   color: #8860d0;
 }
-
 .white {
   color: white;
 }
-
 .background {
   background-color: #8e6ecf;
 }
-
+body {
+  position: relative;
+  min-height: calc(100vh - 258.4px);
+}
+.footer {
+  position: absolute;
+  bottom: -258.4px;
+  left: 0;
+  right: 0;
+}
+.user-img {
+  width: 150px;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  border: thick solid black;
+  border-radius: 50%;
+  box-shadow: 10px 5px 5px rgba(var(--bs-secondary-rgb));
+}
+.cancel-edit-profile {
+  width: 135.283px;
+}
