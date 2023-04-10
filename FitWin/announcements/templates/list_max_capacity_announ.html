@@ -42,7 +42,7 @@
         <p><strong>Clientes apuntados:</strong>
                 {% if a.clients.all %}
                 {% for client in a.clients.all %}
-                {{ client.user.first_name}} {{ client.user.last_name }}
+                {{ client.first_name}} {{ client.last_name }}
                 {% if not forloop.last %}, {% endif %}
                 {% endfor %}
                 {% else %}

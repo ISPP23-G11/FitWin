@@ -1,13 +1,32 @@
 {% extends "navbar.html" %}
 
 {% block body %}
+<script src="https://js.stripe.com/v3/"></script>
+
 <section class="jumbotron text-center">
+	
 	<div class="container">
-	  <h1 class="display-2 fw-bold">FitWin</h1>
-	  <p class="lead text-muted display-3">Publica tus clases para que otras personas puedan contratarte.<p>
+		{% if messages|length > 0 %}
+              {% for message in messages %}
+            <div class="alert alert-danger" role="alert">
+                {{ message }}
+            </div>
+            {% endfor %}
+            {% endif %}
+		
+	  <div class="container">
+	<div class="row">
+		<div class="col-md-12 text-center fw-light">
+			<h1>Publica clases</h1>
+		</div>
+	</div>
+</div>
 	  <p>
-		<a href="/announcements/create" class="btn btn-primary btn-lg mt-4">Crear anuncio</a>
-		<a href="/announcements/list-own/all" class="btn btn-secondary btn-lg mt-4">Ver mis anuncios</a>
+
+		<a href="/announcements/create" class="btn btn-primary btn-lg mt-4" style="width:182.5px;">Crear anuncio</a>
+		<a href="/announcements/list-own/all" class="btn btn-primary btn-lg mt-4">Ver mis anuncios</a>
+
+		
 	  </p>
 	</div>
   </section>
@@ -16,11 +35,11 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-md-12">
-				<div class="section-header text-center pb-5">
-					<h2>Nuestros servicios</h2>
+				<div class="section-header text-center pb-2">
+					<h1>Nuestros servicios</h1>
 				</div>
 			<div class="row">
-			<div class="col-12 col-md-12 col-lg-4">
+			<div class="col-12 col-md-12 col-lg-4 my-2">
 				<div class="card text-white text-center bg-dark pb-2" style="height: 380px">
 					<div class="card-body">
 						<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" fill="currentColor" class="bi bi-megaphone-fill" viewBox="0 0 16 16">
@@ -31,15 +50,15 @@
 						<p class="lead">
 							</p><ul>
 								<br>
-								<li type="circle">
+								<li type="circle" style="list-style-type: none; padding-right: 2rem;">
 									Publica anuncios personalizados
 								</li>
 								<br>
-								<li type="circle">
+								<li type="circle" style="list-style-type: none; padding-right: 2rem;">
 									Asígnales categorias para que sea más fácil encontrarlos
 								</li>
 								<br>
-								<li type="circle">
+								<li type="circle" style="list-style-type: none; padding-right: 2rem;">
 									5 anuncios gratis al mes
 								</li>
 								
@@ -47,7 +66,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="col-12 col-md-12 col-lg-4">
+			<div class="col-12 col-md-12 col-lg-4 my-2">
 				<div class="card text-white text-center bg-dark pb-2" style="height: 380px">
 					<div class="card-body">
 						<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" fill="currentColor" class="bi bi-calendar4-week" viewBox="0 0 16 16">
@@ -59,15 +78,15 @@
 						<p class="lead">
 							</p><ul>
 								<br>
-								<li type="circle">
+								<li type="circle" style="list-style-type: none; padding-right: 2rem;" style="list-style-type: none; padding-left: 1rem;">
 									Organiza tus clases
 								</li>
 								<br>
-								<li type="circle">
+								<li type="circle" style="list-style-type: none; padding-right: 2rem;">
 									Añade automaticamente tus eventos a Google Calendar
 								</li>
 								<br>
-								<li type="circle">
+								<li type="circle" style="list-style-type: none; padding-right: 2rem;">
 									Pago online mediante al app
 								</li>
 								
@@ -75,7 +94,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="col-12 col-md-12 col-lg-4" style="color: darkturquoise;">
+			<div class="col-12 col-md-12 col-lg-4 my-2" style="color: darkturquoise;">
 				<div class="card text-white text-center bg-dark pb-2" style="height: 380px;">
 					<div class="card-body">
 						<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" fill="currentColor" class="bi bi-chat-left-text" viewBox="0 0 16 16">
@@ -86,15 +105,15 @@
 						<h3 class="card-title">Trato cercano</h3>
 						<p class="lead">
 							</p><ul>
-								<li type="circle">
+								<li type="circle" style="list-style-type: none; padding-right: 2rem;">
 									Posibilidad de publicitar fácilmente tus anuncios en redes sociales
 								</li>
 								<br>
-								<li type="circle">
+								<li type="circle" style="list-style-type: none; padding-right: 2rem;">
 									Chat con tus clientes
 								</li>
 								<br>
-								<li type="circle">
+								<li type="circle" style="list-style-type: none; padding-right: 2rem;">
 									Servicio técnico eficaz
 								</li>
 								<br>
@@ -108,6 +127,35 @@
 		
 	</div>
 </section>
+<script type="text/javascript">
+	var stripe = Stripe('pk_test_51MrzxDDGJcyYKsU3wSBAaYNrNLyGO94UeznhqJjjkuL6TVMTmPQ0Sq1TH3zqgVeTxenzFCvP1atnEWk7B3kXchWm00EeE9bIyU');
+	var checkoutButton = document.getElementById('checkout-button');
+	var url = "{{ url }}";
+	
+	checkoutButton.addEventListener('click', function() {
+	fetch(url, {
+	method: 'POST',
+	})
+	.then(function(response) {
+	return response.json();
+	})
+	.then(function(session) {
+	return stripe.redirectToCheckout({ sessionId: session.id });
+	})
+	.then(function(result) {
+	if (result.error) {
+	alert(result.error.message);
+	}
+	})
+	.catch(function(error) {
+	console.error('Error:', error);
+	});
+	});
+	</script>
+<script src="/docs/5.0/dist/js/bootstrap.bundle.min.js"
+	integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+	crossorigin="anonymous"></script>
+</html>
 	{% include "footer.html" %}
 
 {% endblock %}

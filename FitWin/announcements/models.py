@@ -1,5 +1,6 @@
 from django.db import models
-from users.models import Trainer, Client, User
+from users.models import User
+
 
 class Category(models.Model):
     DIFFICULTY = 'difficulty'
@@ -25,11 +26,12 @@ class Announcement(models.Model):
     place = models.CharField(max_length=250, verbose_name='Lugar')
     price = models.FloatField()
     capacity = models.IntegerField()
-    trainer = models.ForeignKey(Trainer, on_delete=models.CASCADE)
-    clients = models.ManyToManyField(Client, blank=True)
+    trainer = models.ForeignKey(User, on_delete=models.CASCADE, related_name="announcement_trainer")
+    clients = models.ManyToManyField(User, blank=True, related_name="announcement_client")
     categories = models.ManyToManyField(Category, blank=True)
     start_date = models.DateTimeField(auto_now_add=False, verbose_name='Fecha de inicio')
     finish_date = models.DateTimeField(auto_now_add=False, verbose_name='Fecha de fin')
+    date_created = models.DateField(auto_now_add=True)
     invitation_sent = models.BooleanField(default=False)
     google_calendar_event_id = models.CharField(max_length=120, blank=True, null=True)
 

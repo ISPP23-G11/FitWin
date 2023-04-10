@@ -1,7 +1,6 @@
-from django.conf import settings
-
-from google.oauth2.credentials import Credentials
 from allauth.socialaccount.models import SocialAccount, SocialToken
+from django.conf import settings
+from google.oauth2.credentials import Credentials
 
 client_id = settings.GOOGLE_CLIENT_ID
 client_secret = settings.GOOGLE_CLIENT_SECRET
