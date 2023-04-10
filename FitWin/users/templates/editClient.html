@@ -1,4 +1,4 @@
-{% extends "navbar_clients.html" %}
+{% extends "navbar.html" %}
 
 {% load static %}
 
@@ -67,7 +67,7 @@
                     
                 </div>
                 <br>
-                <p><strong>Foto actual:</strong><br/> <img src="{{user.client.picture.url}}" class="user-img"> </p>
+                <p><strong>Foto actual:</strong><br/> <img src="{{request.user.picture.url}}" class="user-img"> </p>
 
 		<div class="d-flex justify-content-between">
                 <a href="/clients" class="btn btn-danger btn-lg btn-block cancel-edit-profile">Cancelar</a>
