@@ -53,7 +53,7 @@ body {
   font-weight: 400;
   color: #fff;
   text-decoration: none;
-  padding: .5rem 1rem;
+  padding: 0.5rem 1rem;
   line-height: 2.3;
 }
 
@@ -116,11 +116,9 @@ body {
   .carousel-caption {
     bottom: 370px;
   }
-
   .carousel-caption p {
     width: 100%;
   }
-
   .card {
     margin-bottom: 30px;
   }
@@ -134,11 +132,9 @@ body {
   .navbar-nav {
     text-align: center;
   }
-
   .carousel-caption {
     bottom: 125px;
   }
-
   .carousel-caption h5 {
     font-size: 17px;
   }
@@ -153,7 +149,6 @@ body {
     line-height: 1.6;
     font-size: 12px;
   }
-
   .about-text {
     padding-top: 50px;
   }
@@ -162,23 +157,18 @@ body {
     margin-bottom: 30px;
   }
 }
-
 .color1 {
   color: #5580e9;
 }
-
 .color2 {
   color: #43b6e4;
 }
-
 .color3 {
   color: #5ab8eb;
 }
-
 .color4 {
   color: #c1c8e4;
 }
-
 .color5 {
   color: #8860d0;
 }
@@ -189,4 +179,3 @@ body {
 .btn-primary:visited {
   background-color: #43b6e4 !important;
 }
-
