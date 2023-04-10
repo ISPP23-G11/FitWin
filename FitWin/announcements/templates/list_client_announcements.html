@@ -1,4 +1,4 @@
-{% extends "navbar_clients.html" %}
+{% extends "navbar.html" %}
 {% load social_share %}
 
 {% block body %}
@@ -95,7 +95,7 @@
                         <div><i class="fa fa-calendar-o"></i><span class="ml-2">Precio: {{ a.price }} €</span></div>
                     </div>
                     <div class="d-flex flex-row mt-1 text-black-50 date-time">
-                        <div><i class="fa fa-calendar-o"></i><span class="ml-2">Entrenador: <a href="/trainers/{{ a.trainer.id }}">{{ a.trainer.user.username }}</a></span></div>
+                        <div><i class="fa fa-calendar-o"></i><span class="ml-2">Entrenador: <a href="/trainers/{{ a.trainer.id }}">{{ a.trainer.username }}</a></span></div>
                     </div>
                 </div>
             </div>

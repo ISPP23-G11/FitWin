@@ -1,19 +1,17 @@
-from django.shortcuts import render, get_object_or_404
-from django.contrib import messages
-from .models import *
-from users.models import Trainer, Client
-from django.template import loader
-from django.contrib.auth.decorators import login_required, user_passes_test
-from django.shortcuts import HttpResponse, redirect
 from datetime import datetime, timedelta
-from django.contrib.auth import login as login_django
-from django.contrib.auth.models import User
-from django.utils.timezone import make_aware
-from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from django.db.models import F, Count
+
+from django.contrib import messages
+from django.contrib.auth.decorators import login_required, user_passes_test
+from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
+from django.db.models import Count, F
 from django.http import HttpResponseRedirect
+from django.shortcuts import HttpResponse, redirect, render
+from django.template import loader
+from django.utils.timezone import make_aware
+from users.models import User, is_client, is_trainer
+
 from .gcalendar import CalendarAPI
-from django.utils import timezone
+from .models import Announcement, Category
 
 
 def validate_dates(start_date, finish_date):
@@ -37,12 +35,6 @@ def validate_price(price):
         val = True
     return val
 
-def is_trainer(user):
-    return Trainer.objects.filter(user = user).exists()
-
-def is_client(user):
-    return Client.objects.filter(user = user).exists()
-
 @login_required
 @user_passes_test(is_trainer)
 def create_announcement(request):
@@ -52,8 +44,7 @@ def create_announcement(request):
         place = request.POST.get('place', 'No definido')
         price = request.POST.get('price', '0.0')
         capacity = request.POST.get('capacity', '0')
-        user = request.user
-        trainer = Trainer.objects.get(user = user)
+        trainer = request.user
         day = request.POST.get('day', '')
         start_date = request.POST.get('start_date', '')
         finish_date = request.POST.get('finish_date', '')
@@ -84,7 +75,7 @@ def create_announcement(request):
             messages.error(request, "Ha alcanzado el número máximo de anuncios permitidos como usuario Free")
 
         if errors == True:
-            template = loader.get_template("form.html") 
+            template = loader.get_template("form.html")
             context = {}
             return HttpResponse(template.render(context, request))
 
@@ -109,7 +100,7 @@ def create_announcement(request):
             announcement.google_calendar_event_id = event_id
 
             categories = list()
-            
+
             announcement.save()
             announcement.categories.set(categories)
 
@@ -119,11 +110,11 @@ def create_announcement(request):
             return redirect('/trainers')
         
     elif request.method == 'GET':
-        template = loader.get_template("form.html") 
+        template = loader.get_template("form.html")
 
         context = {}
         return HttpResponse(template.render(context, request))
-    
+
 @login_required
 @user_passes_test(is_trainer)
 def edit_announcement(request, announcement_id):
@@ -143,7 +134,7 @@ def edit_announcement(request, announcement_id):
         capacity = request.POST.get('capacity', '0')
         day = request.POST.get('day', '')
         start_date = request.POST.get('start_date', '')
-        finish_date = request.POST.get('finish_date', '')        
+        finish_date = request.POST.get('finish_date', '')
 
         errors = False
         if validate_price(price):
@@ -186,14 +177,14 @@ def edit_announcement(request, announcement_id):
             announcement.save()
             return redirect('/trainers')
     elif request.method == 'GET':
-        template = loader.get_template("form.html") 
+        template = loader.get_template("form.html")
         context = {'a':announcement}
         return HttpResponse(template.render(context, request))
 
 @login_required
 @user_passes_test(is_trainer)
 def list_own_all(request):
-    trainer = Trainer.objects.get(user=request.user)
+    trainer = User.objects.get(id=request.user.id)
     announcements = Announcement.objects.filter(trainer=trainer)
 
     paginator = Paginator(announcements, 2)  # muestra 2 elementos por página
@@ -214,8 +205,9 @@ def list_own_all(request):
 @login_required
 @user_passes_test(is_trainer)
 def list_max_capacity_announcements(request):
-    trainer = Trainer.objects.get(user=request.user)
-    announcements = Announcement.objects.filter(trainer=trainer)
+    trainer = User.objects.get(id=request.user.id)
+    announcements = Announcement.objects.filter(trainer=trainer).annotate(client_count=Count('clients')).filter(capacity=F('client_count'))
+
     paginator = Paginator(announcements, 2)
 
     page = request.GET.get('page')
@@ -258,7 +250,7 @@ def add_categories(request, announcement_id):
     elif request.method == 'GET':
         announcement = Announcement.objects.get(id = announcement_id)
         categories = Category.objects.all()
-        template = loader.get_template("add_categories.html") 
+        template = loader.get_template("add_categories.html")
         context = {'categories':categories, 'a':announcement}
         return HttpResponse(template.render(context, request))
 
@@ -274,7 +266,7 @@ def delete_categories(request, announcement_id, category_id):
 @login_required
 @user_passes_test(is_client)
 def book_announcement(request, announcement_id):
-    client = Client.objects.get(user=request.user)
+    client = User.objects.get(id=request.user.id)
     announcement = Announcement.objects.get(id=announcement_id)
 
     if announcement.capacity > 0 and client not in announcement.clients.all():
@@ -282,14 +274,14 @@ def book_announcement(request, announcement_id):
         announcement.capacity = announcement.capacity - 1
         announcement.save()  # Guarda el modelo Announcement actualizado
 
-        calendar = CalendarAPI(announcement.trainer.user)
-        calendar.add_attendee_to_event(announcement.google_calendar_event_id, client.user)
+        calendar = CalendarAPI(announcement.trainer)
+        calendar.add_attendee_to_event(announcement.google_calendar_event_id, client)
 
         messages.success(request, "¡Reserva realizada con éxito!")
     else:
 
         messages.error(request, "No hay suficiente capacidad para reservar esta clase o ya esta apuntado a esta clase")
-        
+
 
     return redirect('/announcements/list_client_announcements', announcement_id=announcement.id)
 
@@ -297,7 +289,7 @@ def book_announcement(request, announcement_id):
 @login_required
 @user_passes_test(is_client)
 def cancel_book_announcement(request, announcement_id):
-    client = Client.objects.get(user = request.user)
+    client = User.objects.get(user = request.user)
     announcement = Announcement.objects.get(id = announcement_id)
     if client in announcement.clients.all():
         announcement.clients.remove(client.id)
@@ -305,17 +297,17 @@ def cancel_book_announcement(request, announcement_id):
         announcement.save()
 
         calendar = CalendarAPI(announcement.trainer.user)
-        calendar.remove_attendee_from_event(announcement.google_calendar_event_id, client.user)
+        calendar.remove_attendee_from_event(announcement.google_calendar_event_id, client)
     else:
         messages.error(request, "Aún no estas inscrito a esta clase")
-    return redirect("/announcements/list_client_announcements") 
+    return redirect("/announcements/list_client_announcements")
 
 
 @login_required
 @user_passes_test(is_client)
 def list_client_announcements(request):
-    client_announcements = Announcement.objects.filter(clients__user=request.user)
-    
+    client_announcements = Announcement.objects.filter(clients__in=[request.user])
+
     paginator = Paginator(client_announcements,3)
 
     page = request.GET.get('page')
@@ -328,13 +320,9 @@ def list_client_announcements(request):
         page = paginator.num_pages  # establecer la página en la última página disponible
         client_announcements = paginator.page(page)
 
- 
-    return render(request, "list_client_announcements.html", {'client_announcements': client_announcements}) 
+    return render(request, "list_client_announcements.html", {'client_announcements': client_announcements})
 
 
-
-@login_required
-@user_passes_test(is_client)
 def list_announcements(request):
     announcements = Announcement.objects.all()
 
@@ -356,9 +344,9 @@ def list_announcements(request):
 @login_required
 @user_passes_test(is_client)
 def show_his_announcements(request, trainer_id):
-    trainer = Trainer.objects.get(id = trainer_id)
+    trainer = User.objects.get(id = trainer_id)
     announcements = Announcement.objects.filter(trainer=trainer)
-    client = Client.objects.get(user = request.user)
+    client = User.objects.get(user = request.user)
 
     paginator = Paginator(announcements, 2)  # muestra 2 elementos por página
 
@@ -383,4 +371,3 @@ def handler_announcement_details(request, announcement_id):
         return redirect('announcement_list')
     context['announcement'] = announcement
     return render(request, 'announcement_details.html', context)
-

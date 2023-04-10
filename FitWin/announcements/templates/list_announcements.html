@@ -42,7 +42,7 @@
                   {% with num_clients=a.clients.all.count %}
                     {{ num_clients }} cliente{% if num_clients != 1 %}s{% endif %} -
                     {% for client in a.clients.all %}
-                      {{ client.user.first_name }} {{ client.user.last_name }}
+                      {{ client.first_name }} {{ client.last_name }}
                       {% if not forloop.last %}, {% endif %}
                     {% endfor %}
                     <p><strong>Plazas restantes :</strong>  {{ a.capacity }}</p>

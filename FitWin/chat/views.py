@@ -1,12 +1,12 @@
-from django.shortcuts import render
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.views.generic import DetailView, View
-from .models import ChannelMessage, ChannelUser, Channel
-from django.http import HttpResponse, Http404, JsonResponse
 from django.core.exceptions import PermissionDenied
-from .forms import FormMessages
+from django.http import Http404, HttpResponse, JsonResponse
+from django.shortcuts import render
+from django.views.generic import DetailView, View
 from django.views.generic.edit import FormMixin
-# Create your views here.
+
+from .forms import FormMessages
+from .models import Channel, ChannelMessage
 
 
 class Inbox(View):

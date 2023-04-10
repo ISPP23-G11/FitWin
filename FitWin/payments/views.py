@@ -6,7 +6,7 @@ import stripe
 from django.utils.html import strip_tags
 from django.http import JsonResponse
 from users.views import upgrade_suscription, is_premium
-from users.models import Trainer
+from users.models import User
 from django.contrib import messages
 
 
@@ -16,8 +16,8 @@ def cancel(request):
     return render(request,'payments/cancel.html')
 
 def success(request):
-    user = request.user
-    trainer = Trainer.objects.get(user = user)
+    trainer = request.user
+    #trainer = User.objects.get(user = user)
     upgrade_suscription(trainer)
     return render(request,'payments/success.html')
 
@@ -32,8 +32,8 @@ def create_checkout_session(request):
      
     total_formated = str("%.2f" % total).replace('.','')
 
-    user = request.user
-    trainer = Trainer.objects.get(user = user)
+    trainer = request.user
+    #trainer = Trainer.objects.get(user = user)
 
     if not is_premium(trainer):
 
@@ -63,10 +63,10 @@ def create_checkout_session(request):
 
 
 def plans(request):
-    user = request.user
-    trainer = Trainer.objects.filter(user = user)
+    trainer = request.user
+    #trainer = Trainer.objects.filter(user = user)
     url = '/payments/create-checkout-session/'
-    trainer=trainer.get()
+    #trainer=trainer.get()
 
     context = {'url':url, 'trainer':trainer}
     template = loader.get_template('payments/plans.html')

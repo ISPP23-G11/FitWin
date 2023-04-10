@@ -1,4 +1,4 @@
-{% extends template %}
+{% extends "navbar.html" %}
 {% load social_share %}
 
 {% block body %}
@@ -6,27 +6,27 @@
 
 <section class="jumbotron text-center">
 	<div class="container">
-	  
       <div class="row ">
         <div class="user-card mb-3 col-12">
           {% if trainer.picture %}
             <img class="user-img mt-3" src="{{ trainer.picture.url }}" alt="Card image cap">
           {% endif %}
             <div class="user-info">
-              <h2 class="mb-4">{{ trainer.user.first_name }} {{ trainer.user.last_name }}</h2>
-              <p class="mb-4"><strong>{{ trainer.user.email }}</strong></p>
-		  <p> {{ trainer.bio }} </p>
+              <h2 class="mb-4">{{ trainer.first_name }} {{ trainer.last_name }}</h2>
+              <p class="mb-4"><strong>{{ trainer.email }}</strong></p>
+		          <p> {{ trainer.bio }} </p>
                 <div class="row d-flex justify-content-center mb-5">
                   {% url 'trainer_details' trainer_id=trainer.id as trainer_details_id %}
                   <span style="width: fit-content;" >{% post_to_facebook trainer_details_id '<i class="fab fa-facebook fa-2x"></i>' %}</span>
                   <span style="width: fit-content;" >{% post_to_whatsapp announcement_details_id "<i class='fab fa-whatsapp fa-2x'></i>" %}</span>
                 <span style="width: fit-content;" >{% post_to_twitter "" announcement_details_id "<i class='fab fa-twitter fa-2x' ></i>" %}</span>
                 </div>
+
               
 		    {% if client %}
                 <p class="mb-5">
                   <a href="/announcements/list-his/{{ trainer.id }}" class="btn btn-primary btn-lg btn-block">Clases</a>
-                  <a href="/chat/ms/{{ trainer.user.username}}" class="btn btn-primary btn-lg btn-block" style="width: 89px;">Chat</a>
+                  <a href="/chat/ms/{{ trainer.username}}" class="btn btn-primary btn-lg btn-block" style="width: 89px;">Chat</a>
                 </p>
                 {% endif %}              
 			
@@ -79,14 +79,11 @@
                   </svg></button>
                 </form>
               {% endif %}
-         
-             
-          
-
             </div>
           </div>
       </div>
   </section>
+
 
 
 {% if client %}
@@ -135,7 +132,7 @@
       {% endif %}
 	</div>
 	<div class="user-comment-text">
-		<a href="/clients/{{ c.client.id }}" style="outline: none;text-decoration: none;">{{ c.client.user.username }}</a>
+		<a href="/clients/{{ c.client.id }}" style="outline: none;text-decoration: none;">{{ c.client.username }}</a>
       	<p>{{ c.comment }}</p>
 	</div>
   </div>
