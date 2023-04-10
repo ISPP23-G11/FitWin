@@ -7,6 +7,7 @@ from django.db.models import Count
 from django.http import HttpResponseRedirect, QueryDict
 from django.shortcuts import HttpResponse, redirect, render
 from django.template import loader
+from django.urls import reverse
 from django.utils import timezone
 from users.models import User, is_client, is_trainer
 
@@ -38,7 +39,7 @@ def validate_price(price):
     return val
 
 
-def validate_announcement(request, trainer, title, description, place, price, capacity,
+def validate_announcement(request, title, description, place, price, capacity,
                           day, start_date, finish_date):
     errors = False
 
@@ -54,12 +55,6 @@ def validate_announcement(request, trainer, title, description, place, price, ca
         errors = True
         messages.error(request, "Todos los datos son obligatorios")
     if errors == False:
-        start_date = datetime.strptime(start_date, '%H:%M').time()
-        finish_date = datetime.strptime(finish_date, '%H:%M').time()
-        day = datetime.strptime(day, '%Y-%m-%d').date()
-        start_date = datetime.combine(day, start_date)
-        finish_date = datetime.combine(day, finish_date)
-
         if validate_dates(start_date, finish_date):
             errors = True
             messages.error(request, "Las fechas son incorrectas")
@@ -80,6 +75,12 @@ def create_announcement(request):
         day = request.POST.get('day', '')
         start_date = request.POST.get('start_date', '')
         finish_date = request.POST.get('finish_date', '')
+
+        start_date = datetime.strptime(start_date, '%H:%M').time()
+        finish_date = datetime.strptime(finish_date, '%H:%M').time()
+        day = datetime.strptime(day, '%Y-%m-%d').date()
+        start_date = datetime.combine(day, start_date)
+        finish_date = datetime.combine(day, finish_date)
 
         errors = validate_announcement(request, title, description, place, price,
                                        capacity, day, start_date, finish_date)
@@ -121,7 +122,7 @@ def create_announcement(request):
             trainer.num_announcements += 1
             trainer.save()
 
-            return redirect('/trainers')
+            return redirect(reverse('announcement_details',  kwargs={'announcement_id': announcement.id}))
     elif request.method == 'GET':
         template = loader.get_template("form.html")
         context = {}
@@ -155,7 +156,13 @@ def edit_announcement(request, announcement_id):
         start_date = request.POST.get('start_date', '')
         finish_date = request.POST.get('finish_date', '')
 
-        errors = validate_announcement(request, trainer, title, description, place, price,
+        start_date = datetime.strptime(start_date, '%H:%M').time()
+        finish_date = datetime.strptime(finish_date, '%H:%M').time()
+        day = datetime.strptime(day, '%Y-%m-%d').date()
+        start_date = datetime.combine(day, start_date)
+        finish_date = datetime.combine(day, finish_date)
+
+        errors = validate_announcement(request, title, description, place, price,
                                        capacity, day, start_date, finish_date)
 
         if errors == True:
@@ -176,7 +183,7 @@ def edit_announcement(request, announcement_id):
             finish_date = timezone.make_aware(finish_date)
             announcement.finish_date = finish_date
             announcement.save()
-            return redirect('/trainers')
+            return redirect(reverse('announcement_details',  kwargs={'announcement_id': announcement.id}))
     elif request.method == 'GET':
         template = loader.get_template("form.html")
         context = {
@@ -249,11 +256,11 @@ def book_announcement(request, announcement_id):
         messages.error(
             request, "No hay suficiente capacidad para reservar esta clase o ya esta apuntado a esta clase")
 
-    return redirect('/announcements/list_client_announcements', announcement_id=announcement.id)
+    return redirect(reverse('announcement_details',  kwargs={'announcement_id': announcement.id}))
 
 
-@login_required
-@user_passes_test(is_client)
+@ login_required
+@ user_passes_test(is_client)
 def cancel_book_announcement(request, announcement_id):
     client = request.user
     announcement = Announcement.objects.get(id=announcement_id)
@@ -267,7 +274,7 @@ def cancel_book_announcement(request, announcement_id):
             announcement.google_calendar_event_id, client)
     else:
         messages.error(request, "Aún no estas inscrito a esta clase")
-    return redirect("/announcements/list_client_announcements")
+    return redirect(reverse('announcement_details',  kwargs={'announcement_id': announcement.id}))
 
 
 def announcement_details(request, announcement_id):
@@ -276,8 +283,11 @@ def announcement_details(request, announcement_id):
         messages.error(request, "El anuncio no existe.")
         return redirect('announcement_list')
 
+    is_client_booking = request.user in announcement.clients.all()
+
     context = {
         'announcement': announcement,
+        'is_client_booking': is_client_booking,
     }
     return render(request, 'announcement_details.html', context)
 
