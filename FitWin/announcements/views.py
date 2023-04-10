@@ -15,47 +15,29 @@ from .gcalendar import CalendarAPI
 from .models import Announcement, Category
 
 
-def validate_dates(start_date, finish_date):
-    now_date = (datetime.now() + timedelta(hours=1))
-    val = False
-    if (now_date > start_date or start_date > finish_date):
-        val = True
-    return val
-
-
-def validate_capacity(capacity):
-    val = False
-    capacity = int(capacity)
-    if capacity <= 0:
-        val = True
-    return val
-
-
-def validate_price(price):
-    val = False
-    price = float(price)
-    if price <= 0.0:
-        val = True
-    return val
-
-
 def validate_announcement(request, title, description, place, price, capacity,
                           day, start_date, finish_date):
     errors = False
 
-    if validate_capacity(capacity):
+    capacity = int(capacity)
+    if capacity <= 0:
         errors = True
         messages.error(request, "La capacidad no puede ser 0")
-    if validate_price(price):
+
+    price = float(price)
+    if price <= 0.0:
         errors = True
         messages.error(
             request, "El precio no puede ser menor o igual que cero")
+
     if title == '' or description == '' or place == '' or price == '' \
             or capacity == '' or day == '' or start_date == '' or finish_date == '':
         errors = True
         messages.error(request, "Todos los datos son obligatorios")
+
     if errors == False:
-        if validate_dates(start_date, finish_date):
+        now_date = (datetime.now() + timedelta(hours=1))
+        if now_date > start_date or start_date > finish_date:
             errors = True
             messages.error(request, "Las fechas son incorrectas")
 
