@@ -1,12 +1,9 @@
-from django.shortcuts import render
-from django.utils.dateparse import parse_datetime
 from announcements.models import Announcement, Category
 from django.contrib.auth.decorators import login_required, user_passes_test
-from users.models import Client
-from django.views.decorators.cache import cache_page
+from django.shortcuts import render
+from django.utils.dateparse import parse_datetime
+from users.models import is_client
 
-def is_client(user):
-    return Client.objects.filter(user = user).exists()
 
 @login_required
 @user_passes_test(is_client)

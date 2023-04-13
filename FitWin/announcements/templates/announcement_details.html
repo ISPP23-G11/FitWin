@@ -1,4 +1,4 @@
-{% extends "navbar_clients.html" %}
+{% extends "navbar.html" %}
 {% load social_share %}
 
 {% block body %}
@@ -31,9 +31,20 @@
                 <span style="width: fit-content;" >{% post_to_whatsapp announcement_details_id "<i class='fab fa-whatsapp fa-2x'></i>" %}</span>
                 <span style="width: fit-content;" >{% post_to_twitter "Nueva clase: {{a.title}}. {{a.description}}. El día {{a.start_date|date:'d-m-Y'}} de {{ a.start_date|date:'H:i' }} hasta {{ a.finish_date|date:'H:i' }}. Echa un vistazo!" announcement_details_id "<i class='fab fa-twitter fa-2x' ></i>" %}</span>
               </div>
+              {% if not user.client in announcement.clients.all %}
+              <div class="dropdown text-center">
+                <a class="btn btn-info" href="{% url 'book_announcement' announcement.id %}" onclick="if(confirm('¿Estás seguro de que quieres reservar esta clase?')) { confirmBooking({{ announcement.id }}) }">Reservar clase</a>
+              </div>
+            {% else %}
+              <div class="dropdown text-center">
+                <a class="btn btn-danger" href="/announcements/cancelBook/{{ announcement.id }}">Cancelar Reserva</a>
+              </div>
+            {% endif %}
         </div>
     </div>
 </div>
+
+
 
 
 {% include "footer.html" %}

@@ -1,24 +1,6 @@
 {% extends "chat/base.html" %}
 
-{% block navbar %}
-
-	{% if request.user.client %}
-
-		{% include "navbar_clients.html" %}
-
-	{% else %}
-
-		{% include "navbar.html" %}
-
-	{% endif %}
-
-{% endblock navbar %}
-
 {% block contenedor %}
-
-
-
-
 <head>
     <meta charset="UTF-8">
     <meta content="IE=edge" http-equiv="X-UA-Compatible">
@@ -213,6 +195,8 @@
 
 
 	})
+
+
 	
 
 

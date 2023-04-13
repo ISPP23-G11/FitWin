@@ -25,8 +25,8 @@
 
                     <div class="input-group mb-3 col-12">
                         <span class="input-group-text" id="basic-addon1">Nombre</span>
-                         
-                        {{u_form.first_name}}
+                        <input required class="form-control" type="text" name="{{u_form.first_name.name}}" maxlength="30" value="{{u_form.first_name.value}}">
+                        
                          
                     </div>
                 </div>
@@ -35,7 +35,7 @@
 
                     <div class="input-group mb-3 col-12">
                         <span class="input-group-text" id="basic-addon1">Apellidos</span>
-                        {{ u_form.last_name }}
+                        <input required class="form-control" type="text" name="{{ u_form.last_name.name }}" maxlength="150" value="{{ u_form.last_name.value }}">
                     
                     </div>
                 </div>
@@ -43,9 +43,8 @@
                 <div class="row">
         
                     <div class="input-group mb-3 col-sm-12 col-lg-6">
-                        <span class="input-group-text">Fecha de nacimiento (YYYY-MM-DD)</span>
-        
-                        {{form.birthday}}
+                        <span class="input-group-text">Fecha de nacimiento</span>
+                        <input type="date" class="form-control" name="{{ form.birthday.name }}" value="{{ form.birthday.value|date:"Y-m-d" }}" id="{{ form.birthday.id_for_label }}" required>
                     </div>
                 </div>
             
@@ -53,7 +52,7 @@
         
                     <div class="input-group col">
                         <span class="input-group-text">Biografía</span>
-                        {{ form.bio }}
+                        <input required class="form-control" type="text" name="{{ form.bio.name }}" maxlength="150" value="{{ form.bio.value }}">
                       
                     </div>
                 </div>
@@ -67,19 +66,23 @@
                         {{form.picture}}
                     </div>
                 </div>
+                <br>
+                <p><strong>Foto actual:</strong> <img src="{{user.trainer.picture.url}}" width="80" height="80"> </p>
 
                 
 
 
                 <div class="row mt-5 text-center">
-                    <div class="col col-lg-6 col-sm-12">
+                    
+                <div class="col col-sm-12 col-lg-6">
+                    <a href="/trainers" class="btn btn-danger btn-lg btn-block">Cancelar</a>
+                </div>
+                
+                <div class="col col-lg-6 col-sm-12">
                         <button type="submit" class="btn btn-primary btn-lg btn-block">
                       Editar perfil
                         </button>
                     </div>
-                <div class="col col-sm-12 col-lg-6">
-                    <a href="/trainers" class="btn btn-danger btn-lg btn-block">Cancelar</a>
-                </div>
         
                 </div>
 

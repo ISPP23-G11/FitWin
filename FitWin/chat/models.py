@@ -1,9 +1,10 @@
-from django.db import models
 import uuid
-from django.conf import settings
-from django.db.models import Count
+
 from django.apps import apps
-from django.contrib.auth.models import User
+from django.conf import settings
+from django.db import models
+from django.db.models import Count
+from users.models import User
 
 # Create your models here.
 

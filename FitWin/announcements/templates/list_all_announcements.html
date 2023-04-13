@@ -1,4 +1,4 @@
-{% extends "navbar_clients.html" %}
+{% extends "navbar.html" %}
 {% load social_share %}
 
 
@@ -9,56 +9,59 @@
 
 
 <div class="row justify-content-center align-items-center h-50 mt-4">
-    <div class="col col-xl-6">
+  <div class="col col-xl-6">
     {% if announcements|length > 0 %}
 
     {% for a in announcements %}
-    <a href="{% url 'announcement_details' a.id %}" style="text-decoration: none;">
-    <div class="card mb-5" style="border-radius: 15px;">
-      <div class="card-body p-4">
-        <h3 class="mb-3"><b>{{ a.title }}</b></h3>
-        <h5 class="mb-3">{{ a.place }}</h5>
-        <h5 class="mb-3">{{ a.price|floatformat:2 }} €</h5>
-        <h5 class="mb-3">{{ a.start_date|date:"d-m-Y" }} | {{ a.start_date|date:"H:i" }} - {{ a.finish_date|date:"H:i" }}</h5>
-        <h5 class="mb-3">
-            {% if a.categories.all %}
-                {% for category in a.categories.all %}
-                    <span class="badge text-bg-success">{{ category.name }}</span>
-                {% endfor %}
-            {% else %}
-                No hay categorías para este anuncio.
-            {% endif %}</h5>
-        <p><strong>Plazas restantes:</strong> {{ a.capacity }} personas</p>
+      <a href="{% url 'announcement_details' a.id %}" style="text-decoration: none;">
+        <div class="card mb-5" style="border-radius: 15px;">
+          <div class="card-body p-4">
+            <h3 class="mb-3"><b>{{ a.title }}</b></h3>
+            <h5 class="mb-3">{{ a.place }}</h5>
+            <h5 class="mb-3">{{ a.price|floatformat:2 }} €</h5>
+            <h5 class="mb-3">{{ a.start_date|date:"d-m-Y" }} | {{ a.start_date|date:"H:i" }} - {{ a.finish_date|date:"H:i" }}</h5>
+            <h5 class="mb-3">
+                {% if a.categories.all %}
+                    {% for category in a.categories.all %}
+                        <span class="badge text-bg-success">{{ category.name }}</span>
+                    {% endfor %}
+                {% else %}
+                    No hay categorías para este anuncio.
+                {% endif %}</h5>
+            <p><strong>Plazas restantes:</strong> {{ a.capacity }} personas</p>
 
-        <p class="mb-3"><strong>Hay:</strong> {{ a.clients.count }} plazas ocupadas</p>
+            <p class="mb-3"><strong>Hay:</strong> {{ a.clients.count }} plazas ocupadas</p>
 
 
-        <p class="small mb-0"><i class="far fa-star fa-lg"></i>
-          {{ a.description }}
-        </p>
-
-        <div class="row my-4">
-          {% url 'announcement_details' announcement_id=a.id as announcement_details_id %}
-          <span style="width: fit-content;" >{% post_to_facebook announcement_details_id '<i class="fab fa-facebook fa-2x"></i>' %}</span>
-          <span style="width: fit-content;" >{% post_to_whatsapp announcement_details_id "<i class='fab fa-whatsapp fa-2x'></i>" %}</span>
-                <span style="width: fit-content;" >{% post_to_twitter "Nueva clase: {{a.title}}. {{a.description}}. El día {{a.start_date|date:'d-m-Y'}} de {{ a.start_date|date:'H:i' }} hasta {{ a.finish_date|date:'H:i' }}. Echa un vistazo!" announcement_details_id "<i class='fab fa-twitter fa-2x' ></i>" %}</span>
-        </div>
+            <p class="small mb-0"><i class="far fa-star fa-lg"></i>
+              {{ a.description }}
+            </p>
+      </a>
+            <div class="row my-4">
+              {% url 'announcement_details' announcement_id=a.id as announcement_details_id %}
+              <span style="width: fit-content;" >{% post_to_facebook announcement_details_id '<i class="fab fa-facebook fa-2x"></i>' %}</span>
+              <span style="width: fit-content;" >{% post_to_whatsapp announcement_details_id "<i class='fab fa-whatsapp fa-2x'></i>" %}</span>
+                    <span style="width: fit-content;" >{% post_to_twitter "Nueva clase: {{a.title}}. {{a.description}}. El día {{a.start_date|date:'d-m-Y'}} de {{ a.start_date|date:'H:i' }} hasta {{ a.finish_date|date:'H:i' }}. Echa un vistazo!" announcement_details_id "<i class='fab fa-twitter fa-2x' ></i>" %}</span>
+            </div>
 
         <hr class="my-2">
-
-        <div class="dropdown text-center">
-          <a class="btn btn-info" href="{% url 'book_announcement' a.id %}" onclick="if(confirm('¿Estás seguro de que quieres reservar esta clase?')) { confirmBooking({{ a.id }}) }">Reservar clase</a>
-        </div>
+        {% if not user.client in a.clients.all %}
+          <div class="dropdown text-center">
+            <a class="btn btn-info" href="{% url 'book_announcement' a.id %}" onclick="if(confirm('¿Estás seguro de que quieres reservar esta clase?')) { confirmBooking({{ a.id }}) }">Reservar clase</a>
+          </div>
+        {% else %}
+          <div class="dropdown text-center">
+            <a class="btn btn-danger" href="/announcements/cancelBook/{{ a.id }}">Cancelar Reserva</a>
+          </div>
+        {% endif %}
       </div>
     </div>
-    </a>
+   
     
     
 
     {% endfor %}
-
-</div>
-   
+  </div>   
 </div>
 
     {% else %}
