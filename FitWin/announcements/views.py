@@ -121,12 +121,12 @@ def edit_announcement(request, announcement_id):
     if announcement.finish_date < now:
         messages.error(
             request, "No se puede editar este anuncio porque ya ha finalizado.")
-        return redirect('/announcements/list?trainerId=' + trainer.id)
+        return redirect('/announcements/list?trainerId=' + str(trainer.id))
 
     if announcement.trainer.id != trainer.id:
         messages.error(
             request, "No puede editar los anuncios de otros entrenadores.")
-        return redirect('/announcements/list?trainerId=' + trainer.id)
+        return redirect('/announcements/list?trainerId=' + str(trainer.id))
 
     if request.method == 'POST':
         title = request.POST.get('title', '')
