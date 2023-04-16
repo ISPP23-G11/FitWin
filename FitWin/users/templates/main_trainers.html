@@ -22,9 +22,8 @@
 	</div>
 </div>
 	  <p>
-
-		<a href="/announcements/create" class="btn btn-primary btn-lg mt-4" style="width:182.5px;">Crear anuncio</a>
-		<a href="/announcements/list-own/all" class="btn btn-primary btn-lg mt-4">Ver mis anuncios</a>
+		<a href="{% url 'create_announcement' %}" class="btn btn-primary btn-lg mt-4">Crear anuncio</a>
+		<a href="{% url 'list_announcements' %}?trainerId={{request.user.id}}" class="btn btn-secondary btn-lg mt-4">Ver mis anuncios</a>
 
 		
 	  </p>

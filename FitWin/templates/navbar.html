@@ -39,7 +39,7 @@
                     <a class="nav-link text-white h6" href="/">Inicio</a>
                 </li>
                 <li class="nav-item active ">
-                    <a class="nav-link text-white h6" href="{% url 'list_all' %}">
+                    <a class="nav-link text-white h6" href="{% url 'list_announcements' %}">
                         Todos los anuncios
                     </a>
                 </li>
@@ -51,13 +51,13 @@
                             </a>
                         </li>
                         <li class="nav-item active ">
-                            <a class="nav-link text-white h6" href="{% url 'list_client_announcements' %}">
+                            <a class="nav-link text-white h6" href="{% url 'list_announcements' %}?showBooked=True">
                                 Mis reservas
                             </a>
                         </li>
                     {% elif "trainer" in request.user.roles %}
                         <li class="nav-item active">
-                            <a class="nav-link text-white h6" href="{% url 'list_own_all' %}">
+                            <a class="nav-link text-white h6" href="{% url 'list_announcements' %}?trainerId={{request.user.id}}">
                                 Mis anuncios<span class="sr-only"></span>
                             </a>
                         </li>
