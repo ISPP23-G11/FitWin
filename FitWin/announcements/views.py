@@ -4,7 +4,7 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.core.paginator import Paginator
 from django.db.models import Count
-from django.http import HttpResponseRedirect, QueryDict
+from django.http import HttpResponseRedirect
 from django.shortcuts import HttpResponse, redirect, render
 from django.template import loader
 from django.urls import reverse
@@ -287,6 +287,8 @@ def list_announcements(request):
     min_price = request.GET.get('minPrice', None)
     max_price = request.GET.get('maxPrice', None)
     min_rating = request.GET.get('minRating', None)
+    start_date = request.GET.get('startDate', None)
+    end_date = request.GET.get('endDate', None)
 
     categories = Category.objects.order_by('name').annotate(
         announcement_count=Count('announcement'))
@@ -294,7 +296,8 @@ def list_announcements(request):
     announcements = Announcement.objects.all()
     announcements = sort_announcements(announcements, sort_by)
     announcements = filter_announcements(
-        announcements, user, trainer_id, category, show_full, show_booked, min_price, max_price, min_rating)
+        announcements, user, trainer_id, category, show_full, show_booked,
+        min_price, max_price, min_rating, start_date, end_date)
     announcements_count = announcements.count()
 
     paginator = Paginator(announcements, n_announcements)
@@ -326,7 +329,7 @@ def sort_announcements(announcements, sort_by):
 
 
 def filter_announcements(announcements, user, trainer_id, category, show_full,
-                         show_booked, min_price, max_price, min_rating):
+                         show_booked, min_price, max_price, min_rating, start_date, end_date):
     if trainer_id is not None and trainer_id != '':
         if User.objects.filter(id=trainer_id).exists():
             trainer = User.objects.get(id=trainer_id)
@@ -351,5 +354,11 @@ def filter_announcements(announcements, user, trainer_id, category, show_full,
     if min_rating is not None and min_rating != '':
         announcements = announcements.filter(
             trainer__avg_rating__gte=min_rating)
+
+    if start_date is not None and start_date != '':
+        announcements = announcements.filter(start_date__gte=start_date)
+
+    if end_date is not None and end_date != '':
+        announcements = announcements.filter(finish_date__lte=end_date)
 
     return announcements

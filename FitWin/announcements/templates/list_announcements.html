@@ -142,6 +142,42 @@
                 </div>
               </div>
             </div>
+
+            <div class="accordion-item">
+              <h2 class="accordion-header" id="headingFive">
+                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFive" aria-expanded="true" aria-controls="collapseFive">
+                  Fechas
+                </button>
+              </h2>
+              <div id="collapseFive" class="accordion-collapse collapse" aria-labelledby="headingFive" data-bs-parent="#accordion">
+                <div class="accordion-body">
+                  <form method="get" action="{{ request.path }}">
+                    {% for key, value in request.GET.items %}
+                      {% if key != "startDate" and key != "endDate" %}
+                        <input type="hidden" name="{{ key }}" value="{{ value }}">
+                      {% endif %}
+                    {% endfor %}
+                    <div class="row mb-3">
+                      <div class="col">
+                        <p class="mb-0">
+                          Fecha de inicio
+                        </p>
+                        <input type="datetime-local" name="startDate" class="form-control" value="{{ request.GET.startDate|default_if_none:'' }}">
+                      </div>
+                    </div>
+                    <div class="row mb-3">
+                      <div class="col">
+                        <p class="mb-0">
+                          Fecha de fin
+                        </p>
+                        <input type="datetime-local" name="endDate" class="form-control" value="{{ request.GET.endDate|default_if_none:'' }}">
+                      </div>
+                    </div>
+                    <button type="submit" class="btn btn-white w-100 border border-secondary">Aplicar</button>
+                  </form>
+                </div>
+              </div>
+            </div>
           </div>
           <div class="mx-4 mt-4 mb-2" style="min-height: 4rem;"> 
             <a href="?" class="btn btn-white w-100 border border-secondary">Quitar filtros</a>
@@ -242,7 +278,7 @@
                     </div>
                     <div class="col-xl-3 col-md-3 col-sm-5">
                       <div class="d-flex flex-row align-items-center mb-1">
-                        <h4 class="mb-1 me-1">{{ announcement.price }}€</h4>
+                        <h4 class="mb-1 me-1">{{ announcement.price|floatformat:2 }}€</h4>
                       </div>
                       <div class="mt-4">
                         <a class="btn btn-primary shadow-0" href={% url 'announcement_details' announcement_id=1 %}>Ver anuncio</a>
