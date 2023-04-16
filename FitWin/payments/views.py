@@ -64,6 +64,7 @@ def create_checkout_session(request):
 
 def plans(request):
     trainer = request.user
+    is_premium(trainer)
     #trainer = Trainer.objects.filter(user = user)
     url = '/payments/create-checkout-session/'
     #trainer=trainer.get()
