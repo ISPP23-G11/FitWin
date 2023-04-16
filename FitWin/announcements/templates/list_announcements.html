@@ -227,13 +227,17 @@
                         <span class="text-muted">{{ announcement.capacity }} espacios libres</span>
                       </div>
 
-                      <p class="text mb-4 mb-md-0">
+                      <p class="text mb-4 mb-md-0 me-4">
                         {{ announcement.description|slice:":200" }}
                         {% if announcement.description|length > 200%}...{% endif %}
                       </p>
 
                       {% for category in announcement.categories.all %}
-                          <span class="badge text-bg-info">{{category.types}}: {{ category.name }}</span>
+                          <span class="badge
+                              {% if category.types == 'objectives' %} text-bg-info 
+                              {% elif category.types == 'recovery' %} text-bg-success 
+                              {% elif category.types == 'difficulty' %} text-bg-warning 
+                              {% endif %}">{{category.types}}: {{ category.name }}</span>
                       {% endfor %}
                     </div>
                     <div class="col-xl-3 col-md-3 col-sm-5">
