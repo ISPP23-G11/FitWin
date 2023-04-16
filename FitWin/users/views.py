@@ -14,11 +14,10 @@ from .models import Comment, Rating, User, is_client, is_trainer
 @user_passes_test(is_trainer)
 def handler_trainers(request):
     trainer = request.user
-    #trainer = User.objects.filter(user = user)
     url = '/payments/create-checkout-session/'
     if trainer:
-        context = {'url':url, 'trainer':trainer}
-        template = loader.get_template("main_trainers.html") 
+        context = {'url': url, 'trainer': trainer}
+        template = loader.get_template("main_trainers.html")
         return HttpResponse(template.render(context, request))
 
 
@@ -34,21 +33,21 @@ def handler_clients(request):
 
 @login_required
 def EditTrainer(request):
-    user = request.user.id
-    trainer = User.objects.get(id=user)
+    trainer = request.user
 
     if request.method == 'POST':
         birthday = request.POST.get("birthday", "")
-        errors=False
+        errors = False
 
-        u_form=UserUpdateForm(request.POST, instance=request.user)
+        u_form = UserUpdateForm(request.POST, instance=request.user)
         form = EditProfileForm(request.POST, request.FILES, instance=trainer)
 
         birthday = datetime.strptime(birthday, '%Y-%m-%d')
 
         if birthday >= datetime.now():
-            errors=True
-            messages.error(request, 'La fecha de cumpleaños tiene que ser anterior a hoy')
+            errors = True
+            messages.error(
+                request, 'La fecha de cumpleaños tiene que ser anterior a hoy')
 
         if form.is_valid() and u_form.is_valid() and not errors:
 
@@ -65,11 +64,11 @@ def EditTrainer(request):
             messages.error(request, 'El perfil no se ha podido editar')
 
     else:
-        u_form=UserUpdateForm(instance=request.user)
+        u_form = UserUpdateForm(instance=request.user)
         form = EditProfileForm(instance=trainer)
 
     context = {
-        'form':form,
+        'form': form,
         'u_form': u_form,
     }
     return render(request, 'editTrainer.html', context)
@@ -77,22 +76,22 @@ def EditTrainer(request):
 
 @login_required
 def EditClient(request):
-    user = request.user.id
-    client = User.objects.get(id=user)
+    client = request.user
 
     if request.method == 'POST':
 
         birthday = request.POST.get("birthday", "")
-        errors=False
-        
-        u_form=UserUpdateForm(request.POST, instance=request.user)
+        errors = False
+
+        u_form = UserUpdateForm(request.POST, instance=request.user)
         form = EditProfileForm(request.POST, request.FILES, instance=client)
 
         birthday = datetime.strptime(birthday, '%Y-%m-%d')
 
         if birthday >= datetime.now():
-            errors=True
-            messages.error(request, 'La fecha de cumpleaños tiene que ser anterior a hoy')
+            errors = True
+            messages.error(
+                request, 'La fecha de cumpleaños tiene que ser anterior a hoy')
 
         if form.is_valid() and u_form.is_valid() and not errors:
 
@@ -108,37 +107,37 @@ def EditClient(request):
             messages.error(request, 'El perfil no se ha podido editar')
 
     else:
-        u_form=UserUpdateForm(instance=request.user)
+        u_form = UserUpdateForm(instance=request.user)
         form = EditProfileForm(instance=client)
 
     context = {
-        'form':form,
+        'form': form,
         'u_form': u_form,
     }
     return render(request, 'editClient.html', context)
 
+
 @login_required
 def handler_trainer_details(request, trainer_id):
     context = {}
-    trainer = User.objects.filter(id = trainer_id)
+    trainer = User.objects.filter(id=trainer_id)
     user = request.user
     if trainer:
         trainer = trainer.get()
         context['trainer'] = trainer
         if is_client(user):
             context["client"] = True
-            context["template"] = "navbar_clients.html"
-            own_rating = Rating.objects.filter(trainer = trainer, client=user)
-            own_comment = Comment.objects.filter(trainer = trainer, client = user)
+            own_rating = Rating.objects.filter(trainer=trainer, client=user)
+            own_comment = Comment.objects.filter(trainer=trainer, client=user)
             if own_rating:
                 context["own_rating"] = own_rating.get().rating
             if own_comment:
                 context['own_comment'] = own_comment.get()
 
-        comments = Comment.objects.filter(trainer = trainer).order_by('date')
+        comments = Comment.objects.filter(trainer=trainer).order_by('date')
         context['comments'] = comments
 
-        ratings = Rating.objects.filter(trainer = trainer)
+        ratings = Rating.objects.filter(trainer=trainer)
         if ratings:
             sum_ratings = 0.0
             for r in ratings:
@@ -150,15 +149,15 @@ def handler_trainer_details(request, trainer_id):
             mean = "No hay calificaciones para este entrenador"
     else:
         messages.error(request, "Entrenador no encontrado")
-    
+
     template = loader.get_template("trainer_details.html")
     return HttpResponse(template.render(context, request))
 
-        
+
 @login_required
 def handler_client_details(request, client_id):
     context = {}
-    client = User.objects.filter(id = client_id)
+    client = User.objects.filter(id=client_id)
 
     if client:
         client = client.get()
@@ -169,12 +168,13 @@ def handler_client_details(request, client_id):
     template = loader.get_template("client_details.html")
     return HttpResponse(template.render(context, request))
 
+
 @login_required
 @user_passes_test(is_client)
 def rating_trainer(request, trainer_id):
     if request.method == 'POST':
         client = request.user
-        trainer = User.objects.filter(id = trainer_id)
+        trainer = User.objects.filter(id=trainer_id)
         rating = request.POST.get('rating', '0')
 
         if not client or not trainer:
@@ -186,21 +186,24 @@ def rating_trainer(request, trainer_id):
             messages.error(request, "No se pueden dar puntuaciones negativas")
         else:
             trainer = trainer.get()
-            rating_object = Rating.objects.filter(trainer = trainer, client = client)
+            rating_object = Rating.objects.filter(
+                trainer=trainer, client=client)
             if rating_object:
                 rating_object = rating_object.get()
                 rating_object.rating = int(rating)
             else:
-                rating_object = Rating(rating=int(rating), trainer=trainer, client=client)
+                rating_object = Rating(rating=int(
+                    rating), trainer=trainer, client=client)
             rating_object.save()
         return redirect("/trainers/"+str(trainer_id))
+
 
 @login_required
 @user_passes_test(is_client)
 def comment_trainer(request, trainer_id):
     if request.method == 'POST':
         client = request.user
-        trainer = User.objects.filter(id = trainer_id)
+        trainer = User.objects.filter(id=trainer_id)
         comment = request.POST.get('comment', '')
 
         if not client or not trainer:
@@ -208,18 +211,21 @@ def comment_trainer(request, trainer_id):
 
         if comment == '':
             messages.error(request, "No se ha escrito ningun comentario")
-        else: 
+        else:
             trainer = trainer.get()
-            comment_object = Comment.objects.filter(trainer = trainer, client = client)
+            comment_object = Comment.objects.filter(
+                trainer=trainer, client=client)
             if comment_object:
                 comment_object = comment_object.get()
                 comment_object.comment = comment
             else:
-                comment_object = Comment(comment=comment, trainer=trainer, client=client)
+                comment_object = Comment(
+                    comment=comment, trainer=trainer, client=client)
             comment_object.save()
         return redirect("/trainers/"+str(trainer_id))
 
-#Llamar a esta funcion en la creación de anuncios, en la edicion de 
+
+# Llamar a esta funcion en la creación de anuncios, en la edicion de
 # anuncios y antes de poder suscribirme de nuevo para gestionar errores
 def is_premium(trainer):
     premium_check = trainer.is_premium
@@ -244,9 +250,9 @@ def downgrade_suscription(trainer):
     trainer.save()
     print(trainer.username + " ahora es usuario NORMAL")
 
+
 def upgrade_suscription(trainer):
     trainer.is_premium = True
     trainer.date_premium = timezone.now().date()
     trainer.save()
     print(trainer.username + " ahora es usuario PREMIUM")
-

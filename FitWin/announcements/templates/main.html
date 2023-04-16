@@ -76,7 +76,7 @@
 
 					<br>
 					<div class="mx-auto">
-						<a href="{% url 'list_own_all' %}" class="btn btn-lg" style="background-color: #8e6ecf; color: white;">Ver anuncios de tu usuario</a>
+						<a href="{% url 'list_announcements' %}?trainerId={{request.user.id}}" class="btn btn-lg" style="background-color: #8e6ecf; color: white;">Ver anuncios de tu usuario</a>
 					</div>
 					
 					

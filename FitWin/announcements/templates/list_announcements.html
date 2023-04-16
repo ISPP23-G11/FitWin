@@ -1,136 +1,315 @@
 {% extends "navbar.html" %}
 {% load social_share %}
+{% load announcements_extras %}
 
 {% block body %}
 
-<div class="row text-center">
+<!-- Google Fonts -->
+<link
+  href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
+  rel="stylesheet"
+/>
+<!-- MDB -->
+<link
+  href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.2.0/mdb.min.css"
+  rel="stylesheet"
+/>
 
-  <div class="col-12">
-      <h1 class="display-4 text-center">Mis anuncios publicados</h1>
-      <br>
+<!-- sidebar + content -->
+<section class="">
+  <div class="container">
+    <div class="row">
+      <!-- sidebar -->
+      <div class="col-lg-3">
+        <!-- Toggle button -->
+        <button
+                class="btn btn-outline-secondary mb-3 w-100 d-lg-none"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#navbarFilters"
+                aria-controls="navbarFilters"
+                aria-expanded="false"
+                aria-label="Toggle filters"
+                >
+          <span>Mostrar filtros</span>
+        </button>
+        <!-- Collapsible wrapper -->
+        <div class="collapse card d-lg-block mb-5" id="navbarFilters">
+          <div class="accordion" id="accordionPanel">
+            
+            <div class="accordion-item">
+              <h2 class="accordion-header" id="headingOne">
+                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                  Categorías
+                </button>
+              </h2>
+              <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordion">
+                <div class="accordion-body">
+                  {% for category in categories %}
+                    <div>
+                        <a href="?{{ request.GET.urlencode|addstr:"&category="|addstr:category.id|remove_duplicated_get_params }}">{{ category.name }}</a>
+                      <span class="badge badge-secondary float-end">{{ category.announcement_count }}</span>
+                    </div>
+                  {% endfor %}
+                </div>
+              </div>
+            </div>
 
-      <a href="{% url 'list_max_capacity_announ' %}" class="btn btn-success btn-lg">Ver anuncios con aforo máximo</a>
-      
-  </div>
-
-
-
-</div>
-
-<div class="row justify-content-center align-items-center h-50 mt-4">
-    <div class="col col-xl-6">
-    {% if announcements|length > 0 %}
-
-    {% for a in announcements %}
-      
-    <div class="card mb-5" style="border-radius: 15px;">
-      <div class="card-body p-4">
-        <h3 class="mb-3"><b>{{ a.title }}</b></h3>
-        <h5 class="mb-3">{{ a.place }}</h5>
-        <h5 class="mb-3">{{ a.price|floatformat:2 }} €</h5>
-        <h5 class="mb-3">{{ a.start_date|date:"d-m-Y" }} | {{ a.start_date|date:"H:i" }} - {{ a.finish_date|date:"H:i" }}</h5>
-        <h5 class="mb-3">
-            {% if a.categories.all %}
-                {% for category in a.categories.all %}
-                    <span class="badge text-bg-success">{{category.types}}: {{ category.name }}</span>
-                {% endfor %}
-            {% else %}
-                No hay categorías para este anuncio.
-            {% endif %}</h5>
-            <p><strong>Clientes apuntados:</strong>
-              {% if a.clients.all %}
-                  {% with num_clients=a.clients.all.count %}
-                    {{ num_clients }} cliente{% if num_clients != 1 %}s{% endif %} -
-                    {% for client in a.clients.all %}
-                      {{ client.first_name }} {{ client.last_name }}
-                      {% if not forloop.last %}, {% endif %}
+            <div class="accordion-item">
+              <h2 class="accordion-header" id="headingTwo">
+                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+                  Precio
+                </button>
+              </h2>
+              <div id="collapseTwo" class="accordion-collapse collapse show" aria-labelledby="headingTwo" data-bs-parent="#accordion">
+                <div class="accordion-body">
+                  <form method="get" action="{{ request.path }}">
+                    {% for key, value in request.GET.items %}
+                      {% if key != "minPrice" and key != "maxPrice" %}
+                        <input type="hidden" name="{{ key }}" value="{{ value }}">
+                      {% endif %}
                     {% endfor %}
-                    <p><strong>Plazas restantes :</strong>  {{ a.capacity }}</p>
-                  {% endwith %}
-              {% else %}
-              No hay clientes para este anuncio.
-              <p><strong>Plazas restantes :</strong>  {{ a.capacity }}</p>
-              {% endif %}
-          </p>
+                    <div class="row mb-3">
+                      <div class="col-6">
+                        <p class="mb-0">
+                          Min
+                        </p>
+                        <input type="number" step="0.01" name="minPrice" class="form-control" placeholder="0€" value="{{ request.GET.minPrice }}"/>
+                      </div>
+                      <div class="col-6">
+                        <p class="mb-0">
+                          Max
+                        </p>
+                        <input type="number" step="0.01" name="maxPrice" class="form-control" placeholder="1,000€" value="{{ request.GET.maxPrice }}"/>
+                      </div>
+                    </div>
+                    <button type="submit" class="btn btn-white w-100 border border-secondary">Aplicar</button>
+                  </form>
+                </div>
+              </div>
+            </div>
 
-      
-        <p class="small mb-0"><i class="far fa-star fa-lg"></i>
-          {{ a.description }}
-        </p>
+            <div class="accordion-item">
+              <h2 class="accordion-header" id="headingThree">
+                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="true" aria-controls="collapseThree">
+                  Valoración media
+                </button>
+              </h2>
+              <div id="collapseThree" class="accordion-collapse collapse show" aria-labelledby="headingThree" data-bs-parent="#accordion">
+                <div class="accordion-body">
+                  <div>
+                    <a href="?{{ request.GET.urlencode|addstr:"&minRating=4"|remove_duplicated_get_params }}">
+                      <i class="fas fa-star text-warning"></i><i class="fas fa-star text-warning"></i><i class="fas fa-star text-warning"></i><i class="fas fa-star text-warning"></i><i class="fas fa-star text-secondary"></i> o más
+                    </a>
+                  </div>
+                  <div>
+                    <a href="?{{ request.GET.urlencode|addstr:"&minRating=3"|remove_duplicated_get_params }}">
+                      <i class="fas fa-star text-warning"></i><i class="fas fa-star text-warning"></i><i class="fas fa-star text-warning"></i><i class="fas fa-star text-secondary"></i><i class="fas fa-star text-secondary"></i> o más
+                    </a>
+                  </div>
+                  <div>
+                    <a href="?{{ request.GET.urlencode|addstr:"&minRating=2"|remove_duplicated_get_params }}">
+                      <i class="fas fa-star text-warning"></i><i class="fas fa-star text-warning"></i><i class="fas fa-star text-secondary"></i><i class="fas fa-star text-secondary"></i><i class="fas fa-star text-secondary"></i> o más
+                    </a>
+                  </div>
+                  <div>
+                    <a href="?{{ request.GET.urlencode|addstr:"&minRating=1"|remove_duplicated_get_params }}">
+                      <i class="fas fa-star text-warning"></i><i class="fas fa-star text-secondary"></i><i class="fas fa-star text-secondary"></i><i class="fas fa-star text-secondary"></i><i class="fas fa-star text-secondary"></i> o más
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
 
-        <div class="row my-4">
-          {% url 'announcement_details' announcement_id=a.id as announcement_details_id %}
-          <span style="width: fit-content;" >{% post_to_facebook announcement_details_id '<i class="fab fa-facebook fa-2x"></i>' %}</span>
-          <span style="width: fit-content;" >{% post_to_whatsapp announcement_details_id "<i class='fab fa-whatsapp fa-2x'></i>" %}</span>
-          <span style="width: fit-content;" >{% post_to_twitter "Nueva clase: {{a.title}}. {{a.description}}. El día {{a.start_date|date:'d-m-Y'}} de {{ a.start_date|date:'H:i' }} hasta {{ a.finish_date|date:'H:i' }}. Echa un vistazo!" announcement_details_id "<i class='fab fa-twitter fa-2x' ></i>" %}</span>
+            <div class="accordion-item">
+              <h2 class="accordion-header" id="headingFour">
+                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="true" aria-controls="collapseFour">
+                  Reservas
+                </button>
+              </h2>
+              <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour" data-bs-parent="#accordion">
+                <div class="accordion-body">
+                  <div>
+                    <a href="?{{ request.GET.urlencode|addstr:"&showBooked=True"|remove_duplicated_get_params }}">
+                      Reservados por mí
+                    </a>
+                  </div>
+                  <div>
+                    <a href="?{{ request.GET.urlencode|addstr:"&showFull=True"|remove_duplicated_get_params }}">
+                      Aforo completo
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="mx-4 mt-4 mb-2" style="min-height: 4rem;"> 
+            <a href="?" class="btn btn-white w-100 border border-secondary">Quitar filtros</a>
+          </div>
         </div>
+      </div>
+      <!-- sidebar -->
+      <!-- content -->
+      <div class="col-lg-9">
+        <header class="d-sm-flex align-items-center border-bottom mb-4 pb-3">
+          <strong class="d-block py-2">{{announcements_count}} anuncios encontrados </strong>
+          <div class="ms-auto">
+            <select class="form-select d-inline-block w-auto border pt-1" id="select-sortBy" onchange="redirect(this.value)">
+              <option value="?{{ request.GET.urlencode|addstr:"&sortBy=bestRated"|remove_duplicated_get_params }}"
+                  {% if request.GET.sortBy == "bestRated" %}selected{% endif %}>
+                Mejor valorados
+              </option>
+              <option value="?{{ request.GET.urlencode|addstr:"&sortBy=recommended"|remove_duplicated_get_params }}"
+                  {% if request.GET.sortBy == "recommended" %}selected{% endif %}>
+                Recomendados
+              </option>
+              <option value="?{{ request.GET.urlencode|addstr:"&sortBy=priceAsc"|remove_duplicated_get_params }}"
+                  {% if request.GET.sortBy == "priceAsc" %}selected{% endif %}>
+                Precio ascendente
+              </option>
+              <option value="?{{ request.GET.urlencode|addstr:"&sortBy=priceDesc"|remove_duplicated_get_params }}"
+                  {% if request.GET.sortBy == "priceDesc" %}selected{% endif %}>
+                Precio descendente
+              </option>
+            </select>
+          </div>
+          <div class="ms-1">
+            <select class="form-select d-inline-block w-auto border" id="select-nAnnouncements" onchange="redirect(this.value)">
+              <option value="?{{ request.GET.urlencode|addstr:"&nAnnouncements=25"|remove_duplicated_get_params }}"
+                  {% if request.GET.nAnnouncements == "25" %}selected{% endif %}>
+                25
+              </option>
+              <option value="?{{ request.GET.urlencode|addstr:"&nAnnouncements=50"|remove_duplicated_get_params }}"
+                  {% if request.GET.nAnnouncements == "50" %}selected{% endif %}>
+                50
+              </option>
+              <option value="?{{ request.GET.urlencode|addstr:"&nAnnouncements=100"|remove_duplicated_get_params }}"
+                  {% if request.GET.nAnnouncements == "100" %}selected{% endif %}>
+                100
+              </option>
+              <option value="?{{ request.GET.urlencode|addstr:"&nAnnouncements=200"|remove_duplicated_get_params }}"
+                  {% if request.GET.nAnnouncements == "200" %}selected{% endif %}>
+                200
+              </option>
+            </select>
+          </div>
+        </header>
 
-        <hr class="my-2">
+        {% for announcement in announcements %}
+          <div class="row justify-content-center mb-3">
+            <div class="col-md-12">
+              <div class="card shadow-0 border rounded-3">
+                <div class="card-body">
+                  <div class="row g-0">
+                    <div class="col-xl-3 col-md-4 d-flex justify-content-center">
+                      <div class="bg-image hover-zoom ripple rounded ripple-surface me-md-3 mb-3 mb-md-0">
+                        <img src="{{ request.scheme }}://{{ request.get_host }}/media/{{ announcement.trainer.picture }}" class="w-100" />
+                        <a href="#!">
+                          <div class="hover-overlay">
+                            <div class="mask" style="background-color: rgba(253, 253, 253, 0.15);"></div>
+                          </div>
+                        </a>
+                      </div>
+                    </div>
+                    <div class="col-xl-6 col-md-5 col-sm-7">
+                      <h5>{{ announcement.title }}</h5>
+                      <div class="d-flex flex-row">
+                        <div class="text-warning mb-1 me-2">
+                          <span class="fa fa-star {% if announcement.trainer.avg_rating < 1 %} text-secondary {% endif %}"></span>
+                          <i class="fa fa-star {% if announcement.trainer.avg_rating < 2 %} text-secondary {% endif %}"></i>
+                          <i class="fa fa-star {% if announcement.trainer.avg_rating < 3 %} text-secondary {% endif %}"></i>
+                          <i class="fa fa-star {% if announcement.trainer.avg_rating < 4 %} text-secondary {% endif %}"></i>
+                          <span class="fa fa-star {% if announcement.trainer.avg_rating < 5 %} text-secondary {% endif %}"></span>
+                          <span class="ms-1">
+                            {{ announcement.trainer.avg_rating }}
+                          </span>
+                        </div>
+                        <span class="text-muted">{{ announcement.capacity }} espacios libres</span>
+                      </div>
 
-        <div class="dropdown">
-          <a class="btn btn-info dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
-            Opciones
-          </a>
-        
-          <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuLink">
-            <li><a class="dropdown-item text-center" href="/announcements/edit/{{ a.id }}">Editar</a></li>
-            <li><a class="dropdown-item text-center" href="/announcements/add-categories/{{ a.id }}">Asignar Categorias</a></li>
-            <li><a class="dropdown-item text-center" href="/announcements/delete-announce/{{ a.id }}" onclick="return confirm('¿Estás seguro de que quieres borrar este anuncio?')">Borrar</a></li>
+                      <p class="text mb-4 mb-md-0">
+                        {{ announcement.description|slice:":200" }}
+                        {% if announcement.description|length > 200%}...{% endif %}
+                      </p>
 
+                      {% for category in announcement.categories.all %}
+                          <span class="badge text-bg-info">{{category.types}}: {{ category.name }}</span>
+                      {% endfor %}
+                    </div>
+                    <div class="col-xl-3 col-md-3 col-sm-5">
+                      <div class="d-flex flex-row align-items-center mb-1">
+                        <h4 class="mb-1 me-1">{{ announcement.price }}€</h4>
+                      </div>
+                      <div class="mt-4">
+                        <a class="btn btn-primary shadow-0" href={% url 'announcement_details' announcement_id=1 %}>Ver anuncio</a>
+                      </div>
+                      <div class="row mb-2 mt-4">
+                        {% url 'announcement_details' announcement_id=announcement.id as announcement_details_id %}
+                        <span style="width: fit-content;" >{% post_to_facebook announcement_details_id '<i class="fab fa-facebook fa-lg"></i>' %}</span>
+                        <span style="width: fit-content;" >{% post_to_whatsapp announcement_details_id "<i class='fab fa-whatsapp fa-lg'></i>" %}</span>
+                        <span style="width: fit-content;" >{% post_to_twitter "Nueva clase: {{a.title}}. {{a.description}}. El día {{a.start_date|date:'d-m-Y'}} de {{ a.start_date|date:'H:i' }} hasta {{ a.finish_date|date:'H:i' }}. Echa un vistazo!" announcement_details_id "<i class='fab fa-twitter fa-lg' ></i>" %}</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+
+        <hr/>
+
+        <!-- Pagination -->
+        <nav aria-label="Page navigation">
+          <ul class="pagination justify-content-center">
+            <!-- previous -->
+            {% if page_obj.has_previous %}
+              <li class="page-item">
+                  <a class="page-link" href="?{{ request.GET.urlencode|addstr:"&page=1"|remove_duplicated_get_params}}">Primera</a>
+              </li>
+              <li class="page-item">
+                  <a class="page-link" href="?{{ request.GET.urlencode|addstr:"&page="|addstr:page_obj.previous_page_number|remove_duplicated_get_params }}">{{ page_obj.previous_page_number }}</a>
+              </li>
+            {% else %}
+              <li class="page-item disabled">
+                  <a class="page-link" href="#" tabindex="-1">Primera</a>
+              </li>
+            {% endif %}
+
+            <!-- current -->
+            <li class="page-item active">
+                  <a class="page-link" href="?{{ request.GET.urlencode|addstr:"&page="|addstr:page_obj.number|remove_duplicated_get_params }}">{{ page_obj.number }}</a>
+            </li>
+
+            <!-- next -->
+            {% if page_obj.has_next %}
+              <li class="page-item">
+                  <a class="page-link" href="?{{ request.GET.urlencode|addstr:"&page="|addstr:page_obj.next_page_number|remove_duplicated_get_params }}">{{ page_obj.next_page_number }}</a>
+              </li>
+              <li class="page-item">
+                  <a class="page-link" href="?{{ request.GET.urlencode|addstr:"&page="|addstr:page_obj.paginator.num_pages|remove_duplicated_get_params }}">Última</a>
+              </li>
+            {% else %}
+              <li class="page-item disabled">
+                  <a class="page-link" href="#" tabindex="-1">Última</a>
+              </li>
+            {% endif %}
           </ul>
-        </div>
-
+        </nav>
+        <!-- Pagination -->
       </div>
     </div>
+  </div>
+</section>
 
-    
-    
-
-    {% endfor %}
-
-</div>
-   
-</div>
-
-    {% else %}
-      <p class="alert alert-danger">No se encontraron anuncios</p>
-    {% endif %}
-
-
-    
+<script type="text/javascript">
   
-    {% if announcements.has_other_pages %}
-    <nav aria-label="Page navigation example" class="text-center">
-        <ul class="pagination justify-content-center">
-            {% if announcements.has_previous %}
-          <li class="page-item">
-            <a class="page-link" href="?page={{ announcements.previous_page_number }}" aria-label="Previous">
-              <span aria-hidden="true">&laquo;</span>
-            </a>
-          </li>
-            {% endif %}        
-        
-        {% for i in announcements.paginator.page_range %}
-            {% if announcements.number == i %}
-                <li class="page-item"><a class="page-link" href="#">{{ i }}</a></li>
-            {% elif i > announcements.number|add:'-1' and i < announcements.number|add:'1' %} 
-                <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
-            {% endif %}
-        {% endfor %}
-        
-        {% if announcements.has_next %}
-        <li class="page-item">
-        <a class="page-link" href="?page={{ announcements.next_page_number }}" aria-label="Next">
-            <span aria-hidden="true">&raquo;</span>
-        </a>
-            </li>
-        {% endif %}
-        </ul>
-      </nav>
-    <div class="pagination">
-    
-    </div>
-    {% endif %}
-    
-</ul>
+  function redirect(goto){
+    if (goto != '') {
+        window.location = goto;
+    }
+  }
+
+</script>
+
 {% endblock %}
