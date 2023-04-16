@@ -46,11 +46,6 @@
                 {% if request.user.is_authenticated %}
                     {% if "client" in request.user.roles %}
                         <li class="nav-item active ">
-                            <a class="nav-link text-white h6" href="#">
-                                Búsqueda avanzada de clases
-                            </a>
-                        </li>
-                        <li class="nav-item active ">
                             <a class="nav-link text-white h6" href="{% url 'list_announcements' %}?showBooked=True">
                                 Mis reservas
                             </a>
