@@ -266,10 +266,12 @@ def announcement_details(request, announcement_id):
         return redirect('announcement_list')
 
     is_client_booking = request.user in announcement.clients.all()
+    is_trainer_announcement = announcement.trainer == request.user
 
     context = {
         'announcement': announcement,
         'is_client_booking': is_client_booking,
+        'is_trainer_announcement': is_trainer_announcement,
     }
     return render(request, 'announcement_details.html', context)
 

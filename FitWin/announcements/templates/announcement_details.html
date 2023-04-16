@@ -73,7 +73,7 @@
                       Reservar
                   </a>
                 {% endif %}
-              {% elif "trainer" in request.user.roles %}
+              {% elif "trainer" in request.user.roles and is_trainer_announcement%}
                 <a href="{% url 'edit_announcement' announcement.id %}" 
                         class="btn btn-outline-primary btn-lg me-4 px-3 w-100">
                     Editar
