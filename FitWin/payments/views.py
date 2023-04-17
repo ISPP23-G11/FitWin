@@ -58,7 +58,7 @@ def create_checkout_session(request):
         return JsonResponse({'id': session.id})
     
     else:
-        messages.error(request, "Ya eres entrenador premium")
+        messages.error(request, "Ya eres entrenador premium", extra_tags='success')
         return redirect('/trainers')
 
 

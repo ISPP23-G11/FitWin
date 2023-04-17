@@ -22,24 +22,24 @@ def validate_announcement(request, title, description, place, price, capacity,
     capacity = int(capacity)
     if capacity <= 0:
         errors = True
-        messages.error(request, "La capacidad no puede ser 0")
+        messages.error(request, "La capacidad no puede ser 0", extra_tags='error')
 
     price = float(price)
     if price <= 0.0:
         errors = True
         messages.error(
-            request, "El precio no puede ser menor o igual que cero")
+            request, "El precio no puede ser menor o igual que cero", extra_tags='error')
 
     if title == '' or description == '' or place == '' or price == '' \
             or capacity == '' or day == '' or start_date == '' or finish_date == '':
         errors = True
-        messages.error(request, "Todos los datos son obligatorios")
+        messages.error(request, "Todos los datos son obligatorios", extra_tags='error')
 
     if errors == False:
         now_date = (datetime.now() + timedelta(hours=1))
         if now_date > start_date or start_date > finish_date:
             errors = True
-            messages.error(request, "Las fechas son incorrectas")
+            messages.error(request, "Las fechas son incorrectas", extra_tags='error')
 
     return errors
 
@@ -70,7 +70,7 @@ def create_announcement(request):
         if not trainer.is_premium and trainer.num_announcements >= 5:
             errors = True
             messages.error(
-                request, "Ha alcanzado el número máximo de anuncios permitidos como usuario Free")
+                request, "Ha alcanzado el número máximo de anuncios permitidos como usuario Free", extra_tags='error')
 
         if errors == True:
             template = loader.get_template("form.html")
@@ -120,12 +120,12 @@ def edit_announcement(request, announcement_id):
     now = timezone.now()
     if announcement.finish_date < now:
         messages.error(
-            request, "No se puede editar este anuncio porque ya ha finalizado.")
+            request, "No se puede editar este anuncio porque ya ha finalizado.", extra_tags='error')
         return redirect('/announcements/list?trainerId=' + str(trainer.id))
 
     if announcement.trainer.id != trainer.id:
         messages.error(
-            request, "No puede editar los anuncios de otros entrenadores.")
+            request, "No puede editar los anuncios de otros entrenadores.", extra_tags='error')
         return redirect('/announcements/list?trainerId=' + str(trainer.id))
 
     if request.method == 'POST':
@@ -183,7 +183,7 @@ def delete_announcement(request, announcement_id):
     calendar = CalendarAPI(announcement.trainer)
     calendar.delete_event(announcement.google_calendar_event_id)
 
-    messages.success(request, 'El anuncio ha sido eliminado correctamente.')
+    messages.success(request, 'El anuncio ha sido eliminado correctamente.', extra_tags='success')
     return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
 
@@ -232,11 +232,11 @@ def book_announcement(request, announcement_id):
         calendar.add_attendee_to_event(
             announcement.google_calendar_event_id, client)
 
-        messages.success(request, "¡Reserva realizada con éxito!")
+        messages.success(request, "¡Reserva realizada con éxito!", extra_tags='success')
     else:
 
         messages.error(
-            request, "No hay suficiente capacidad para reservar esta clase o ya esta apuntado a esta clase")
+            request, "No hay suficiente capacidad para reservar esta clase o ya esta apuntado a esta clase", extra_tags='error')
 
     return redirect(reverse('announcement_details',  kwargs={'announcement_id': announcement.id}))
 
@@ -255,14 +255,14 @@ def cancel_book_announcement(request, announcement_id):
         calendar.remove_attendee_from_event(
             announcement.google_calendar_event_id, client)
     else:
-        messages.error(request, "Aún no estas inscrito a esta clase")
+        messages.error(request, "Aún no estas inscrito a esta clase", extra_tags='error')
     return redirect(reverse('announcement_details',  kwargs={'announcement_id': announcement.id}))
 
 
 def announcement_details(request, announcement_id):
     announcement = Announcement.objects.filter(id=announcement_id).first()
     if not announcement:
-        messages.error(request, "El anuncio no existe.")
+        messages.error(request, "El anuncio no existe.", extra_tags='error')
         return redirect('announcement_list')
 
     is_client_booking = request.user in announcement.clients.all()

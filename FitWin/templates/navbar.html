@@ -70,11 +70,6 @@
                 {% if request.user.is_authenticated %}
                     {% if "client" in request.user.roles %}
                         <li class="nav-item active ">
-                            <a class="nav-link text-white h6" href="#">
-                                Búsqueda avanzada de clases
-                            </a>
-                        </li>
-                        <li class="nav-item active ">
                             <a class="nav-link text-white h6" href="{% url 'list_announcements' %}?showBooked=True">
                                 Mis reservas
                             </a>
@@ -91,42 +86,8 @@
                             </a>
                         </li>
                     {% endif %}
-
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav mr-auto">
-                    
-                    <li class="nav-item">
-                        <a class="nav-link text-white h6" href="{{ main }}"><strong>Inicio</strong></a>
-                    </li>
-
-                    <li class="nav-item active ">
-                        <a class="nav-link text-white h6" href="{% url 'list_announcements' %}">
-                            Anuncios
-                        </a>
-                    </li>
-                    {% if request.user.is_authenticated %}
-                        {% if "client" in request.user.roles %}
-                            <li class="nav-item active ">
-                                <a class="nav-link text-white h6" href="{% url 'list_announcements' %}?showBooked=True">
-                                    Mis reservas
-                                </a>
-                            </li>
-                        {% elif "trainer" in request.user.roles %}
-                            <li class="nav-item active ">
-                                <a class="nav-link text-white h6" href="{% url 'payments:plans' %}">
-                                    Planes
-                                </a>
-                            </li>
-                            <li class="nav-item active">
-                                <a class="nav-link text-white h6" href="{% url 'list_announcements' %}?trainerId={{request.user.id}}">
-                                    Mis anuncios<span class="sr-only"></span>
-                                </a>
-                            </li>
-                        {% endif %}
-                        <li class="nav-item active ">
-                            <a class="nav-link text-white h6" href="/chat">Mis mensajes</a>
-                        </li>
-                    {% endif %}
+                {% endif %}
+            
                 </ul>
                 {% if request.user.is_authenticated %}
                     <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
@@ -161,9 +122,13 @@
 
     {% if messages|length > 0 %}
         {% for message in messages %}
-            <h3>
-                {{ message }}
-            </h3>
+            {% if 'error' in message.tags %}
+                <div class="alert alert-danger" role="alert">{{ message }}</div>
+            {% elif 'success' in message.tags %}
+                <div class="alert alert-success" role="alert">{{ message }}</div>
+            {% else %}
+                <div class="alert">{{ message }}</div>
+            {% endif %}
         {% endfor %}
     {% endif %}
     <br>
