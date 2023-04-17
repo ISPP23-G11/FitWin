@@ -82,6 +82,10 @@
                         class="btn btn-outline-primary btn-md mt-2 px-3 w-100">
                     Añadir categorías
                 </a>
+                <a href="{% url 'delete_announcement' announcement.id %}" onclick="if(confirm('¿Estás seguro de que quieres eliminar el anuncio?')) { deleteAnnouncement({{ announcement.id }}) }" 
+                        class="btn btn-outline-danger btn-md mt-2 px-3 w-100">
+                    Borrar
+                </a>
               {% endif %}
             </div>
           </div>

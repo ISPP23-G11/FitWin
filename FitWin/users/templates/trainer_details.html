@@ -24,7 +24,7 @@
           
       {% if client %}
         <p class="mb-5">
-          <a href="/announcements/list-his/{{ trainer.id }}" class="btn btn-primary btn-lg btn-block">Clases</a>
+          <a href="/announcements/list?trainer={{trainer.username}}" class="btn btn-primary btn-lg btn-block">Clases</a>
           <a href="/chat/ms/{{ trainer.username}}" class="btn btn-primary btn-lg btn-block" style="width: 89px;">Chat</a>
         </p>
       {% endif %}

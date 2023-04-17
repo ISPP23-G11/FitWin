@@ -78,6 +78,44 @@
               </div>
             </div>
 
+
+
+
+
+
+            <div class="accordion-item">
+              <h2 class="accordion-header" id="headingFive">
+                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFive" aria-expanded="true" aria-controls="collapseFive">
+                  Entrenador
+                </button>
+              </h2>
+              <div id="collapseFive" class="accordion-collapse collapse" aria-labelledby="headingFive" data-bs-parent="#accordion">
+                <div class="accordion-body">
+                  <form method="get" action="{{ request.path }}">
+                    {% for key, value in request.GET.items %}
+                      {% if key != "trainer" %}
+                        <input type="hidden" name="{{ key }}" value="{{ value }}">
+                      {% endif %}
+                    {% endfor %}
+                    <div class="row mb-3">
+                      <div class="col">
+                        <p class="mb-0">
+                          Entrenador
+                        </p>
+                        <input type="text" name="trainer" class="form-control" value="{{ request.GET.trainer|default_if_none:'' }}">
+                      </div>
+                    </div>
+                    <button type="submit" class="btn btn-white w-100 border border-secondary">Aplicar</button>
+                  </form>
+                </div>
+              </div>
+            </div>
+
+
+
+
+
+
             <div class="accordion-item">
               <h2 class="accordion-header" id="headingThree">
                 <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="true" aria-controls="collapseThree">
@@ -229,7 +267,7 @@
                     <div class="col-xl-3 col-md-4 d-flex justify-content-center">
                       <div class="bg-image hover-zoom ripple rounded ripple-surface me-md-3 mb-3 mb-md-0">
                         <img src="{{ request.scheme }}://{{ request.get_host }}/media/{{ announcement.trainer.picture }}" class="w-100" />
-                        <a href="#!">
+                        <a href="/trainers/{{announcement.trainer.id}}">
                           <div class="hover-overlay">
                             <div class="mask" style="background-color: rgba(253, 253, 253, 0.15);"></div>
                           </div>
@@ -270,7 +308,7 @@
                         <h4 class="mb-1 me-1">{{ announcement.price|floatformat:2 }}€</h4>
                       </div>
                       <div class="mt-4">
-                        <a class="btn btn-primary shadow-0" href={% url 'announcement_details' announcement_id=1 %}>Ver anuncio</a>
+                        <a class="btn btn-primary shadow-0" href="/announcements/{{ announcement.id }}">Ver anuncio</a>
                       </div>
                       <div class="row mb-2 mt-4">
                         {% url 'announcement_details' announcement_id=announcement.id as announcement_details_id %}
