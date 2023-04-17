@@ -8,6 +8,7 @@ from django.utils import timezone
 
 from .forms import EditProfileForm, UserUpdateForm
 from .models import Comment, Rating, User, is_client, is_trainer
+from announcements.models import Announcement
 
 
 @login_required
@@ -27,7 +28,8 @@ def handler_trainers(request):
 def handler_clients(request):
     client = request.user
     if client:
-        context = {}
+        announcements = Announcement.objects.filter(recommendation__client=client, recommendation__score__gte=3.5).distinct()
+        context = {'announcements':announcements}
         template = loader.get_template("main_clients.html")
         return HttpResponse(template.render(context, request))
 
