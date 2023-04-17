@@ -178,13 +178,14 @@ def edit_announcement(request, announcement_id):
 @user_passes_test(is_trainer)
 def delete_announcement(request, announcement_id):
     announcement = Announcement.objects.get(id=announcement_id)
+    trainer = announcement.trainer.username
     announcement.delete()
 
     calendar = CalendarAPI(announcement.trainer)
     calendar.delete_event(announcement.google_calendar_event_id)
 
     messages.success(request, 'El anuncio ha sido eliminado correctamente.', extra_tags='success')
-    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+    return redirect("/announcements/list?trainer="+trainer)
 
 
 @login_required
@@ -263,7 +264,7 @@ def announcement_details(request, announcement_id):
     announcement = Announcement.objects.filter(id=announcement_id).first()
     if not announcement:
         messages.error(request, "El anuncio no existe.", extra_tags='error')
-        return redirect('announcement_list')
+        return redirect('/announcements/list')
 
     is_client_booking = request.user in announcement.clients.all()
     is_trainer_announcement = announcement.trainer == request.user
