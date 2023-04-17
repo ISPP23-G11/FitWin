@@ -15,5 +15,6 @@ def menu(request):
     return HttpResponse(template.render())
 
 def legal_notice(request):
+    context = {}
     template = loader.get_template('landingPage/legal_notice.html')
-    return HttpResponse(template.render())
+    return HttpResponse(template.render(context,request))

@@ -258,7 +258,7 @@ def cancel_book_announcement(request, announcement_id):
         messages.error(request, "Aún no estas inscrito a esta clase", extra_tags='error')
     return redirect(reverse('announcement_details',  kwargs={'announcement_id': announcement.id}))
 
-
+@login_required
 def announcement_details(request, announcement_id):
     announcement = Announcement.objects.filter(id=announcement_id).first()
     if not announcement:
@@ -275,7 +275,7 @@ def announcement_details(request, announcement_id):
     }
     return render(request, 'announcement_details.html', context)
 
-
+@login_required
 def list_announcements(request):
     user = request.user
     n_announcements = request.GET.get('nAnnouncements', 25)

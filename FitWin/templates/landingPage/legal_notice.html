@@ -1,5 +1,4 @@
 {% extends "navbar.html" %}
-{% load social_share %}
 
 {% block body %}
 
@@ -23,17 +22,6 @@
     </div>
 </div>
 
-<!-- footer starts -->
-<footer class="bg-dark p-2 text-center">
-    <div class="container">
-        <p class="text-white">Todos los derechos reservados por @FitWin</p>
-    </div>
-    <div class="container">
-        <a class=" text-white " href="{% url 'legal_notice' %}">
-            Aviso legal
-        </a>
-    </div>
-</footer>
-<!-- footer ends -->
+{% include "footer.html" %}
 
 {% endblock %}
