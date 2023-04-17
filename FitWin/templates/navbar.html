@@ -20,85 +20,99 @@
         crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
     <link href="{% static 'css/menu.css' %}" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link
+    href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
+    rel="stylesheet"
+    />
+    <!-- MDB -->
+    <link
+    href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.2.0/mdb.min.css"
+    rel="stylesheet"
+    />
 </head>
 
 <body>
     <nav class="navbar navbar-expand-lg navbar-light background ">
-        <a class="navbar-brand" href="/">
-            <img alt="..." class="d-block w-100" src="../../../static/img/logo.png" width="50" height="50">
-        </a>
+        <div class="container">
+            {% if "client" in request.user.roles %}
+                {% url 'main_clients' as main %}
+            {% elif "trainer" in request.user.roles %}
+                {% url 'main_trainers' as main %}
+            {% else %}
+                {% url 'home' as main %}
+            {% endif %}
+            <a class="navbar-brand" href="{{ main }}">
+                <img alt="..." class="d-block w-100" src="../../../static/img/logo.png" width="60" height="60">
+            </a>
 
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
 
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav mr-auto">
-                
-                <li class="nav-item">
-                    <a class="nav-link text-white h6" href="/">Inicio</a>
-                </li>
-                <li class="nav-item active ">
-                    <a class="nav-link text-white h6" href="{% url 'list_announcements' %}">
-                        Todos los anuncios
-                    </a>
-                </li>
-                {% if request.user.is_authenticated %}
-                    {% if "client" in request.user.roles %}
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    
+                    <li class="nav-item">
+                        <a class="nav-link text-white h6" href="{{ main }}"><strong>Inicio</strong></a>
+                    </li>
+                    <li class="nav-item active ">
+                        <a class="nav-link text-white h6" href="{% url 'list_announcements' %}">
+                            Anuncios
+                        </a>
+                    </li>
+                    {% if request.user.is_authenticated %}
+                        {% if "client" in request.user.roles %}
+                            <li class="nav-item active ">
+                                <a class="nav-link text-white h6" href="{% url 'list_announcements' %}?showBooked=True">
+                                    Mis reservas
+                                </a>
+                            </li>
+                        {% elif "trainer" in request.user.roles %}
+                            <li class="nav-item active ">
+                                <a class="nav-link text-white h6" href="{% url 'payments:plans' %}">
+                                    Planes
+                                </a>
+                            </li>
+                            <li class="nav-item active">
+                                <a class="nav-link text-white h6" href="{% url 'list_announcements' %}?trainerId={{request.user.id}}">
+                                    Mis anuncios<span class="sr-only"></span>
+                                </a>
+                            </li>
+                        {% endif %}
                         <li class="nav-item active ">
-                            <a class="nav-link text-white h6" href="#">
-                                Búsqueda avanzada de clases
-                            </a>
-                        </li>
-                        <li class="nav-item active ">
-                            <a class="nav-link text-white h6" href="{% url 'list_announcements' %}?showBooked=True">
-                                Mis reservas
-                            </a>
-                        </li>
-                    {% elif "trainer" in request.user.roles %}
-                        <li class="nav-item active">
-                            <a class="nav-link text-white h6" href="{% url 'list_announcements' %}?trainerId={{request.user.id}}">
-                                Mis anuncios<span class="sr-only"></span>
-                            </a>
-                        </li>
-                        <li class="nav-item active ">
-                            <a class="nav-link text-white h6" href="{% url 'payments:plans' %}">
-                                Planes
-                            </a>
+                            <a class="nav-link text-white h6" href="/chat">Mis mensajes</a>
                         </li>
                     {% endif %}
-                    <li class="nav-item active ">
-                        <a class="nav-link text-white h6" href="/chat">Mis mensajes directos</a>
-                    </li>
+                </ul>
+                {% if request.user.is_authenticated %}
+                    <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
+                        <ul class="navbar-nav ">
+                            <li class="nav-item ">
+                                <a class="nav-link text-white h6 me-2" href="#"><em>Hola, {{ request.user.username }}</em></a>
+                            </li>
+                            {% if "client" in request.user.roles %}
+                                {% url 'client_details' client_id=request.user.id as user_details %}
+                                {% url 'client_edit' as user_edit %}
+                            {% elif "trainer" in request.user.roles %}
+                                {% url 'trainer_details' trainer_id=request.user.id as user_details %}
+                                {% url 'trainer_edit' as user_edit %}
+                            {% endif %}
+                            <li class="nav-item">
+                                <a class="nav-link text-white h6" href="{{ user_edit }}">
+                                    Editar perfil
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-white h6" href="{{ user_details }}">Mi perfil</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-white h6" href="/logout"><strong>Salir</strong></a>
+                            </li>
+                        </ul>
+                    </div>
                 {% endif %}
-            </ul>
-            {% if request.user.is_authenticated %}
-                <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
-                    <ul class="navbar-nav ">
-                        <li class="nav-item ">
-                            <a class="nav-link text-white h6" href="#">Hola, {{ request.user.username }}</a>
-                        </li>
-                        {% if "client" in request.user.roles %}
-                            {% url 'client_details' client_id=request.user.id as user_details %}
-                            {% url 'client_edit' as user_edit %}
-                        {% elif "trainer" in request.user.roles %}
-                            {% url 'trainer_details' trainer_id=request.user.id as user_details %}
-                            {% url 'trainer_edit' as user_edit %}
-                        {% endif %}
-                        <li class="nav-item">
-                            <a class="nav-link text-white h6" href="{{ user_edit }}">
-                                Editar perfil
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-white h6" href="{{ user_details }}">Mi perfil</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-white h6" href="/logout">Salir</a>
-                        </li>
-                    </ul>
-                </div>
-            {% endif %}
+            </div>
         </div>
     </nav>
 

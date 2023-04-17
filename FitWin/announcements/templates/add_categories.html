@@ -4,50 +4,57 @@
 
 <section class="mb-5 text-center">
     <div class="container">
-      <div class="row justify-content-center align-items-center h-100">
+      <div class="row justify-content-center h-100">
         <div class="col-12 col-lg-9 col-xl-7">
           <div class="card shadow-2-strong card-registration" style="border-radius: 15px;">
             <div class="card-body p-4 p-md-5">
-              <h3 class="mb-4 pb-2 pb-md-0 mb-md-5">Asignar categorias</h3>
-
+              <h3 class="text-start mb-3">Asignar categorias</h3>
               {% if messages|length > 0 %}
-              {% for message in messages %}
-            <div class="alert alert-danger" role="alert">
-                {{ message }}
-            </div>
-            {% endfor %}
-            {% endif %}
+                {% for message in messages %}
+                  <div class="alert alert-danger" role="alert">
+                    {{ message }}
+                  </div>
+                {% endfor %}
+              {% endif %}
 
               <form action="/announcements/add-categories/{{ a.id }}" method="post">
                 {% csrf_token %}
-                <div class="row">
-                  <div class="col">
-
+                <div class="row justify-content-center">
+                  <div class="col-4">
                     <div class="form-outline">
-                      <div class="input-group mb-3 col-sm-12 col-lg-6">
-                        <span class="input-group-text">Categoria</span>
-                        <select class="form-control form-control-lg" id="motivo" name="category">
+                      <div class="input-group">
+                        <select class="form-select form-select-lg" name="category">
                             {% for c in categories %}
-                            <option
-                                {% if c == category %}
-                                selected> 
-                                {% else %}
-                                >
-                                {% endif %}
+                              <option {% if c == category %}selected{% endif %}>
                                 {{ c }} 
-                            </option>                            
+                              </option>                            
                             {% endfor %}  
                         </select>                         
+                      </div>
                     </div>
-  
                   </div>
-
+                  <div class="col-2">
+                    <input class="btn btn-outline-primary btn-lg" type="submit" value="Asignar"/>
+                  </div>
                 </div>
-                <div class="mt-4 pt-2">
-                  <input class="btn btn-primary btn-lg" type="submit" value="Asignar" style="border-radius: 2rem;"/>
-                </div>
-  
               </form>
+              <div class="row d-flex mb-2 justify-content-center mt-4">
+                <div class="mb-0">
+                    {% for c in a.categories.all %}
+                      <span class="badge
+                          {% if c.types == 'objectives' %} text-bg-info 
+                          {% elif c.types == 'recovery' %} text-bg-success 
+                          {% elif c.types == 'difficulty' %} text-bg-warning 
+                          {% endif %}">
+                        {{ c.name }}
+                        <a class="ms-1" href="/announcements/delete-categories/{{ a.id }}/{{ c.id }}">
+                          <i class="fa fa-times-circle"></i>
+                        </a>
+                      </span>
+                    {% endfor %}
+                </div>
+                
+              </div>
             </div>
         </div>
     </div>
@@ -55,19 +62,6 @@
 </div>
 </section>
 
-    {% for c in a.categories.all %}
-        <div class="col col-xl-12 d-flex justify-content-center">
-    
-            <div class="card mb-5" style="border-radius: 15px;">
-                <div class="card-body p-4">
-        
-                    <h4>{{ c.name }}</h4>
-                    <h4 class="d-flex justify-content-center"><a class="delete" title="Quitar" data-toggle="tooltip" href="/announcements/delete-categories/{{ a.id }}/{{ c.id }}">
-                        <button type="button"
-                        class="btn btn-danger " style="border-radius: 2rem;">Quitar</button></a></h4>
-                </div>
-            </div>
-        </div>
-        {% endfor %}
+{% include "footer.html" %}
 
 {% endblock %}
