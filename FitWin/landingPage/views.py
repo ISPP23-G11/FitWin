@@ -13,3 +13,7 @@ def principal(request):
 def menu(request):
     template = loader.get_template('menu.html')
     return HttpResponse(template.render())
+
+def legal_notice(request):
+    template = loader.get_template('landingPage/legal_notice.html')
+    return HttpResponse(template.render())
