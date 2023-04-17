@@ -78,6 +78,44 @@
               </div>
             </div>
 
+
+
+
+
+
+            <div class="accordion-item">
+              <h2 class="accordion-header" id="headingFive">
+                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFive" aria-expanded="true" aria-controls="collapseFive">
+                  Entrenador
+                </button>
+              </h2>
+              <div id="collapseFive" class="accordion-collapse collapse" aria-labelledby="headingFive" data-bs-parent="#accordion">
+                <div class="accordion-body">
+                  <form method="get" action="{{ request.path }}">
+                    {% for key, value in request.GET.items %}
+                      {% if key != "trainer" %}
+                        <input type="hidden" name="{{ key }}" value="{{ value }}">
+                      {% endif %}
+                    {% endfor %}
+                    <div class="row mb-3">
+                      <div class="col">
+                        <p class="mb-0">
+                          Entrenador
+                        </p>
+                        <input type="text" name="trainer" class="form-control" value="{{ request.GET.trainer|default_if_none:'' }}">
+                      </div>
+                    </div>
+                    <button type="submit" class="btn btn-white w-100 border border-secondary">Aplicar</button>
+                  </form>
+                </div>
+              </div>
+            </div>
+
+
+
+
+
+
             <div class="accordion-item">
               <h2 class="accordion-header" id="headingThree">
                 <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="true" aria-controls="collapseThree">

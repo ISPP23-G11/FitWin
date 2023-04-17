@@ -291,6 +291,19 @@ def list_announcements(request):
     min_rating = request.GET.get('minRating', None)
     start_date = request.GET.get('startDate', None)
     end_date = request.GET.get('endDate', None)
+    trainer = request.GET.get('trainer', "")
+
+    if trainer is not None:
+        if User.objects.filter(username = trainer).exists():
+            if "trainer" in User.objects.get(username = trainer).roles:
+                trainer = User.objects.get(username = trainer)
+            else:
+                trainer = None
+        else:
+            trainer = None
+    else:
+        trainer = None
+            
 
     categories = Category.objects.order_by('name').annotate(
         announcement_count=Count('announcement'))
@@ -299,7 +312,7 @@ def list_announcements(request):
     announcements = sort_announcements(announcements, sort_by)
     announcements = filter_announcements(
         announcements, user, trainer_id, category, show_full, show_booked,
-        min_price, max_price, min_rating, start_date, end_date)
+        min_price, max_price, min_rating, start_date, end_date, trainer)
     announcements_count = announcements.count()
 
     paginator = Paginator(announcements, n_announcements)
@@ -331,7 +344,7 @@ def sort_announcements(announcements, sort_by):
 
 
 def filter_announcements(announcements, user, trainer_id, category, show_full,
-                         show_booked, min_price, max_price, min_rating, start_date, end_date):
+                         show_booked, min_price, max_price, min_rating, start_date, end_date, trainer):
     if trainer_id is not None and trainer_id != '':
         if User.objects.filter(id=trainer_id).exists():
             trainer = User.objects.get(id=trainer_id)
@@ -362,5 +375,8 @@ def filter_announcements(announcements, user, trainer_id, category, show_full,
 
     if end_date is not None and end_date != '':
         announcements = announcements.filter(finish_date__lte=end_date)
+
+    if trainer is not None:
+        announcements = announcements.filter(trainer = trainer)
 
     return announcements

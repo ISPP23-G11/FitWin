@@ -125,6 +125,7 @@ def handler_trainer_details(request, trainer_id):
     if trainer:
         trainer = trainer.get()
         context['trainer'] = trainer
+
         if is_client(user):
             context["client"] = True
             own_rating = Rating.objects.filter(trainer=trainer, client=user)
