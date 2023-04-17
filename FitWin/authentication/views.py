@@ -10,7 +10,7 @@ from django.shortcuts import HttpResponse, redirect
 from django.template import loader
 from django.urls import reverse
 from users.models import User, is_client, is_trainer
-
+from recommendations.models import create_similarities
 
 def login(request):
     if request.method == 'POST':
@@ -23,6 +23,7 @@ def login(request):
             if is_trainer(user):
                 return redirect('/trainers')
             elif is_client(user):
+                create_similarities(user)
                 return redirect('/clients')
             else:
                 return redirect(reverse('home'))
