@@ -241,7 +241,7 @@
                         <h4 class="mb-1 me-1">{{ announcement.price }}€</h4>
                       </div>
                       <div class="mt-4">
-                        <a class="btn btn-primary shadow-0" href={% url 'announcement_details' announcement_id=1 %}>Ver anuncio</a>
+                        <a class="btn btn-primary shadow-0" href="/announcements/{{ announcement.id }}">Ver anuncio</a>
                       </div>
                       <div class="row mb-2 mt-4">
                         {% url 'announcement_details' announcement_id=announcement.id as announcement_details_id %}
