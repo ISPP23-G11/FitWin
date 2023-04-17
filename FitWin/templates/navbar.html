@@ -79,7 +79,7 @@
                         </li>
                     {% elif "trainer" in request.user.roles %}
                         <li class="nav-item active">
-                            <a class="nav-link text-white h6" href="{% url 'list_announcements' %}?trainerId={{request.user.id}}">
+                            <a class="nav-link text-white h6" href="{% url 'list_announcements' %}?trainer={{request.user.username}}">
                                 Mis anuncios<span class="sr-only"></span>
                             </a>
                         </li>
