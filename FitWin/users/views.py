@@ -8,6 +8,7 @@ from django.utils import timezone
 
 from .forms import EditProfileForm, UserUpdateForm
 from .models import Comment, Rating, User, is_client, is_trainer
+from announcements.models import Announcement
 
 
 @login_required
@@ -26,7 +27,8 @@ def handler_trainers(request):
 def handler_clients(request):
     client = request.user
     if client:
-        context = {}
+        announcements = Announcement.objects.filter(recommendation__client=client, recommendation__score__gte=3.5).distinct()
+        context = {'announcements':announcements}
         template = loader.get_template("main_clients.html")
         return HttpResponse(template.render(context, request))
 
@@ -47,7 +49,7 @@ def EditTrainer(request):
         if birthday >= datetime.now():
             errors = True
             messages.error(
-                request, 'La fecha de cumpleaños tiene que ser anterior a hoy')
+                request, 'La fecha de cumpleaños tiene que ser anterior a hoy', extra_tags='error')
 
         if form.is_valid() and u_form.is_valid() and not errors:
 
@@ -61,7 +63,7 @@ def EditTrainer(request):
             return redirect('/trainers')
 
         else:
-            messages.error(request, 'El perfil no se ha podido editar')
+            messages.error(request, 'El perfil no se ha podido editar', extra_tags='error')
 
     else:
         u_form = UserUpdateForm(instance=request.user)
@@ -91,7 +93,7 @@ def EditClient(request):
         if birthday >= datetime.now():
             errors = True
             messages.error(
-                request, 'La fecha de cumpleaños tiene que ser anterior a hoy')
+                request, 'La fecha de cumpleaños tiene que ser anterior a hoy', extra_tags='error')
 
         if form.is_valid() and u_form.is_valid() and not errors:
 
@@ -104,7 +106,7 @@ def EditClient(request):
 
             return redirect('/clients')
         else:
-            messages.error(request, 'El perfil no se ha podido editar')
+            messages.error(request, 'El perfil no se ha podido editar', extra_tags='error')
 
     else:
         u_form = UserUpdateForm(instance=request.user)
@@ -125,6 +127,7 @@ def handler_trainer_details(request, trainer_id):
     if trainer:
         trainer = trainer.get()
         context['trainer'] = trainer
+
         if is_client(user):
             context["client"] = True
             own_rating = Rating.objects.filter(trainer=trainer, client=user)
@@ -148,7 +151,7 @@ def handler_trainer_details(request, trainer_id):
         else:
             mean = "No hay calificaciones para este entrenador"
     else:
-        messages.error(request, "Entrenador no encontrado")
+        messages.error(request, "Entrenador no encontrado", extra_tags='error')
 
     template = loader.get_template("trainer_details.html")
     return HttpResponse(template.render(context, request))
@@ -163,7 +166,7 @@ def handler_client_details(request, client_id):
         client = client.get()
         context['client'] = client
     else:
-        messages.error(request, "No se ha encontrado al cliente")
+        messages.error(request, "No se ha encontrado al cliente", extra_tags='error')
 
     template = loader.get_template("client_details.html")
     return HttpResponse(template.render(context, request))
@@ -178,12 +181,12 @@ def rating_trainer(request, trainer_id):
         rating = request.POST.get('rating', '0')
 
         if not client or not trainer:
-            messages.error(request, "El cliente o el entrenador no existen")
+            messages.error(request, "El cliente o el entrenador no existen", extra_tags='error')
 
         if rating == '':
-            messages.error(request, "No se ha seleccionado puntuación")
+            messages.error(request, "No se ha seleccionado puntuación", extra_tags='error')
         elif int(rating) < 0:
-            messages.error(request, "No se pueden dar puntuaciones negativas")
+            messages.error(request, "No se pueden dar puntuaciones negativas", extra_tags='error')
         else:
             trainer = trainer.get()
             rating_object = Rating.objects.filter(
@@ -207,10 +210,10 @@ def comment_trainer(request, trainer_id):
         comment = request.POST.get('comment', '')
 
         if not client or not trainer:
-            messages.error(request, "El cliente o el entrenador no existen")
+            messages.error(request, "El cliente o el entrenador no existen", extra_tags='error')
 
         if comment == '':
-            messages.error(request, "No se ha escrito ningun comentario")
+            messages.error(request, "No se ha escrito ningun comentario", extra_tags='error')
         else:
             trainer = trainer.get()
             comment_object = Comment.objects.filter(

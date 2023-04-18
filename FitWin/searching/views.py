@@ -65,5 +65,7 @@ def search_announcements(request):
     # Obtener todas las categorías para mostrar en el formulario
     categories = Category.objects.all()
 
+
     # Renderizar el template
     return render(request, 'search.html', {'announcements': announcements, 'categories': categories})
+

@@ -58,12 +58,13 @@ def create_checkout_session(request):
         return JsonResponse({'id': session.id})
     
     else:
-        messages.error(request, "Ya eres entrenador premium")
+        messages.error(request, "Ya eres entrenador premium", extra_tags='success')
         return redirect('/trainers')
 
 
 def plans(request):
     trainer = request.user
+    is_premium(trainer)
     #trainer = Trainer.objects.filter(user = user)
     url = '/payments/create-checkout-session/'
     #trainer=trainer.get()
