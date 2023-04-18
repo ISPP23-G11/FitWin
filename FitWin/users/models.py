@@ -9,6 +9,7 @@ from django.db.models.signals import post_save, post_delete
 from django.dispatch import receiver
 
 
+
 def user_directory_path(instance, filename):
     return 'users/{0}'.format(filename)
 
@@ -17,8 +18,8 @@ class User(AbstractUser):
     picture = models.ImageField(
         upload_to=user_directory_path, blank=True, null=True)
     date_created = models.DateField(auto_now_add=True)
-    birthday = models.DateField(null=True, blank=True)
-    bio = models.TextField(max_length=15, null=True, blank=True)
+    birthday=models.DateField(null=True, blank=True)
+    bio = models.TextField(max_length=150, null=True, blank=True)
     is_premium = models.BooleanField(default=False)
     date_premium = models.DateField(null=True, blank=True)
     roles = ArrayField(
@@ -84,6 +85,16 @@ def is_client(user):
             return "client" in User.objects.get(id=user.id).roles
     return False
 
+
+def get_ratings(user:User):
+    return Rating.objects.filter(trainer=user)
+
+def get_average_ratings(user:User):
+    ratings = get_ratings(user)
+    if ratings.count() == 0:
+        return 0
+    total = sum(rating.rating for rating in ratings)
+    return total/ratings.count()
 
 @classmethod
 def state_from_request(cls, request):
