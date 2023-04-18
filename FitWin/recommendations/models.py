@@ -14,7 +14,7 @@ def create_similarities(client:User):
     if not Announcement.objects.filter(clients=client).exists():
         return
     last_login = client.last_login
-    if timezone.now() - last_login < timedelta(days=1):
+    if Recommendation.objects.filter(client=client).exists() and timezone.now() - last_login < timedelta(days=1):
         return
     if Recommendation.objects.filter(client=client).exists() and timezone.now() - last_login > timedelta(days=1):
         Recommendation.objects.filter(client=client).delete()
