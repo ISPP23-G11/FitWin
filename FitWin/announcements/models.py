@@ -40,7 +40,7 @@ class Announcement(models.Model):
         max_length=120, blank=True, null=True)
 
     def get_similarity(self, announcement):
-        categories_similarities = len(set(self.categories.all()).intersection(set(announcement.categories.all()))) / len(set(self.categories.all()) | set(announcement.categories.all()))
+        categories_similarities = len(set(self.categories.all()).intersection(set(announcement.categories.all()))) / max(1,len(set(self.categories.all()) | set(announcement.categories.all())))
             #Se considera precio similar a aquellos grupos que difieran de 5 en 5 euros
         price_similarity = 1 / (1 + abs(self.price - announcement.price)/5)
         place_similarity = sum(a==b for a,b in zip(self.place,announcement.place)) / min(len(self.place),len(announcement.place))
