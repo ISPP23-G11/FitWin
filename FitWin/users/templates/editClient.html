@@ -67,33 +67,21 @@
                     
                 </div>
                 <br>
-                <p><strong>Foto actual:</strong> <img src="{{user.client.picture.url}}" width="80" height="80"> </p>
+                <p><strong>Foto actual:</strong><br/> <img src="{{request.user.picture.url}}" class="user-img"> </p>
 
-                
-
-
-                <div class="row mt-5 text-center">
-                    
-                    
-                    <div class="col col-sm-12 col-lg-6">
-                    <a href="/clients" class="btn btn-danger btn-lg btn-block">Cancelar</a>
+                <div class="d-flex row justify-content-center">
+                    <div class="col-4">
+                        <a href="/clients" class="btn btn-danger btn-lg btn-block cancel-edit-profile">Cancelar</a>
                     </div>
-                    
-                    <div class="col col-lg-6 col-sm-12">
-                        <button type="submit" class="btn btn-primary btn-lg btn-block">
-                      Editar perfil
-                        </button>
+                    <div class="col-4">
+                        <button type="submit" class="btn btn-primary btn-lg btn-block">Editar perfil</button>
                     </div>
-                
-        
                 </div>
-
-  
-              </form>
-            </div>
+            </form>
+          </div>
         </div>
+      </div>
     </div>
-</div>
-</div>
+</section>
 
 {% endblock %}

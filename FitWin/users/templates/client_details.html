@@ -5,28 +5,23 @@
 <section class="jumbotron text-center">
 	<div class="container">
     <div class="row">
-        <h1 class="display-2 fw-bold col-12">Detalles de {{ client.username }}</h1>
-    </div>
-	  
-      <div class="row ">
-        <div class="card mb-3 col-12">
-            <img class="card-img-botton mt-3" src="{{ client.picture.url }}" alt="Card image cap">
-            <div class="card-body">
-              <h2 class="card-title">{{ client.first_name }} {{ client.last_name }}
-                
-
-              </h2>
-              <h4 class="card-title">Email: {{ client.email }}</h4>
-              
-              <p class="card-text"><strong>Biografía:</strong> {{ client.bio }} </p>    
-            </div>
+      <div class="col-12">
+        <div class="user-card">
+          <img class="user-img" src="{{ client.picture.url }}" alt="">
+          <div class="user-info">
+            <h2 class="mb-4">{{ client.first_name }} {{ client.last_name }}</h2>
+            <p class="mb-4"><strong>{{ client.email }}</strong></p>
+            <p> {{ client.bio }} </p>    
           </div>
+        </div>
       </div>
-  </section>
+    </div>
+  </div>
+</section>
 {% endif %}
   
 
   
-	{% include "footer.html" %}
+{% include "footer.html" %}
 
 {% endblock %}

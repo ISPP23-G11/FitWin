@@ -28,7 +28,7 @@ def login(request):
             else:
                 return redirect(reverse('home'))
         else:
-            messages.error(request, 'El usuario y la contraseña son incorrectos')
+            messages.error(request, 'El usuario y la contraseña son incorrectos', extra_tags='error')
             return redirect('/login')
     else:
         template = loader.get_template('account/login.html')
@@ -76,25 +76,25 @@ def validate_register_form(request, username, email, password, password_again, b
     errors = False
     if old_user:
         errors = True
-        messages.error(request, 'Este nombre de usuario ya existe')
+        messages.error(request, 'Este nombre de usuario ya existe', extra_tags='error')
 
     if password != password_again:
         errors = True
-        messages.error(request, 'Las contraseñas no coinciden')
+        messages.error(request, 'Las contraseñas no coinciden', extra_tags='error')
 
     if birthday!= '':
         birthday = datetime.strptime(birthday, '%Y-%m-%d')
         if birthday >= datetime.now():
             errors = True
-            messages.error(request, 'La fecha de nacimiento debe ser anterior a hoy')
+            messages.error(request, 'La fecha de nacimiento debe ser anterior a hoy', extra_tags='error')
     else:
         errors = True
-        messages.error(request, 'La fecha de naciemiento es obligatoria')
+        messages.error(request, 'La fecha de naciemiento es obligatoria', extra_tags='error')
 
     email_val = re.fullmatch('([A-Za-z0-9]+[.-_])*[A-Za-z0-9]+@[A-Za-z0-9-]+(\.[A-Z|a-z]{2,})+', email)
     if not email_val:
         errors = True
-        messages.error(request, 'El email no sigue un formato valido. Por ejemplo: prueba@host.com')
+        messages.error(request, 'El email no sigue un formato valido. Por ejemplo: prueba@host.com', extra_tags='error')
 
     return errors
 
