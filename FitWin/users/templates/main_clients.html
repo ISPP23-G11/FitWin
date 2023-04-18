@@ -196,20 +196,20 @@ figure img{width:300px;}
 		</div>
 	</div>
 </div>
-
+{% if announcements %}
 <div class="dm-service-banner">
     <div class="container">
         <div class="row">
             <div class="col-md-6 ">
                 <div class="dm-banner-title">
                     <div class="front-text-box">
-                        <h1>NUESTROS MEJORES<br>ENTRENADORES</h1>
+                        <h1>ANUNCIOS <br>RECOMENDADOS PARA TI</h1>
                     </div>
                     <div class="back-box ms-2"></div>
                 </div>
             </div>
             <div class="col-md-6">
-                <p class="dm-banner-text">Los siguientes entrenadores son los 3 mejores de la plataforma con muchos clientes satisfechos. ¿A qué esperar a ponerte en forma? ¡Encuentra tu propio entrenador personal ahora! </p>
+                <p class="dm-banner-text">Los siguientes anuncios son los que pensamos que podrían interesarte más. ¿A qué esperar a ponerte en forma? ¡Encuentra tu propio entrenador personal ahora! </p>
             </div>
         </div>
     </div>
@@ -217,7 +217,7 @@ figure img{width:300px;}
 
 <div class="container">
 	<div class="container">
-	  <div class="row blog mt-4">
+	  <div class="row blog mt-2">
 		<div class="col-sm-12 col-md-8 offset-md-2 col-lg-6 offset-lg-3 col-xl-6 offset-xl-3 col-xxl-6 offset-xxl-3">
 		  <div id="blogCarousel" class="carousel slide container-blog" data-ride="carousel">
 			<ol class="carousel-indicators">
@@ -226,203 +226,72 @@ figure img{width:300px;}
 			  <li data-target="#blogCarousel" data-slide-to="2"></li>
 			</ol>
 			<!-- Carousel items -->
+			
 			<div class="carousel-inner">
 
-			  <div class="carousel-item active">
-				<div class="row">
-				  <div class="col-md-12" >
-					<div class="item-box-blog">
-					  <div class="item-box-blog-image">
-						<!--Date-->
-						<div class="item-box-blog-date bg-blue-ui white"> <span class="mon">Entrenador 2</span> </div>
-						<!--Image-->
-						
-						<figure> <img alt="" src="../../../static/img/team-1.jpg""> </figure>
-					  </div>
-					  <div class="item-box-blog-body">
-						<!--Heading-->
-						<div class="item-box-blog-heading">
-							<h5>Alberto</h5>
-						</div>
-						<!--Data-->
-						<!--Text-->
-						<div class="item-box-blog-text">
-						  <p>Lorem ipsum dolor sit amet, adipiscing. Lorem ipsum dolor sit amet, consectetuer adipiscing. Lorem ipsum dolor sit amet, adipiscing. Lorem ipsum dolor sit amet, adipiscing. Lorem ipsum dolor sit amet, consectetuer adipiscing. Lorem ipsum dolor.</p>
-						</div>
-						<!--Read More Button-->
-					  </div>
-					</div>
-				  </div>
-				</div>
-			  </div>
-
-
-			  <div class="carousel-item">
-				<div class="row">
-				  <div class="col-md-12" >
-					<div class="item-box-blog">
-					  <div class="item-box-blog-image">
-						<!--Date-->
-						<div class="item-box-blog-date bg-blue-ui white"> <span class="mon">Entrenador 2</span> </div>
-						<!--Image-->
-						<figure> <img alt="" src="../../../static/img/team-2.jpg"> </figure>
-					  </div>
-					  <div class="item-box-blog-body">
-						<!--Heading-->
-						<div class="item-box-blog-heading">
-							<h5>Fernando</h5>
-						</div>
-						<!--Text-->
-						<div class="item-box-blog-text">
-						  <p>Lorem ipsum dolor sit amet, adipiscing. Lorem ipsum dolor sit amet, consectetuer adipiscing. Lorem ipsum dolor sit amet, adipiscing. Lorem ipsum dolor sit amet, adipiscing. Lorem ipsum dolor sit amet, consectetuer adipiscing. Lorem ipsum dolor.</p>
-						</div>
-						<!--Read More Button-->
-					  </div>
-					</div>
-				  </div>
-				</div>
-			  </div>
-
-
-
-			  <div class="carousel-item">
-				<div class="row">
-				  <div class="col-md-12" >
-					<div class="item-box-blog">
-					  <div class="item-box-blog-image">
-						<!--Date-->
-						<div class="item-box-blog-date bg-blue-ui white"> <span class="mon">Entrenador 3</span> </div>
-						<!--Image-->
-						<figure> <img alt="" src="../../../static/img/team-3.jpg""> </figure>
-					  </div>
-					  <div class="item-box-blog-body">
-						<!--Heading-->
-						<div class="item-box-blog-heading">
-							<h5>Alicia</h5>
-						</div>
-						<!--Text-->
-						<div class="item-box-blog-text">
-						  <p>Lorem ipsum dolor sit amet, adipiscing. Lorem ipsum dolor sit amet, consectetuer adipiscing. Lorem ipsum dolor sit amet, adipiscing. Lorem ipsum dolor sit amet, adipiscing. Lorem ipsum dolor sit amet, consectetuer adipiscing. Lorem ipsum dolor.</p>
-						</div>
-						<!--Read More Button-->
-					  </div>
-					</div>
-				  </div>
-				</div>
-			  </div>
-
-			</div>
-		  </div>
-		</div>
-		<div class="col-md-12">
-			<div class="dm-banner-title">
-				<div class="front-text-box">
-					<h1>Quizás te pueda interesar</h1>
-				</div>
-				<div class="back-box"></div>
-			</div>
-			<div id="reccommended" class="carousel slide" data-ride="carousel">
-				<ol class="carousel-indicators">
-					<li data-target="#reccommended" data-slide-to="0" class="active"></li>
-					{%if announcements|length > 1%}
-					<li data-target="#reccommended" data-slide-to="1"></li>
-					<li data-target="#reccommended" data-slide-to="2"></li>
-					{%endif%}
-				</ol>
-				<div class="carousel-inner">
-					{%for a in announcements%}
-						{%if forloop.first%}
-							<div class="carousel-item active">
-								<div class="card mb-5" style="border-radius: 15px;">
-									<div class="card-body p-4">
-									  <h3 class="mb-3"><b>{{ a.title }}</b></h3>
-									  <h5 class="mb-3">{{ a.place }}</h5>
-									  <h5 class="mb-3">{{ a.price|floatformat:2 }} €</h5>
-									  <h5 class="mb-3">{{ a.start_date|date:"d-m-Y" }} | {{ a.start_date|date:"H:i" }} - {{ a.finish_date|date:"H:i" }}</h5>
-									  <h5 class="mb-3">
-										  {% if a.categories.all %}
-											  {% for category in a.categories.all %}
-												  <span class="badge bg-success text-light">{{ category.types }}: {{ category.name }}</span>
-											  {% endfor %}
-										  {% else %}
-											  No hay categorías para este anuncio.
-										  {% endif %}</h5>
-									  <p><strong>Clientes apuntados:</strong>
-											  {% if a.clients.all %}
-												{{a.clients.all.count}}
-											  {% else %}
-												No hay clientes para este anuncio.
-											  {% endif %}</p>
-									  <p class="mb-3">Hay hueco para {{ a.capacity }} personas en total</p>
-									  <p class="small mb-0"><i class="far fa-star fa-lg"></i>
-										{{ a.description }}
-									  </p>
-								
-								
-									  <hr class="my-2">
-								
-									  <div class="dropdown">
-										<a class="btn btn-info" href="/announcements/{{a.pk}}" role="button" id="details" aria-expanded="false">
-										  Ver anuncio
-										</a>
-								
-										</ul>
-									  </div>
-						  	</div>
-						{%endif%}
+				{%for a in announcements%}
+					{%if forloop.first%}
+						<div class="carousel-item active">
+					{% else %}
 						<div class="carousel-item">
-							<div class="card mb-5" style="border-radius: 15px;">
-								<div class="card-body p-4">
-								  <h3 class="mb-3"><b>{{ a.title }}</b></h3>
-								  <h5 class="mb-3">{{ a.place }}</h5>
-								  <h5 class="mb-3">{{ a.price|floatformat:2 }} €</h5>
-								  <h5 class="mb-3">{{ a.start_date|date:"d-m-Y" }} | {{ a.start_date|date:"H:i" }} - {{ a.finish_date|date:"H:i" }}</h5>
-								  <h5 class="mb-3">
-									  {% if a.categories.all %}
-										  {% for category in a.categories.all %}
-											  <span class="badge bg-success text-light">{{ category.types }}: {{ category.name }}</span>
-										  {% endfor %}
-									  {% else %}
-										  No hay categorías para este anuncio.
-									  {% endif %}</h5>
-								  <p><strong>Clientes apuntados:</strong>
-										  {% if a.clients.all %}
-											{{a.clients.all.count}}
-										  {% else %}
-											No hay clientes para este anuncio.
-										  {% endif %}</p>
-								  <p class="mb-3">Hay hueco para {{ a.capacity }} personas en total</p>
-								  <p class="small mb-0"><i class="far fa-star fa-lg"></i>
-									{{ a.description }}
-								  </p>
-							
-							
-								  <hr class="my-2">
-							
-								  <div class="dropdown">
+					{% endif %}
+						<div class="row">
+						<div class="col-md-12" >
+							<div class="item-box-blog">
+							<div class="item-box-blog-image">
+								<!--Date-->
+								<div class="item-box-blog-date bg-blue-ui white"> <span class="mon">{{ a.trainer.username }} | ⭐ {{ a.trainer.avg_rating }} ⭐</span> </div>
+								<!--Image-->
+								
+								<figure> 
+									<a href="/trainers/{{a.trainer.id}}">
+										<img src="{{ request.scheme }}://{{ request.get_host }}/media/{{ a.trainer.picture }}" class="w-100" style="transition: transform 0.2s ease-in-out; transform-origin: center; object-fit: cover;" onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'" /> 
+									</a>
+								</figure>
+							</div>
+							<div class="item-box-blog-body">
+								<!--Heading-->
+								<div class="item-box-blog-heading">
+									<h5>{{ a.title }} | {{ a.price|floatformat:2 }} €</h5>
+								</div>
+								<!--Data-->
+								<!--Text-->
+								<div class="item-box-blog-text">
+								<p>a{{ a.description }}</p>
+								<div class="dropdown">
 									<a class="btn btn-info" href="/announcements/{{a.pk}}" role="button" id="details" aria-expanded="false">
 									  Ver anuncio
 									</a>
 							
 									</ul>
 								  </div>
+								</div>
+								<!--Read More Button-->
+							</div>
+							</div>
 						</div>
-					{%endfor%}
-				</div>
-				{%if announcements|length > 1%}
-					<a class="carousel-control-prev" href="#reccommended" role="button" data-slide="prev">
-						<span class="carousel-control-prev-icon" aria-hidden="true"></span>
-						<span class="sr-only">Previous</span>
-				  	</a>
-				  	<a class="carousel-control-next" href="#reccommended" role="button" data-slide="next">
-						<span class="carousel-control-next-icon" aria-hidden="true"></span>
-						<span class="sr-only">Next</span>
-				  	</a>	
-				{%endif%}
+						</div>
+					</div>
+				{% endfor %}
+			  </div>
 			</div>
+
+			{% else %}
+			<hr>
+			<div class="container">
+				<div class="row">
+					<div class="col-md-6 mx-auto text-center fw-light">
+						<p class="fs-1 fw-light">Cuando hayas usado <b>FitWin</b> se activarán recomendaciones para que encuentres a los entrenadores que más se ajusten a tus necesidades</p>
+					</div>
+				</div>
+			</div>
+			{% endif %}
+		  </div>
 		</div>
-	  </div>
 	</div>
+	</div>
+</div>
+
 
 
 	
