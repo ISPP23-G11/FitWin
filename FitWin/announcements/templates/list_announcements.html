@@ -102,7 +102,19 @@
                         <p class="mb-0">
                           Entrenador
                         </p>
-                        <input type="text" name="trainer" class="form-control" value="{{ request.GET.trainer|default_if_none:'' }}">
+                        <input id="autocomplete" type="text" name="trainer" class="form-control" value="{{ request.GET.trainer|default_if_none:'' }}">
+                        <script>
+                          $(document).ready(function() {
+                            $('#autocomplete').autocomplete({
+                              source: '/trainers/list',
+                              minLength: 3,
+                              select: function(event, ui) {
+                                $('#autocomplete').val(ui.item.value);
+                              }
+                            });
+                          });
+
+                        </script>
                       </div>
                     </div>
                     <button type="submit" class="btn btn-white w-100 border border-secondary">Aplicar</button>

@@ -10,6 +10,8 @@ from .forms import EditProfileForm, UserUpdateForm
 from .models import Comment, Rating, User, is_client, is_trainer
 from announcements.models import Announcement
 
+from django.http import JsonResponse
+
 
 @login_required
 @user_passes_test(is_trainer)
@@ -259,3 +261,15 @@ def upgrade_suscription(trainer):
     trainer.date_premium = timezone.now().date()
     trainer.save()
     print(trainer.username + " ahora es usuario PREMIUM")
+
+@login_required
+def list_trainers(request):
+    term = request.GET.get('term')
+    trainers = list(User.objects.filter(username__icontains=term).values('username'))
+    results = []
+    for usuario in trainers:
+        usuario_json = {}
+        usuario_json['value'] = usuario['username']
+        results.append(usuario_json)
+    return JsonResponse(results, safe=False)
+
