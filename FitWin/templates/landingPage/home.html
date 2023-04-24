@@ -15,9 +15,9 @@
 	<script src="https://kit.fontawesome.com/c18980d3a8.js" crossorigin="anonymous"></script>
 </head>
 <body>
-	<nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+	<nav class="navbar navbar-expand-lg navbar-light fixed-top" style="background-color: #8e6ecf">
 		<div class="container">
-			<a class="navbar-brand" href="#" ><img alt="" class="img-fluid" width="75" height="75" src="{% static 'img/logo.png' %}"><span style="color:#8860D0">Fit</span>Win</a> <button aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler" data-bs-target="#navbarSupportedContent" data-bs-toggle="collapse" type="button"><span class="navbar-toggler-icon"></span></button>
+			<a class="navbar-brand" href="#" style="font-weight: 800;font-size: x-large; letter-spacing: 3px;"><img alt="" class="img-fluid" width="75" height="75" src="{% static 'img/logo.png' %}" style="font-family: sans-serif;"><span style="color:white">FIT</span>WIN</a> <button aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler" data-bs-target="#navbarSupportedContent" data-bs-toggle="collapse" type="button"><span class="navbar-toggler-icon"></span></button>
 			<div class="collapse navbar-collapse" id="navbarSupportedContent">
 				<ul class="navbar-nav ms-auto mb-2 mb-lg-0">
 					<li class="nav-item">
@@ -54,9 +54,9 @@
 
 					
 					
-					<p><a class="btn btn-secondary mt-3" href="/login">Iniciar sesión</a></p>
-					<p><a class="btn btn-warning mt-3" href="{% url 'register' role='trainer' %}">Registrarse como entrenador</a></p>
-					<p><a class="btn btn-warning mt-3" href="{% url 'register' role='client' %}">Registrarse como alumno</a></p>
+					<p><a class="btn btn-secondary mt-3" href="/login"><b>Iniciar sesión</b></a></p>
+					<p><a class="btn btn-primary shadow-0 mt-3" href="{% url 'register' role='trainer' %}"><b>Registrarse como entrenador</b></a></p>
+					<p><a class="btn btn-primary shadow-0 mt-3" href="{% url 'register' role='client' %}"><b>Registrarse como alumno</b></a></p>
 				</div>
 			</div>
 			
@@ -73,7 +73,7 @@
 						<h2><br>Ponte en forma con FitWin o publica anuncios</h2>
 						<p>Esta aplicación permite a los entrenadores personales crear y publicar anuncios de clases.</p>
 						<p>Los alumnos podrán encontrar entrenadores que se adapten a sus necesidades.</p>
-						<a class="btn btn-warning" href="#contact">Más información</a>
+						<a class="btn btn-primary" href="#contact">Más información</a>
 					</div>
 				</div>
 			</div>
@@ -116,7 +116,7 @@
 								</ul>
 							</p>
 							<br><br>
-							<a class="btn btn-warning" href="#contact">Más información</a>
+							<a class="btn btn-primary" href="#contact">Más información</a>
 						</div>
 					</div>
 				</div>
@@ -144,7 +144,7 @@
 								</ul>
 							</p>
 							<br>
-							<a class="btn btn-warning" href="#contact">Más información</a>
+							<a class="btn btn-primary" href="#contact">Más información</a>
 						</div>
 					</div>
 				</div>
@@ -171,7 +171,7 @@
 									
 								</ul>
 							</p>
-							<a class="btn btn-warning" href="#contact">Más información</a>
+							<a class="btn btn-primary" href="#contact">Más información</a>
 						</div>
 					</div>
 				</div>
@@ -189,7 +189,7 @@
 					<div class="about-text">
 						<h2><br>Contexto</h2>
 						<p>Esta aplicación web es un proyecto desarrollado por un grupo de 12 alumnos de 4º curso de la Universidad de Sevilla, para la asignatura Ingeniería del Software y Práctica Profesional.</p>
-						<a class="btn btn-warning" href="#contact">Más información</a>
+						<a class="btn btn-primary" href="#contact">Más información</a>
 					</div>
 				</div>
 			</div>
@@ -214,7 +214,7 @@
 							<img alt="" class="img-fluid rounded-circle" src="{% static 'img/nacho.jpg' %}" width="150" height="150">
 							<h3 class="card-title py-2">Ignacio Jordano</h3>
 							<p class="card-text"><strong>Contacto:</strong> ignjorde@alum.us.es</p>
-							<p class="socials"><i class="bi bi-twitter text-dark mx-1"></i> <i class="bi bi-facebook text-dark mx-1"></i> <i class="bi bi-linkedin text-dark mx-1"></i> <i class="bi bi-instagram text-dark mx-1"></i></p>
+							
 						</div>
 					</div>
 				</div>
@@ -224,7 +224,7 @@
 							<img alt="" class="img-fluid rounded-circle" src="{% static 'img/jesus.jpg' %}" width="150" height="150">
 							<h3 class="card-title py-2">Jesús Páez</h3>
 							<p class="card-text"><strong>Contacto:</strong> jespaepae@alum.us.es</p>
-							<p class="socials"><i class="bi bi-twitter text-dark mx-1"></i> <i class="bi bi-facebook text-dark mx-1"></i> <i class="bi bi-linkedin text-dark mx-1"></i> <i class="bi bi-instagram text-dark mx-1"></i></p>
+							
 						</div>
 					</div>
 				</div>
@@ -234,7 +234,7 @@
 							<img alt="" class="img-fluid rounded-circle" src="{% static 'img/borja.jpg' %}" width="150" height="150">
 							<h3 class="card-title py-2">Borja Piñero</h3>
 							<p class="card-text"><strong>Contacto:</strong> borpincal@alum.us.es</p>
-							<p class="socials"><i class="bi bi-twitter text-dark mx-1"></i> <i class="bi bi-facebook text-dark mx-1"></i> <i class="bi bi-linkedin text-dark mx-1"></i> <i class="bi bi-instagram text-dark mx-1"></i></p>
+							
 						</div>
 					</div>
 				</div>
@@ -244,7 +244,7 @@
 							<img alt="" class="img-fluid rounded-circle" src="{% static 'img/juanjo.jpg' %}" width="150" height="150">
 							<h3 class="card-title py-2">Juan José Casamitjana</h3>
 							<p class="card-text"><strong>Contacto:</strong> juacasben@alum.us.es</p>
-							<p class="socials"><i class="bi bi-twitter text-dark mx-1"></i> <i class="bi bi-facebook text-dark mx-1"></i> <i class="bi bi-linkedin text-dark mx-1"></i> <i class="bi bi-instagram text-dark mx-1"></i></p>
+							
 						</div>
 					</div>
 				</div>
@@ -257,7 +257,7 @@
 							<img alt="" class="img-fluid rounded-circle" src="{% static 'img/victor.jpg' %}" width="150" height="150">
 							<h3 class="card-title py-2">Victor Graván</h3>
 							<p class="card-text"><strong>Contacto:</strong> vicgrabru@alum.us.es</p>
-							<p class="socials"><i class="bi bi-twitter text-dark mx-1"></i> <i class="bi bi-facebook text-dark mx-1"></i> <i class="bi bi-linkedin text-dark mx-1"></i> <i class="bi bi-instagram text-dark mx-1"></i></p>
+							
 						</div>
 					</div>
 				</div>
@@ -267,7 +267,7 @@
 							<img alt="" class="img-fluid rounded-circle" src="{% static 'img/edu.jpg' %}" width="150" height="150">
 							<h3 class="card-title py-2">Eduardo Ciezar</h3>
 							<p class="card-text"><strong>Contacto:</strong> educielan@alum.us.es</p>
-							<p class="socials"><i class="bi bi-twitter text-dark mx-1"></i> <i class="bi bi-facebook text-dark mx-1"></i> <i class="bi bi-linkedin text-dark mx-1"></i> <i class="bi bi-instagram text-dark mx-1"></i></p>
+							
 						</div>
 					</div>
 				</div>
@@ -277,7 +277,7 @@
 							<img alt="" class="img-fluid rounded-circle" src="{% static 'img/raul.jpg' %}" width="150" height="150">
 							<h3 class="card-title py-2">Raúl Gallardo</h3>
 							<p class="card-text"><strong>Contacto:</strong> raugalroc@alum.us.es</p>
-							<p class="socials"><i class="bi bi-twitter text-dark mx-1"></i> <i class="bi bi-facebook text-dark mx-1"></i> <i class="bi bi-linkedin text-dark mx-1"></i> <i class="bi bi-instagram text-dark mx-1"></i></p>
+							
 						</div>
 					</div>
 				</div>
@@ -287,7 +287,7 @@
 							<img alt="" class="img-fluid rounded-circle" src="{% static 'img/pablo.jpg' %}" width="150" height="150">
 							<h3 class="card-title py-2">Pablo Ramos</h3>
 							<p class="card-text"><strong>Contacto:</strong> pabramber@alum.us.es</p>
-							<p class="socials"><i class="bi bi-twitter text-dark mx-1"></i> <i class="bi bi-facebook text-dark mx-1"></i> <i class="bi bi-linkedin text-dark mx-1"></i> <i class="bi bi-instagram text-dark mx-1"></i></p>
+							
 						</div>
 					</div>
 				</div>
@@ -300,7 +300,7 @@
 							<img alt="" class="img-fluid rounded-circle" src="{% static 'img/nuria.jpg' %}" width="150" height="150">
 							<h3 class="card-title py-2">Nuria Gómez</h3>
 							<p class="card-text"><strong>Contacto:</strong> nurgomari@alum.us.es</p>
-							<p class="socials"><i class="bi bi-twitter text-dark mx-1"></i> <i class="bi bi-facebook text-dark mx-1"></i> <i class="bi bi-linkedin text-dark mx-1"></i> <i class="bi bi-instagram text-dark mx-1"></i></p>
+							
 						</div>
 					</div>
 				</div>
@@ -310,7 +310,7 @@
 							<img alt="" class="img-fluid rounded-circle" src="{% static 'img/alberto.jpg' %}" width="150" height="150">
 							<h3 class="card-title py-2">Alberto Antonio Tokos</h3>
 							<p class="card-text"><strong>Contacto:</strong> albtokmat@alum.us.es</p>
-							<p class="socials"><i class="bi bi-twitter text-dark mx-1"></i> <i class="bi bi-facebook text-dark mx-1"></i> <i class="bi bi-linkedin text-dark mx-1"></i> <i class="bi bi-instagram text-dark mx-1"></i></p>
+							
 						</div>
 					</div>
 				</div>
@@ -320,7 +320,7 @@
 							<img alt="" class="img-fluid rounded-circle" src="{% static 'img/maria.jpg' %}" width="150" height="150">
 							<h3 class="card-title py-2">María Remedios Zoido</h3>
 							<p class="card-text"><strong>Contacto:</strong> marzoiras@alum.us.es</p>
-							<p class="socials"><i class="bi bi-twitter text-dark mx-1"></i> <i class="bi bi-facebook text-dark mx-1"></i> <i class="bi bi-linkedin text-dark mx-1"></i> <i class="bi bi-instagram text-dark mx-1"></i></p>
+							
 						</div>
 					</div>
 				</div>
@@ -330,7 +330,7 @@
 							<img alt="" class="img-fluid rounded-circle" src="{% static 'img/juan-antonio.jpg' %}" width="150" height="150">
 							<h3 class="card-title py-2">Juan Antonio Ortiz</h3>
 							<p class="card-text"><strong>Contacto:</strong> juaortgue@alum.us.es</p>
-							<p class="socials"><i class="bi bi-twitter text-dark mx-1"></i> <i class="bi bi-facebook text-dark mx-1"></i> <i class="bi bi-linkedin text-dark mx-1"></i> <i class="bi bi-instagram text-dark mx-1"></i></p>
+							
 						</div>
 					</div>
 				</div>
