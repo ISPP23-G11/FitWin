@@ -95,9 +95,7 @@
                 {% if request.user.is_authenticated %}
                     <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
                         <ul class="navbar-nav ">
-                            <li class="nav-item ">
-                                <a class="nav-link text-white h6 me-2" href="#"><em>Hola, {{ request.user.username }}</em></a>
-                            </li>
+                            
                             {% if "client" in request.user.roles %}
                                 {% url 'client_details' client_id=request.user.id as user_details %}
                                 {% url 'client_edit' as user_edit %}
