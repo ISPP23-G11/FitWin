@@ -265,7 +265,7 @@ def upgrade_suscription(trainer):
 @login_required
 def list_trainers(request):
     term = request.GET.get('term')
-    trainers = list(User.objects.filter(username__icontains=term).values('username'))
+    trainers = list(User.objects.filter(username__icontains=term).filter(roles__icontains="trainer").values('username'))
     results = []
     for usuario in trainers:
         usuario_json = {}
