@@ -1,116 +1,65 @@
-from django.contrib.auth.mixins import LoginRequiredMixin
-from django.core.exceptions import PermissionDenied
-from django.http import Http404, HttpResponse, JsonResponse
-from django.shortcuts import render
-from django.views.generic import DetailView, View
-from django.views.generic.edit import FormMixin
-
-from .forms import FormMessages
-from .models import Channel, ChannelMessage
-
-
-class Inbox(View):
-    def get(self, request):
-
-        inbox = Channel.objects.filter(channeluser__user__in=[request.user.id])
-
-        context = {
-            "inbox":inbox
-        }
-        return render(request, 'chat/inbox.html', context)
-
-class ChannelFormMixin(FormMixin):
-    form_class=FormMessages
-   # succes_url = "./"
-
-    def get_succes_url(self):
-        return self.request.path
+from django.contrib.auth import authenticate, login
+from users.models import User
+from django.http.response import JsonResponse, HttpResponse
+from django.shortcuts import render, redirect
+from django.views.decorators.csrf import csrf_exempt
+from rest_framework.parsers import JSONParser
+from chat.models import Message
+from chat.serializers import MessageSerializer, UserSerializer
 
 
-    def post(self, request, *args, **kwargs):
-
-        if not request.user.is_authenticated:
-            raise PermissionDenied
-
-        form = self.get_form()
-        if form.is_valid():
-            channel = self.get_object()
-            user = self.request.user
-            message = form.cleaned_data.get("message")
-            channel_obj= ChannelMessage.objects.create(channel=channel, user=user, text=message)
-
-            if request.headers.get('x-requested-with') == 'XMLHttpRequest':
-                return JsonResponse({
-                    'message':channel_obj.text,
-                    'username':channel_obj.user.username
-                    }, status=201)
-            return super().form_valid(form)
-        
+def index(request):
+    if request.user.is_authenticated:
+        return redirect('chats')
+    if request.method == 'GET':
+        return render(request, 'chat/index.html', {})
+    if request.method == "POST":
+        username, password = request.POST['username'], request.POST['password']
+        user = authenticate(username=username, password=password)
+        if user is not None:
+            login(request, user)
         else:
-            if request.headers.get('x-requested-with') == 'XMLHttpRequest':
-                return JsonResponse({"Error":form.errors}, status=400)
-
-            return super().form_invalid(form)
-
-
-class ChannelDetailView(LoginRequiredMixin, ChannelFormMixin, DetailView):
-
-    template_name='chat/channel_detail.html'
-    queryset=Channel.objects.all()
-
-    def get_context_data(self, *args, **kwargs):
-        context = super().get_context_data(*args, **kwargs)
-
-        obj = context['object']
-        print(obj)
-        
-
-        """ if self.request.user not in obj.users.all():
-            raise PermissionDenied """
-
-        context['si_canal_miembro']=self.request.user in obj.users.all()
-
-        return context
-
-    """ def get_queryset(self):
-
-        usuario = self.request.user
-        username=usuario.username
-        qs = Channel.objects.all().filter_by_username(username)
-        return qs """
-
-
-class DetailMs(LoginRequiredMixin, ChannelFormMixin, DetailView):
-
-    template_name='chat/channel_detail.html'
-
-    def get_object(self, *args, **kwargs):
-
-        username=self.kwargs.get("username")
-        my_username = self.request.user.username
-        channel, _ = Channel.objects.get_or_create_channel_ms(my_username, username)
-
-        if username == my_username:
-            my_channel, _ = Channel.objects.get_or_create_channel_current_user(self.request.user)
-            return my_channel
-
-        if channel==None:
-            return Http404
-            
-        return channel
+            return HttpResponse('{"error": "User does not exist"}')
+        return redirect('chats')
 
 
 
-def private_messages(request, username, *args, **kwargs):
+@csrf_exempt
+def message_list(request, sender=None, receiver=None):
+    """
+    List all required messages, or create a new message.
+    """
+    if request.method == 'GET':
+        messages = Message.objects.filter(sender_id=sender, receiver_id=receiver, is_read=False)
+        serializer = MessageSerializer(messages, many=True, context={'request': request})
+        for message in messages:
+            message.is_read = True
+            message.save()
+        return JsonResponse(serializer.data, safe=False)
 
+    elif request.method == 'POST':
+        data = JSONParser().parse(request)
+        serializer = MessageSerializer(data=data)
+        if serializer.is_valid():
+            serializer.save()
+            return JsonResponse(serializer.data, status=201)
+        return JsonResponse(serializer.errors, status=400)
+
+
+def chat_view(request):
     if not request.user.is_authenticated:
-        return HttpResponse("Prohibido")
+        return redirect('index')
+    if request.method == "GET":
+        return render(request, 'chat/chat.html',
+                      {'users': User.objects.exclude(username=request.user.username)})
 
-    my_username = request.user.username
 
-    channel, created = Channel.objects.get_or_create_channel_ms(my_username,username)
-
-    if created:
-        print("Si, fue creado")
-    
-    return HttpResponse(f"Nuestro Id del Canal - {channel.id}")
+def message_view(request, sender, receiver):
+    if not request.user.is_authenticated:
+        return redirect('index')
+    if request.method == "GET":
+        return render(request, "chat/messages.html",
+                      {'users': User.objects.exclude(username=request.user.username),
+                       'receiver': User.objects.get(id=receiver),
+                       'messages': Message.objects.filter(sender_id=sender, receiver_id=receiver) |
+                                   Message.objects.filter(sender_id=receiver, receiver_id=sender)})

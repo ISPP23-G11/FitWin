@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+{% load static %}
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta content="IE=edge" http-equiv="X-UA-Compatible">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>FitWin</title>
+    <link rel="icon" href="{% static 'img/logo.png' %}">
+
+    <!-- All CSS -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css"/>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+    <link href="{% static 'css/menu.css' %}" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link
+    href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
+    rel="stylesheet"
+    />
+    <!-- MDB -->
+    <link
+    href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.2.0/mdb.min.css"
+    rel="stylesheet"
+    />
+
+    <!--Import Google Icon Font-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!--Import materialize.css-->
+    <link type="text/css" rel="stylesheet" href="{% static 'css/materialize.min.css' %}"  media="screen,projection"/>
+    <link type="text/css" rel="stylesheet" href="{% static 'css/style_chat.css' %}"  media="screen,projection"/>
+
+  <!--Let browser know website is optimized for mobile-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+  <!--Import jQuery before materialize.js-->
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script type="text/javascript" src="{% static 'js/materialize.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/chat.js' %}"></script>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light background ">
+
+        <div class="container">
+            {% if "client" in request.user.roles %}
+                {% url 'main_clients' as main %}
+            {% elif "trainer" in request.user.roles %}
+                {% url 'main_trainers' as main %}
+            {% else %}
+                {% url 'home' as main %}
+            {% endif %}
+            <a class="navbar-brand" href="{{ main }}">
+                <img alt="..." class="d-block w-100" src="../../../static/img/logo.png" width="60" height="60">
+            </a>
+
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                
+                <li class="nav-item">
+                    {% if "client" in request.user.roles %}
+                        <a class="nav-link text-white h6" href="/clients">Inicio</a>
+                    {% elif "trainer" in request.user.roles %}
+                        <a class="nav-link text-white h6" href="/trainers">Inicio</a>
+                    {% endif %}
+
+                </li>
+                <li class="nav-item active ">
+                    {% if request.user.is_authenticated %}
+                        <a class="nav-link text-white h6" href="{% url 'list_announcements' %}">
+                            Todos los anuncios
+                        </a>
+                    {% endif %}
+                </li>
+
+                {% if request.user.is_authenticated %}
+                    {% if "client" in request.user.roles %}
+                        <li class="nav-item active ">
+                            <a class="nav-link text-white h6" href="{% url 'list_announcements' %}?showBooked=True">
+                                Mis reservas
+                            </a>
+                        </li>
+                    {% elif "trainer" in request.user.roles %}
+                        <li class="nav-item active">
+                            <a class="nav-link text-white h6" href="{% url 'list_announcements' %}?trainer={{request.user.username}}">
+                                Mis anuncios<span class="sr-only"></span>
+                            </a>
+                        </li>
+                        <li class="nav-item active ">
+                            <a class="nav-link text-white h6" href="{% url 'payments:plans' %}">
+                                Planes
+                            </a>
+                        </li>
+                    {% endif %}
+                {% endif %}
+            
+                </ul>
+                {% if request.user.is_authenticated %}
+                    <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
+                        <ul class="navbar-nav ">
+                            <li class="nav-item ">
+                                <a class="nav-link text-white h6 me-2" href="#"><em>Hola, {{ request.user.username }}</em></a>
+                            </li>
+                            {% if "client" in request.user.roles %}
+                                {% url 'client_details' client_id=request.user.id as user_details %}
+                                {% url 'client_edit' as user_edit %}
+                            {% elif "trainer" in request.user.roles %}
+                                {% url 'trainer_details' trainer_id=request.user.id as user_details %}
+                                {% url 'trainer_edit' as user_edit %}
+                            {% endif %}
+                            <li class="nav-item">
+                                <a class="nav-link text-white h6" href="{{ user_edit }}">
+                                    Editar perfil
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-white h6" href="{{ user_details }}">Mi perfil</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-white h6" href="/logout"><strong>Salir</strong></a>
+                            </li>
+                        </ul>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </nav>
+
+    <br>
+
+    {% block body %}
+    {% endblock %}
+
+</body>
+</html>
