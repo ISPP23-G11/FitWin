@@ -27,6 +27,22 @@
                 </div>
             </div>
             {% endif %}
+            {% if "client" in request.user.roles%}
+            <div class="card">
+                <div class="collection">
+                    {% for user in users %}
+                    {% if "trainer" in user.roles %}
+                    <a href="{% url 'chat' request.user.id user.id %}" id="user{{ user.id }}" class="collection-item row">
+                        <img src="https://store-images.s-microsoft.com/image/apps.31757.13704239525856931.afd81672-2153-429c-b42e-d4b162febc39.6b86fb40-1199-417f-abfe-b5782f2bc417" class="col s4">
+                        <div class="col s3">
+                        <span class="title" style="font-weight: bolder">{{ user.username }}</span>
+                        </div>
+                    </a>
+                    {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+            {% endif %}
         
         </div>
         <div class="col s6">
