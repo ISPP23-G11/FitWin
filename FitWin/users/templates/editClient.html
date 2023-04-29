@@ -67,7 +67,9 @@
                     
                 </div>
                 <br>
+                {% if request.user.picture %}
                 <p><strong>Foto actual:</strong><br/> <img src="{{request.user.picture.url}}" class="user-img"> </p>
+                {% endif %}
 
                 <div class="d-flex row justify-content-center">
                     <div class="col-4">
