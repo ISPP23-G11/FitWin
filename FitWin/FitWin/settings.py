@@ -49,6 +49,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    'cloudinary_storage',
+    'cloudinary',
+
     'authentication',
     'announcements',
     'payment',
@@ -206,5 +209,13 @@ MEDIA_ROOT = os.path.join(BASE_DIR,'media')
 
 MEDIA_URL = '/media/'
 
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+
 STRIPE_PUBLISHABLE_KEY = os.environ.get('STRIPE_PUBLISHABLE_KEY')
 STRIPE_SECRET_KEY = os.environ.get('STRIPE_SECRET_KEY')
+
+CLOUDINARY_STORAGE = {
+    'CLOUD_NAME': os.environ.get('CLOUD_NAME'),
+    'API_KEY': os.environ.get('API_KEY'),
+    'API_SECRET': os.environ.get('API_SECRET')
+}
