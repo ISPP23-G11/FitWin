@@ -7,9 +7,7 @@
     <div class="row">
       <div class="col-12">
         <div class="user-card">
-          {% if client.picture %}
           <img class="user-img" src="{{ client.picture.url }}" alt="">
-          {% endif %}
           <div class="user-info">
             <h2 class="mb-4">{{ client.first_name }} {{ client.last_name }}</h2>
             <p class="mb-4"><strong>{{ client.email }}</strong></p>
