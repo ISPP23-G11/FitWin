@@ -15,8 +15,10 @@ def user_directory_path(instance, filename):
 
 
 class User(AbstractUser):
+
     picture = models.ImageField(
         upload_to=user_directory_path, blank=True, null=True, default='users/default.jpeg')
+
     date_created = models.DateField(auto_now_add=True)
     birthday=models.DateField(null=True, blank=True)
     bio = models.TextField(max_length=150, null=True, blank=True)
