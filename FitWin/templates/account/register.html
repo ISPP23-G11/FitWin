@@ -31,7 +31,7 @@
 		{% csrf_token %}
 		<div class="row">
 			<div class="input-group mb-3 col-12">
-				<span class="input-group-text">Nombre de usuario</span>
+				<span class="input-group-text">Nombre de usuario<span style="color: brown;">&nbsp(*)</span></span>
 					<input required class="form-control" type="text" name="username" maxlength="150">
 				</div>
 			</div>
@@ -39,7 +39,7 @@
 		<div class="row">
 			<div class="col">
 				<div class="input-group mb-3 col-sm-12 col-lg-6">
-				<span class="input-group-text">Nombre</span>
+				<span class="input-group-text">Nombre<span style="color: brown;">&nbsp(*)</span></span>
 					<input required class="form-control" type="text" name="name" maxlength="30">
 				</div>
 			</div>
@@ -48,7 +48,7 @@
 		<div class="row">
 			<div class="col">
 				<div class="input-group mb-3 col-sm-12 col-lg-6">
-				<span class="input-group-text">Apellidos</span>
+				<span class="input-group-text">Apellidos<span style="color: brown;">&nbsp(*)</span></span>
 					<input required class="form-control" type="text" name="last_name" maxlength="150">
 				</div>
 			</div>
@@ -57,7 +57,7 @@
 		<div class="row">
 			<div class="col">
 				<div class="input-group mb-3 col-sm-12 col-lg-6">
-				<span class="input-group-text">Email</span>
+				<span class="input-group-text">Email<span style="color: brown;">&nbsp(*)</span></span>
 					<input required class="form-control" type="email" name="email">
 				</div>
 			</div>
@@ -66,8 +66,29 @@
 		<div class="row">
 			<div class="col">
 				<div class="input-group mb-3 col-sm-12 col-lg-6">
-				<span class="input-group-text">Contraseña</span>
-					<input required class="form-control" type="password" name="password">
+				<span class="input-group-text">Contraseña<span style="color: brown;">&nbsp(*)</span></span>
+					<input required class="form-control" type="password" name="password" id="password">
+					<svg id="togglePassword" style="float: right;
+					margin-left: -30px;
+					margin-top: 5px;
+					position: relative;
+					z-index: 2;" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-eye-fill" viewBox="0 0 16 16">
+						<path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z"/>
+						<path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8zm8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z"/>
+					  </svg>
+					<script>
+						const togglePassword = document.querySelector("#togglePassword");
+						const password = document.querySelector("#password");
+				
+						togglePassword.addEventListener("click", function () {
+							// toggle the type attribute
+							const type = password.getAttribute("type") === "password" ? "text" : "password";
+							password.setAttribute("type", type);
+							
+							// toggle the icon
+							this.classList.toggle("bi-eye");
+						});
+					</script>
 				</div>
 			</div>
 		</div>
@@ -75,8 +96,30 @@
 		<div class="row">
 			<div class="col">
 				<div class="input-group mb-3 col-sm-12 col-lg-6">
-				<span class="input-group-text">Repite la contraseña</span>
-					<input required class="form-control" type="password" name="password_again">
+				<span class="input-group-text">Repite la contraseña<span style="color: brown;">&nbsp(*)</span></span>
+					<input required class="form-control" type="password" name="password_again" id="password_again">
+					<svg id="togglePassword2" style="float: right;
+					margin-left: -30px;
+					margin-top: 5px;
+					position: relative;
+					z-index: 2;" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-eye-fill" viewBox="0 0 16 16">
+						<path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z"/>
+						<path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8zm8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z"/>
+					  </svg>
+					<script>
+						const togglePassword2 = document.querySelector("#togglePassword2");
+						const password2 = document.querySelector("#password_again");
+				
+						togglePassword2.addEventListener("click", function () {
+							// toggle the type attribute
+							const type = password2.getAttribute("type") === "password" ? "text" : "password";
+							password2.setAttribute("type", type);
+							
+							// toggle the icon
+							this.classList.toggle("bi-eye");
+						});
+				
+					</script>
 				</div>
 			</div>
 		</div>
@@ -84,7 +127,7 @@
 		<div class="row">
 			<div class="col">
 				<div class="input-group mb-3 col-sm-12 col-lg-6">
-				<span class="input-group-text">Biografia</span>
+				<span class="input-group-text">Biografia<span style="color: brown;">&nbsp(*)</span></span>
 					<input required class="form-control" type="text" name="bio" maxlength="150">
 				</div>
 			</div>
@@ -94,19 +137,24 @@
 		<div class="row">
 			<div class="col">
 				<div class="input-group mb-3 col-sm-12 col-lg-6">
-				<span class="input-group-text">Fecha de nacimiento</span>
+				<span class="input-group-text">Fecha de nacimiento <span style="color: brown;">&nbsp(*)</span></span>
 					<input required class="form-control" type="date" name="birthday">
 				</div>
 			</div>
 		</div>
-
 		<div class="row">
 			<div class="col">
 				<div class="input-group mb-3 col-sm-12 col-lg-6">
 				<span class="input-group-text">Foto de perfil</span>
-					<input required class="form-control" type="file" name="picture" accept="image/*">
+					<input class="form-control" type="file" name="picture" accept="image/*">
 				</div>
 			</div>
+		</div>
+
+		<div class="row my-4">
+			<div class="col"></div>
+			<div class="col-auto" style="font-style: italic;">Los campos con <span style="color: brown;">&nbsp(*)</span> son obligatorios</div>
+			<div class="col"> </div>
 		</div>
 
 		<div class="mt-4 pt-2">
@@ -124,6 +172,13 @@
 			  <a class="btn btn-lg btn-light" href="{% provider_login_url 'google' process='login' role=role%}"><img src="https://img.icons8.com/color/16/000000/google-logo.png"> Entrar Con Google</a>
 			</div>
 		</div>
+
+		<div class="row my-4">
+			<div class="col"><hr></div>
+			<div class="col-auto">¿Ya estás registrado? <a href="/login">Inicia Sesión</a></div>
+			<div class="col"><hr></div>
+		</div>
+
 	</form>
 	</div>
 </div>

@@ -12,9 +12,9 @@
     <!-- All CSS -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css"/>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-        crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.0/themes/smoothness/jquery-ui.css">
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js"
         integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
         crossorigin="anonymous"></script>
@@ -25,6 +25,7 @@
     href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
     rel="stylesheet"
     />
+    <script src="https://kit.fontawesome.com/c18980d3a8.js" crossorigin="anonymous"></script>
     <!-- MDB -->
     <link
     href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.2.0/mdb.min.css"
@@ -33,9 +34,14 @@
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-lg navbar-light background ">
-
-        <div class="container">
+    <nav class="navbar navbar-expand-lg navbar-light background" 
+    {% if "trainer" in request.user.roles %}
+        {% if request.user.is_premium %}
+            style=" background: rgb(149,60,201);
+                background: linear-gradient(90deg, rgba(161, 54, 223, 0.85) 0%, rgba(0, 173, 159, 0.75) 100%);"
+        {% endif %}
+    {% endif %}
+    >
             {% if "client" in request.user.roles %}
                 {% url 'main_clients' as main %}
             {% elif "trainer" in request.user.roles %}
@@ -43,15 +49,21 @@
             {% else %}
                 {% url 'home' as main %}
             {% endif %}
-            <a class="navbar-brand" href="{{ main }}">
-                <img alt="..." class="d-block w-100" src="../../../static/img/logo.png" width="60" height="60">
+			<a class="navbar-brand" href="{{main}}" style="font-weight: 800;font-size: x-large; letter-spacing: 3px;"><img alt="" class="img-fluid" width="75" height="75" src="{% static 'img/logo.png' %}" style="font-family: sans-serif;"><span style="color:white">FIT</span>WIN
+                {% if "trainer" in request.user.roles %}
+                    {% if request.user.is_premium %}
+                        <hr><p style="font-size: medium;">PREMIUM</p>
+                    {% endif %}
+                {% endif %}
             </a>
-
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
+             
+            <button aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler" data-bs-target="#navbarSupportedContent" data-bs-toggle="collapse" type="button">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-list" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"/>
+                  </svg>
             </button>
 
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <div class="navbar-collapse collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
                 
                 <li class="nav-item">
@@ -101,9 +113,7 @@
                 {% if request.user.is_authenticated %}
                     <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
                         <ul class="navbar-nav ">
-                            <li class="nav-item ">
-                                <a class="nav-link text-white h6 me-2" href="#"><em>Hola, {{ request.user.username }}</em></a>
-                            </li>
+                            
                             {% if "client" in request.user.roles %}
                                 {% url 'client_details' client_id=request.user.id as user_details %}
                                 {% url 'client_edit' as user_edit %}
@@ -126,7 +136,6 @@
                     </div>
                 {% endif %}
             </div>
-        </div>
     </nav>
 
     {% if messages|length > 0 %}

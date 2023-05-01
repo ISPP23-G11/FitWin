@@ -13,14 +13,24 @@
             </div>
             {% endfor %}
             {% endif %}
-		
-	  <div class="container">
-	<div class="row">
-		<div class="col-md-12 text-center fw-light">
-			<h1>Publica clases</h1>
+
+
+
+	<div class="container">
+		<div class="row">
+			<div class="col-md-6 mx-auto text-center fw-light">
+				<p class="fs-1 fw-light">Bienvenido a <b>FitWin</b> {{request.user.username}}.</p>
+			</div>
 		</div>
 	</div>
-</div>
+		
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12 text-center fw-light">
+				<h1>Publica clases</h1>
+			</div>
+		</div>
+	</div>
 	  <p>
 		<a href="{% url 'create_announcement' %}" class="btn btn-primary btn-lg mt-4">Crear anuncio</a>
 		<a href="{% url 'list_announcements' %}?trainerId={{request.user.id}}" class="btn btn-secondary btn-lg mt-4">Ver mis anuncios</a>

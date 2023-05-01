@@ -45,6 +45,7 @@
                           {% if c.types == 'objectives' %} text-bg-info 
                           {% elif c.types == 'recovery' %} text-bg-success 
                           {% elif c.types == 'difficulty' %} text-bg-warning 
+                          {% elif c.types == 'age' %} text-bg-secondary
                           {% endif %}">
                         {{ c.name }}
                         <a class="ms-1" href="/announcements/delete-categories/{{ a.id }}/{{ c.id }}">
