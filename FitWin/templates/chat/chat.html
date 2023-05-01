@@ -4,7 +4,9 @@
     <div class="nav-wrapper container">
       <a href="#" class="brand-logo">Chat con {{ receiver.username }}</a>
       <ul id="nav-mobile" class="right hide-on-med-and-down">
-          <li><a href="/trainers/{{receiver.id}}">Volver</a></li>
+        
+          <li><a href="/{% if 'client' in request.user.roles %}clients{% elif 'trainer' in request.user.roles %}trainers{% endif %}">Volver</a></li>
+        
       </ul>
     </div>
 </nav>
