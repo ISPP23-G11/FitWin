@@ -45,6 +45,7 @@
                       {% if category.types == 'objectives' %} text-bg-info 
                       {% elif category.types == 'recovery' %} text-bg-success 
                       {% elif category.types == 'difficulty' %} text-bg-warning 
+                      {% elif category.types == 'age' %} text-bg-secondary
                       {% endif %}">
                     {{ category.name }}
                   </span>
@@ -64,7 +65,7 @@
               {% if "client" in request.user.roles %}
                 {% if is_client_booking %}
                   <a href="{% url 'cancel_book' announcement.id %}" onclick="if(confirm('¿Estás seguro de que quieres cancelar esta reserva?')) { cancelBooking({{ announcement.id }}) }" 
-                          class="btn btn-outline-primary me-4 btn-lg px-3 w-100">
+                          class="btn btn-outline-danger me-4 btn-lg px-3 w-100">
                       Cancelar reserva
                   </a>
                 {% else %}

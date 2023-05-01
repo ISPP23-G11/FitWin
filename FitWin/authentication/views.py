@@ -44,9 +44,14 @@ def register(request, role):
         password_again = request.POST.get('password_again', '')
         bio = request.POST.get('bio', '')
         birthday = request.POST.get('birthday', '')
-        picture = request.FILES['picture']
         name = request.POST.get('name', '')
         last_name = request.POST.get('last_name', '')
+
+        try:
+            picture = request.FILES['picture']
+        except:
+            picture = 'users/default.jpeg'
+
         if validate_role(role):
             roles = [role]
 
@@ -54,11 +59,17 @@ def register(request, role):
                                         bio, birthday, picture, name, last_name, roles)
 
         if not errors:
+
             user = User.objects.create_user(username = username, password=password,
                                             email=email, first_name=name, last_name=last_name,
                                             bio=bio, birthday=birthday, roles=roles)
-            user.picture.save(picture.name, picture)
+            
             user.save()
+            if 'picture' in request.FILES:
+                user.picture.save(request.FILES['picture'].name, request.FILES['picture'])
+            else:
+                user.picture = 'users/default.jpeg'
+
             return redirect('/login')
         else:
             return redirect('/register/'+role)
@@ -95,7 +106,6 @@ def validate_register_form(request, username, email, password, password_again, b
     if not email_val:
         errors = True
         messages.error(request, 'El email no sigue un formato valido. Por ejemplo: prueba@host.com', extra_tags='error')
-
     return errors
 
 

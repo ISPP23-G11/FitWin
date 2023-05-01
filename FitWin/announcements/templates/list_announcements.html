@@ -102,7 +102,19 @@
                         <p class="mb-0">
                           Entrenador
                         </p>
-                        <input type="text" name="trainer" class="form-control" value="{{ request.GET.trainer|default_if_none:'' }}">
+                        <input id="autocomplete" type="text" name="trainer" class="form-control" value="{{ request.GET.trainer|default_if_none:'' }}">
+                        <script>
+                          $(document).ready(function() {
+                            $('#autocomplete').autocomplete({
+                              source: '/trainers/list',
+                              minLength: 3,
+                              select: function(event, ui) {
+                                $('#autocomplete').val(ui.item.value);
+                              }
+                            });
+                          });
+
+                        </script>
                       </div>
                     </div>
                     <button type="submit" class="btn btn-white w-100 border border-secondary">Aplicar</button>
@@ -300,6 +312,7 @@
                               {% if category.types == 'objectives' %} text-bg-info 
                               {% elif category.types == 'recovery' %} text-bg-success 
                               {% elif category.types == 'difficulty' %} text-bg-warning 
+                              {% elif category.types == 'age' %} text-bg-secondary
                               {% endif %}">{{category.types}}: {{ category.name }}</span>
                       {% endfor %}
                     </div>
@@ -312,7 +325,7 @@
                       </div>
                       <div class="row mb-2 mt-4">
                         {% url 'announcement_details' announcement_id=announcement.id as announcement_details_id %}
-                        <span style="width: fit-content;" >{% post_to_facebook announcement_details_id '<i class="fab fa-facebook fa-lg"></i>' %}</span>
+                        <span style="width: fit-content;" >{% post_to_facebook announcement_details_id '<i class="fab fa-facebook fa-lg hover-hover" style=""></i>' %}</span>
                         <span style="width: fit-content;" >{% post_to_whatsapp announcement_details_id "<i class='fab fa-whatsapp fa-lg'></i>" %}</span>
                         <span style="width: fit-content;" >{% post_to_twitter "Nueva clase: {{a.title}}. {{a.description}}. El día {{a.start_date|date:'d-m-Y'}} de {{ a.start_date|date:'H:i' }} hasta {{ a.finish_date|date:'H:i' }}. Echa un vistazo!" announcement_details_id "<i class='fab fa-twitter fa-lg' ></i>" %}</span>
                       </div>

@@ -109,12 +109,12 @@
                 </div>
             </div>
 
-            <div class="col-lg-6">
+            <div class="col-lg-6" 
+            {% if trainer.is_premium %}
+                style=" background: rgb(149,60,201);
+                background: linear-gradient(90deg, rgba(162, 0, 255, 0.45) 0%, rgba(0, 255, 234, 0.5) 100%); font-weight: bold;">
+            {% endif %}
                 <div class="pricing-box mt-4">
-                    <div class="pricing-badge">
-                        <span class="badge">Elegido</span>
-                    </div>
-
                     <i class="mdi mdi-account-multiple h1 text-primary"></i>
                     <h4 class="f-20 text-primary">Premium</h4>
 
