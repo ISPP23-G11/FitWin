@@ -7,7 +7,7 @@
 	<div class="container">
     <div class="user-card mb-3 col-12">
       {% if trainer.picture %}
-        <img class="user-img mt-3" src="{{ trainer.picture.url }}" alt="Card image cap">
+        <img class="user-img mt-3" src="{{ trainer.picture.url }}" alt="">
       {% endif %}
       <div class="user-info">
         <h2 class="mb-4">{{ trainer.first_name }} {{ trainer.last_name }}</h2>
@@ -24,8 +24,8 @@
           
       {% if client %}
         <p class="mb-5">
-          <a href="/announcements/list?trainer={{trainer.username}}" class="btn btn-primary btn-lg btn-block">Clases</a>
-          <a href="/chat/ms/{{ trainer.username}}" class="btn btn-primary btn-lg btn-block" style="width: 89px;">Chat</a>
+          <a href="/announcements/list?trainer={{trainer.username}}" class="btn btn-primary">Clases</a>
+          <a href="/chat/ms/{{ trainer.username}}" class="btn btn-primary">Chat</a>
         </p>
       {% endif %}
   
