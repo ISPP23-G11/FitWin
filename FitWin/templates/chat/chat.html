@@ -13,13 +13,16 @@
     <div class="section" style="height: 80vh">
     <div class="row">
         <div class="col s3">
-            {% if "trainer" in request.user.roles%}
+            {% if "trainer" in request.user.roles %}
             <div class="card">
+                <div class="card-title">
+                    <h3 class="text-center"><strong>Todos los alumnos</strong></h3>
+                </div>
                 <div class="collection">
                     {% for user in users %}
                     {% if "client" in user.roles %}
                     <a href="{% url 'chat' request.user.id user.id %}" id="user{{ user.id }}" class="collection-item row">
-                        <img src="https://store-images.s-microsoft.com/image/apps.31757.13704239525856931.afd81672-2153-429c-b42e-d4b162febc39.6b86fb40-1199-417f-abfe-b5782f2bc417" class="col s4">
+                        <img src="{{user.picture.url}}" class="col s4">
                         <div class="col s3">
                         <span class="title" style="font-weight: bolder">{{ user.username }}</span>
                         </div>
@@ -29,13 +32,16 @@
                 </div>
             </div>
             {% endif %}
-            {% if "client" in request.user.roles%}
+            {% if "client" in request.user.roles %}
             <div class="card">
+                <div class="card-title">
+                    <h3 class="text-center"><strong>Entrenadores</strong></h3>
+                </div>
                 <div class="collection">
                     {% for user in users %}
                     {% if "trainer" in user.roles %}
                     <a href="{% url 'chat' request.user.id user.id %}" id="user{{ user.id }}" class="collection-item row">
-                        <img src="https://store-images.s-microsoft.com/image/apps.31757.13704239525856931.afd81672-2153-429c-b42e-d4b162febc39.6b86fb40-1199-417f-abfe-b5782f2bc417" class="col s4">
+                        <img src="{{user.picture.url}}" class="col s4">
                         <div class="col s3">
                         <span class="title" style="font-weight: bolder">{{ user.username }}</span>
                         </div>
