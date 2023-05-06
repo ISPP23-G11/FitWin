@@ -10,6 +10,13 @@ jobs:
     uses: ISPP23-G11/FitWin/.github/workflows/build.yml@main
     secrets:
       CODACY_PROJECT_TOKEN: ${{  secrets.CODACY_PROJECT_TOKEN  }}    
+      API_KEY: ${{ secrets.API_KEY }}
+      API_SECRET: ${{ secrets.API_SECRET }}
+      CLOUD_NAME: ${{ secrets.CLOUD_NAME }}
+      GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+      GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+      STRIPE_PUBLISHABLE_KEY: ${{ secrets.STRIPE_PUBLISHABLE_KEY }}
+      STRIPE_SECRET_KEY: ${{ secrets.STRIPE_SECRET_KEY }}
      
   release:
     needs: buildTest
