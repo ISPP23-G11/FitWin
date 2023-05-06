@@ -1,6 +1,7 @@
 from urllib import response
 from django.test import TestCase
 from django.urls import reverse
+from django.contrib.messages.storage import cookie,session
 from .models import Announcement, Category
 from users.models import User
 import datetime
@@ -76,6 +77,7 @@ class AnnouncementsTests(TestCase):
         self.category = age
         self.min_price = 100
         self.anuncio_id = anuncio1.id
+        self.category_not_in_announcement = yoga
 
     def test_filter_announcement_by_category(self):
         response = self.client.post(
@@ -130,3 +132,46 @@ class AnnouncementsTests(TestCase):
         response = self.client.post(
             f"/announcements/book/{self.anuncio_id}", follow=True)
         self.assertEqual(response.status_code, 200)
+
+
+    def test_cancel_book_announcement_OK(self):
+        response = self.client.post(
+            '/login', {'username': 'client', 'password': '1234'}, format='json', follow=True)
+        self.assertRedirects(response, '/clients')
+        self.assertEqual(response.status_code, 200)
+
+        response = self.client.post(
+            f"/announcements/book/{self.anuncio_id}", follow=True)
+        self.assertEqual(response.status_code, 200)
+
+        response = self.client.post(
+            f"/announcements/cancelBook/{self.anuncio_id}", follow=True)
+        self.assertEqual(response.status_code, 200)
+
+    def test_cancel_book_announcement_failed_no_book_previous(self):
+        anuncio = Announcement.objects.filter(id=self.anuncio_id).get()
+        self.assertEquals(anuncio.clients.count(),0)
+
+        response = self.client.post(
+            '/login', {'username': 'client', 'password': '1234'}, format='json', follow=True)
+        self.assertRedirects(response, '/clients')
+        self.assertEqual(response.status_code, 200)
+
+        response = self.client.post(
+            f"/announcements/cancelBook/{self.anuncio_id}", follow=True)
+        self.assertEqual(response.status_code, 200)
+        #Revisar este assert
+        #Detecta que se le manda un mensaje de tipo informativo, cuando debería ser de tipo error
+        self.assertEqual(cookie.CookieStorage(response).level,40)
+        
+    def test_delete_category_does_not_exists_in_announcement(self):
+        response = self.client.post(
+            '/login', {'username': 'trainer', 'password': '1234'}, format='json', follow=True)
+        self.assertRedirects(response, '/trainers')
+        self.assertEquals(response.status_code, 200)
+        self.assertFalse(Announcement.objects.filter(id=self.anuncio_id).get().categories.contains(self.category_not_in_announcement))
+        
+
+        response = self.client.post(
+            f"/announcements/delete-categories/{self.anuncio_id}/{self.category_not_in_announcement.id}", follow=True)
+        self.assertEqual(response.status_code,200)
