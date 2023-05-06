@@ -117,3 +117,58 @@ class AuthTestCase(TestCase):
 
         self.assertRedirects(response, '/clients')
         self.assertEqual(response.status_code, 200)
+
+    def test_failed_register_client(self):
+        data = {
+            'username': 'client1',
+            'email': 'enajeodex.com',
+            'password': '124',
+            'password_again': '123',
+            'bio': '.yreV .gnol etiuQ .txet gnol fo tros ,elpmas A',
+            'name': 'Nhoj',
+            'last_name': 'Eod',
+        }
+        response = self.client.post(
+            '/register/client/', data, format='json', follow=True)
+        self.assertRedirects(response, '/register/client/')
+        self.assertContains(
+            response, 'Este nombre de usuario ya existe')
+        self.assertEqual(response.status_code, 200)
+
+        data['username'] = 'client3'
+        response = self.client.post(
+            '/register/client/', data, format='json', follow=True)
+        self.assertRedirects(response, '/register/client/')
+        self.assertContains(
+            response, 'Las contraseñas no coinciden')
+        self.assertEqual(response.status_code, 200)
+
+        data['password'] = '123'
+        response = self.client.post(
+            '/register/client/', data, format='json', follow=True)
+        self.assertRedirects(response, '/register/client/')
+        self.assertContains(
+            response, 'La fecha de naciemiento es obligatoria')
+        self.assertEqual(response.status_code, 200)
+
+        data['birthday'] = '2222-10-10'
+        response = self.client.post(
+            '/register/client/', data, format='json', follow=True)
+        self.assertRedirects(response, '/register/client/')
+        self.assertContains(
+            response, 'La fecha de nacimiento debe ser anterior a hoy')
+        self.assertEqual(response.status_code, 200)
+
+        data['birthday'] = '2001-10-10'
+        response = self.client.post(
+            '/register/client/', data, format='json', follow=True)
+        self.assertRedirects(response, '/register/client/')
+        self.assertContains(
+            response, 'El email no sigue un formato valido. Por ejemplo: prueba@host.com')
+        self.assertEqual(response.status_code, 200)
+
+        data['email'] = 'enajeod@ex.com'
+        response = self.client.post(
+            '/register/client/', data, format='json', follow=True)
+        self.assertRedirects(response, '/login')
+        self.assertEqual(response.status_code, 200)
