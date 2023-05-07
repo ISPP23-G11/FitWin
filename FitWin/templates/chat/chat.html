@@ -1,0 +1,102 @@
+{% extends 'chat/index.html' %}
+{% block body %}
+<nav class="navbar navbar-expand-lg navbar-light" style="background-color: #8E6ECF;">
+    <div class="nav-wrapper container">
+      <a href="#" class="brand-logo">Chat con {{ receiver.username }}</a>
+      <ul id="nav-mobile" class="right hide-on-med-and-down">
+        
+          <li><a href="/{% if 'client' in request.user.roles %}clients{% elif 'trainer' in request.user.roles %}trainers{% endif %}">Volver</a></li>
+        
+      </ul>
+    </div>
+</nav>
+    <div class="section" style="height: 80vh">
+    <div class="row">
+        <div class="col s3">
+            {% if "trainer" in request.user.roles %}
+            <div class="card">
+                <div class="card-title">
+                    <h3 class="text-center"><strong>Todos los alumnos</strong></h3>
+                </div>
+                <div class="collection">
+                    {% for user in users %}
+                    {% if "client" in user.roles %}
+                    <a href="{% url 'chat' request.user.id user.id %}" id="user{{ user.id }}" class="collection-item row">
+                        <img src="{{user.picture.url}}" class="col s4">
+                        <div class="col s3">
+                        <span class="title" style="font-weight: bolder">{{ user.username }}</span>
+                        </div>
+                    </a>
+                    {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+            {% endif %}
+            {% if "client" in request.user.roles %}
+            <div class="card">
+                <div class="card-title">
+                    <h3 class="text-center"><strong>Entrenadores</strong></h3>
+                </div>
+                <div class="collection">
+                    {% for user in users %}
+                    {% if "trainer" in user.roles %}
+                    <a href="{% url 'chat' request.user.id user.id %}" id="user{{ user.id }}" class="collection-item row">
+                        <img src="{{user.picture.url}}" class="col s4">
+                        <div class="col s3">
+                        <span class="title" style="font-weight: bolder">{{ user.username }}</span>
+                        </div>
+                    </a>
+                    {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+            {% endif %}
+        
+        </div>
+        <div class="col s6">
+            <div class="card">
+            <div id="board" class="section grey lighten-3" style="height: 68vh; padding: 5px; overflow-y: scroll">
+                {% block messages %}
+
+                {% endblock %}
+            </div>
+            <form id="chat-box" class="form-group {% block hide %}hide{% endblock %}" method="post">
+                {% csrf_token %}
+                <div class="row">
+                    <div class="col s11">
+                        <div class="input-field">
+                            <input id="id_message" name="message" type="text" placeholder="Ingresa tu mensaje..">
+                        </div>
+                    </div>
+                    <div class="col s1" style="line-height: 80px">
+                        <button class="btn btn-floating blue lighten-2 waves-effect waves-light"><i class="material-icons">send</i></button>
+                      </div>
+                </div>
+            </form>
+            </div>
+        </div>
+    </div>
+    </div>
+
+    {% load static %}
+    <script src="{% static 'js/chat.js' %}"></script>
+    
+    <script>
+        // For receiving
+        sender_id = "{{ receiver.id }}";
+        receiver_id = "{{ request.user.id }}";
+
+        //For sending
+        $(function () {
+            scrolltoend();
+            $('#chat-box').on('submit', function (event) {
+                event.preventDefault();
+                var message = $('#id_message');
+                send('{{ request.user.username }}', '{{ receiver.username }}', message.val());
+                message.val('');
+                
+            })
+        })
+    </script>
+   
+{% endblock %}
