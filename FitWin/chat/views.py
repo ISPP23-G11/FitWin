@@ -6,6 +6,7 @@ from django.views.decorators.csrf import csrf_exempt
 from rest_framework.parsers import JSONParser
 from chat.models import Message
 from chat.serializers import MessageSerializer, UserSerializer
+from django.db.models import Q
 
 
 def index(request):
@@ -45,13 +46,18 @@ def message_list(request, sender=None, receiver=None):
             return JsonResponse(serializer.data, status=201)
         return JsonResponse(serializer.errors, status=400)
 
+def users_chatting_with(user):
+    return User.objects.filter(
+        Q(sender__receiver=user) | Q(receiver__sender=user)
+    ).distinct()
+
 
 def chat_view(request):
     if not request.user.is_authenticated:
         return redirect('index')
     if request.method == "GET":
         return render(request, 'chat/chat.html',
-                      {'users': User.objects.exclude(username=request.user.username)})
+                      {'users': users_chatting_with(request.user)})
 
 
 def message_view(request, sender, receiver):
@@ -59,7 +65,7 @@ def message_view(request, sender, receiver):
         return redirect('index')
     if request.method == "GET":
         return render(request, "chat/messages.html",
-                      {'users': User.objects.exclude(username=request.user.username),
+                      {'users': users_chatting_with(request.user),
                        'receiver': User.objects.get(id=receiver),
                        'messages': Message.objects.filter(sender_id=sender, receiver_id=receiver) |
                                    Message.objects.filter(sender_id=receiver, receiver_id=sender)})
