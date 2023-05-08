@@ -55,7 +55,6 @@ INSTALLED_APPS = [
     'authentication',
     'announcements',
     'payment',
-    'searching',
     'users',
     'chat',
     'recommendations',
@@ -117,7 +116,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'fitwin',
         'USER': 'fitwin',
-        'PASSWORD':'fitwin',
+        'PASSWORD': 'fitwin',
         'HOST': 'localhost',
         'PORT': '5432',
 
@@ -154,8 +153,6 @@ TIME_ZONE = 'CET'
 USE_I18N = True
 
 USE_TZ = True
-
-
 
 
 # Static files (CSS, JavaScript, Images)
@@ -208,7 +205,7 @@ try:
 except ImportError:
     print("local_settings.py not found")
 
-MEDIA_ROOT = os.path.join(BASE_DIR,'media')
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 MEDIA_URL = '/media/'
 

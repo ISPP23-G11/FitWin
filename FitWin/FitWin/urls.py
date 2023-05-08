@@ -24,13 +24,14 @@ urlpatterns = [
     path('', include('announcements.urls')),
     path('', include('authentication.urls')),
     path('', include('payment.urls')),
-    path('', include('searching.urls')),
     path('', include('users.urls')),
-    path('',include('recommendations.urls')),
+    path('', include('recommendations.urls')),
     path('chat/', include('chat.urls')),
     path('payments/', include('payments.urls')),
 ]
 
 if settings.DEBUG:
-    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+    urlpatterns += static(settings.MEDIA_URL,
+                          document_root=settings.MEDIA_ROOT)
+    urlpatterns += static(settings.STATIC_URL,
+                          document_root=settings.STATIC_ROOT)
