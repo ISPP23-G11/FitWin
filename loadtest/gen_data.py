@@ -72,7 +72,7 @@ def save_users_to_json(users, file):
     for user in users:
         data.append(user.__dict__)
     with open(file, 'w') as f:
-        json.dump(data, file, indent=4)
+        json.dump(data, f, indent=4)
 
 
 def create_users(filename):
@@ -104,7 +104,7 @@ def create_users(filename):
             id = response.url.split('/')[-1]
             announcements.append(id)
 
-        with open('loadtest/created_announcements.json', 'w') as f:
+        with open('created_announcements.json', 'w') as f:
             json.dump(announcements, f, indent=4)
 
     return valid_users, invalid_users
@@ -157,12 +157,12 @@ def create_announcement(user):
     return response
 
 
-# trainers = generate_test_users('trainer', 20)
-# save_users_to_json(trainers, 'loadtest/trainers.json')
-# clients = generate_test_users('client', 20)
-# save_users_to_json(clients, 'loadtest/clients.json')
+trainers = generate_test_users('trainer', 20)
+save_users_to_json(trainers, 'trainers.json')
+clients = generate_test_users('client', 20)
+save_users_to_json(clients, 'clients.json')
 
-valid_users, invalid_users = create_users('loadtest/clients.json')
+valid_users, invalid_users = create_users('clients.json')
 print(valid_users, invalid_users)
-valid_users, invalid_users = create_users('loadtest/trainers.json')
+valid_users, invalid_users = create_users('trainers.json')
 print(valid_users, invalid_users)
