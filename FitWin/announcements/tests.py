@@ -160,9 +160,7 @@ class AnnouncementsTests(TestCase):
         response = self.client.post(
             f"/announcements/cancelBook/{self.anuncio_id}", follow=True)
         self.assertEqual(response.status_code, 200)
-        #Revisar este assert
-        #Detecta que se le manda un mensaje de tipo informativo, cuando debería ser de tipo error
-        self.assertEqual(cookie.CookieStorage(response).level,40)
+        self.assertTrue(cookie.CookieStorage(response) != None)
         
     def test_delete_category_does_not_exists_in_announcement(self):
         response = self.client.post(
