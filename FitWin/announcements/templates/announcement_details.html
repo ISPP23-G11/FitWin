@@ -20,7 +20,7 @@
       <div class="col-lg-6 mb-3">
         <div class="border rounded-4 mb-3 d-flex justify-content-center">
           <a class="rounded-4 py-2 px-2" href={% url 'trainer_details' trainer_id=announcement.trainer.id %}>
-            <img style="max-width: 100%; max-height: 100vh; margin: auto;" class="rounded-4 fit" src="{{ request.scheme }}://{{ request.get_host }}/media/{{ announcement.trainer.picture }}">
+            <img style="max-width: 100%; max-height: 100vh; margin: auto;" class="rounded-4 fit" src="{{ announcement.trainer.picture.url }}">
           </a>
         </div>
       </div>
