@@ -245,7 +245,7 @@ figure img{width:300px;}
 								
 								<figure> 
 									<a href="/trainers/{{a.trainer.id}}">
-										<img src="{{ request.scheme }}://{{ request.get_host }}/media/{{ a.trainer.picture }}" class="w-100" style="transition: transform 0.2s ease-in-out; transform-origin: center; object-fit: cover;" onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'" /> 
+										<img src="{{ a.trainer.picture.url }}" class="w-100" style="transition: transform 0.2s ease-in-out; transform-origin: center; object-fit: cover;" onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'" /> 
 									</a>
 								</figure>
 							</div>
