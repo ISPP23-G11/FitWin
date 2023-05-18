@@ -43,6 +43,29 @@ def validate_announcement(request, title, description, place, price, capacity,
 
     return errors
 
+def validate_edit_announcement(request, title, description, place, price,
+                          day, start_date, finish_date):
+    errors = False
+
+    price = float(price)
+    if price <= 0.0:
+        errors = True
+        messages.error(
+            request, "El precio no puede ser menor o igual que cero", extra_tags='error')
+
+    if title == '' or description == '' or place == '' or price == '' \
+            or day == '' or start_date == '' or finish_date == '':
+        errors = True
+        messages.error(request, "Todos los datos son obligatorios", extra_tags='error')
+
+    if errors == False:
+        now_date = (datetime.now() + timedelta(hours=1))
+        if now_date > start_date or start_date > finish_date:
+            errors = True
+            messages.error(request, "Las fechas son incorrectas", extra_tags='error')
+
+    return errors
+
 
 @login_required
 @user_passes_test(is_trainer)
@@ -144,8 +167,8 @@ def edit_announcement(request, announcement_id):
         start_date = datetime.combine(day, start_date)
         finish_date = datetime.combine(day, finish_date)
 
-        errors = validate_announcement(request, title, description, place, price,
-                                       capacity, day, start_date, finish_date)
+        errors = validate_edit_announcement(request, title, description, place, price,
+                                       day, start_date, finish_date)
 
         if errors == True:
             return redirect("/announcements/edit/"+str(announcement.id))
