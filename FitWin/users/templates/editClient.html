@@ -43,7 +43,7 @@
                     <div class="input-group mb-3 col-sm-12 col-lg-6">
                         <span class="input-group-text">Fecha de nacimiento</span>
         
-                        <input type="date" class="form-control" name="{{ form.birthday.name }}" value="{{ form.birthday.value|date:"Y-m-d" }}" id="{{ form.birthday.id_for_label }}" {% if form.birthday.required %}required{% endif %}>
+                        <input type="date" class="form-control" name="{{ form.birthday.name }}" value="{{ form.birthday.value|date:"Y-m-d" }}" id="{{ form.birthday.id_for_label }}" required>
 
                     </div>
                 </div>
