@@ -248,7 +248,7 @@ def book_announcement(request, announcement_id):
     announcement = Announcement.objects.get(id=announcement_id)
     now = timezone.now()
 
-    if announcement.capacity < 0:
+    if announcement.capacity <= 0:
         messages.error(request, "No hay suficiente capacidad para reservar esta clase", extra_tags='error')
     elif client in announcement.clients.all():
         messages.error(request, "Ya esta apuntado a esta clase", extra_tags='error')

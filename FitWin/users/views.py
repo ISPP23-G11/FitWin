@@ -29,8 +29,9 @@ def handler_trainers(request):
 def handler_clients(request):
     client = request.user
     if client:
+        now = timezone.now()
         announcements = Announcement.objects.filter(
-            recommendation__client=client, recommendation__score__gte=3.5).distinct()
+            recommendation__client=client, recommendation__score__gte=3.5, capacity__gt=0, start_date__gte=now).distinct()
         context = {'announcements': announcements}
         template = loader.get_template("main_clients.html")
         return HttpResponse(template.render(context, request))
