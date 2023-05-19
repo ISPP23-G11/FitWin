@@ -159,7 +159,7 @@
                 </div>
               </div>
             </div>
-
+            
             <div class="accordion-item">
               <h2 class="accordion-header" id="headingFour">
                 <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="true" aria-controls="collapseFour">
@@ -168,11 +168,13 @@
               </h2>
               <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour" data-bs-parent="#accordion">
                 <div class="accordion-body">
-                  <div>
-                    <a href="?{{ request.GET.urlencode|addstr:"&showBooked=True"|remove_duplicated_get_params }}">
-                      Reservados por mí
-                    </a>
-                  </div>
+                  {% if "client" in request.user.roles %}
+                    <div>
+                      <a href="?{{ request.GET.urlencode|addstr:"&showBooked=True"|remove_duplicated_get_params }}">
+                        Reservados por mí
+                      </a>
+                    </div>
+                  {% endif %}
                   <div>
                     <a href="?{{ request.GET.urlencode|addstr:"&showFull=True"|remove_duplicated_get_params }}">
                       Aforo completo
