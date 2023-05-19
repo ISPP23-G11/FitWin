@@ -246,8 +246,15 @@ def delete_categories(request, announcement_id, category_id):
 def book_announcement(request, announcement_id):
     client = request.user
     announcement = Announcement.objects.get(id=announcement_id)
+    now = timezone.now()
 
-    if announcement.capacity > 0 and client not in announcement.clients.all():
+    if announcement.capacity < 0:
+        messages.error(request, "No hay suficiente capacidad para reservar esta clase", extra_tags='error')
+    elif client in announcement.clients.all():
+        messages.error(request, "Ya esta apuntado a esta clase", extra_tags='error')
+    elif announcement.start_date < now:
+        messages.error(request, "No puede reservar una clase que ha caducado", extra_tags='error')
+    else:
         announcement.clients.add(client.id)
         announcement.capacity = announcement.capacity - 1
         announcement.save()
@@ -255,12 +262,8 @@ def book_announcement(request, announcement_id):
         calendar = CalendarAPI(announcement.trainer)
         calendar.add_attendee_to_event(
             announcement.google_calendar_event_id, client)
-
+    
         messages.success(request, "¡Reserva realizada con éxito!", extra_tags='success')
-    else:
-
-        messages.error(
-            request, "No hay suficiente capacidad para reservar esta clase o ya esta apuntado a esta clase", extra_tags='error')
 
     return redirect(reverse('announcement_details',  kwargs={'announcement_id': announcement.id}))
 
