@@ -8,13 +8,14 @@ from django.http import JsonResponse
 from users.views import upgrade_suscription, is_premium
 from users.models import User, is_trainer
 from django.contrib import messages
-from django.contrib.auth.decorators import user_passes_test
+from django.contrib.auth.decorators import user_passes_test, login_required
 
-
+@login_required
 @user_passes_test(is_trainer)
 def cancel(request):
     return render(request,'payments/cancel.html')
 
+@login_required
 @user_passes_test(is_trainer)
 def success(request):
     trainer = request.user
@@ -26,6 +27,7 @@ stripe.api_key = settings.STRIPE_SECRET_KEY
 YOUR_DOMAIN = settings.BASEURL
 
 @csrf_exempt
+@login_required
 @user_passes_test(is_trainer)
 def create_checkout_session(request):
     print("Entra en checkout")
@@ -63,6 +65,7 @@ def create_checkout_session(request):
         messages.error(request, "Ya eres entrenador premium", extra_tags='success')
         return redirect('/trainers')
 
+@login_required
 @user_passes_test(is_trainer)
 def plans(request):
     trainer = request.user
