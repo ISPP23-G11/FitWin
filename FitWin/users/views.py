@@ -29,13 +29,15 @@ def handler_trainers(request):
 def handler_clients(request):
     client = request.user
     if client:
-        announcements = Announcement.objects.filter(recommendation__client=client, recommendation__score__gte=3.5).distinct()
-        context = {'announcements':announcements}
+        announcements = Announcement.objects.filter(
+            recommendation__client=client, recommendation__score__gte=3.5).distinct()
+        context = {'announcements': announcements}
         template = loader.get_template("main_clients.html")
         return HttpResponse(template.render(context, request))
 
 
 @login_required
+@user_passes_test(is_trainer)
 def EditTrainer(request):
     trainer = request.user
 
@@ -65,7 +67,8 @@ def EditTrainer(request):
             return redirect('/trainers')
 
         else:
-            messages.error(request, 'El perfil no se ha podido editar', extra_tags='error')
+            messages.error(
+                request, 'El perfil no se ha podido editar', extra_tags='error')
 
     else:
         u_form = UserUpdateForm(instance=request.user)
@@ -79,6 +82,7 @@ def EditTrainer(request):
 
 
 @login_required
+@user_passes_test(is_client)
 def EditClient(request):
     client = request.user
 
@@ -108,7 +112,8 @@ def EditClient(request):
 
             return redirect('/clients')
         else:
-            messages.error(request, 'El perfil no se ha podido editar', extra_tags='error')
+            messages.error(
+                request, 'El perfil no se ha podido editar', extra_tags='error')
 
     else:
         u_form = UserUpdateForm(instance=request.user)
@@ -168,7 +173,8 @@ def handler_client_details(request, client_id):
         client = client.get()
         context['client'] = client
     else:
-        messages.error(request, "No se ha encontrado al cliente", extra_tags='error')
+        messages.error(request, "No se ha encontrado al cliente",
+                       extra_tags='error')
 
     template = loader.get_template("client_details.html")
     return HttpResponse(template.render(context, request))
@@ -183,12 +189,15 @@ def rating_trainer(request, trainer_id):
         rating = request.POST.get('rating', '0')
 
         if not client or not trainer:
-            messages.error(request, "El cliente o el entrenador no existen", extra_tags='error')
+            messages.error(
+                request, "El cliente o el entrenador no existen", extra_tags='error')
 
         if rating == '':
-            messages.error(request, "No se ha seleccionado puntuación", extra_tags='error')
+            messages.error(
+                request, "No se ha seleccionado puntuación", extra_tags='error')
         elif int(rating) < 0:
-            messages.error(request, "No se pueden dar puntuaciones negativas", extra_tags='error')
+            messages.error(
+                request, "No se pueden dar puntuaciones negativas", extra_tags='error')
         else:
             trainer = trainer.get()
             rating_object = Rating.objects.filter(
@@ -212,10 +221,12 @@ def comment_trainer(request, trainer_id):
         comment = request.POST.get('comment', '')
 
         if not client or not trainer:
-            messages.error(request, "El cliente o el entrenador no existen", extra_tags='error')
+            messages.error(
+                request, "El cliente o el entrenador no existen", extra_tags='error')
 
         if comment == '':
-            messages.error(request, "No se ha escrito ningun comentario", extra_tags='error')
+            messages.error(
+                request, "No se ha escrito ningun comentario", extra_tags='error')
         else:
             trainer = trainer.get()
             comment_object = Comment.objects.filter(
@@ -262,14 +273,15 @@ def upgrade_suscription(trainer):
     trainer.save()
     print(trainer.username + " ahora es usuario PREMIUM")
 
+
 @login_required
 def list_trainers(request):
     term = request.GET.get('term')
-    trainers = list(User.objects.filter(username__icontains=term).filter(roles__icontains="trainer").values('username'))
+    trainers = list(User.objects.filter(username__icontains=term).filter(
+        roles__icontains="trainer").values('username'))
     results = []
     for usuario in trainers:
         usuario_json = {}
         usuario_json['value'] = usuario['username']
         results.append(usuario_json)
     return JsonResponse(results, safe=False)
-
