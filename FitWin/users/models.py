@@ -88,6 +88,10 @@ def is_client(user):
             return "client" in User.objects.get(id=user.id).roles
     return False
 
+def is_admin(user):
+    if User.objects.filter(id=user.id).exists():
+        return User.objects.get(id=user.id).is_active and User.objects.get(id=user.id).is_staff
+    return False
 
 def get_ratings(user:User):
     return Rating.objects.filter(trainer=user)

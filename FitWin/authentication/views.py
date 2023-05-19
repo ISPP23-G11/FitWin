@@ -9,7 +9,7 @@ from django.dispatch import receiver
 from django.shortcuts import HttpResponse, redirect
 from django.template import loader
 from django.urls import reverse
-from users.models import User, is_client, is_trainer
+from users.models import User, is_client, is_trainer, is_admin
 from recommendations.models import create_similarities
 
 
@@ -26,6 +26,8 @@ def login(request):
             elif is_client(user):
                 create_similarities(user)
                 return redirect('/clients')
+            elif is_admin(user):
+                return redirect('/admin')
             else:
                 return redirect(reverse('home'))
         else:
