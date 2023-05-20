@@ -23,6 +23,7 @@
             <img style="max-width: 100%; max-height: 100vh; margin: auto;" class="rounded-4 fit" src="{{ request.scheme }}://{{ request.get_host }}/media/{{ announcement.trainer.picture }}">
           </a>
         </div>
+        <p class="text-center font-weight-bold"><strong>Usuario del entrenador:</strong> {{ announcement.trainer.username }}</p>
       </div>
       <main class="col-lg-6 mb-3">
         <div class="ps-lg-3">
@@ -60,6 +61,14 @@
               <p><strong>Fecha: </strong>{{ announcement.start_date|date:"d-m-Y" }} | {{ announcement.start_date|date:"H:i" }} - {{ announcement.finish_date|date:"H:i" }}</p>
               <p><strong>Plazas restantes: </strong>{{ announcement.capacity }} personas</p>
               <p><strong>Hay: </strong>{{ announcement.clients.count }} plazas ocupadas</p>
+
+              {% if "trainer" in request.user.roles and is_trainer_announcement %}
+              <ul>
+                {% for client in announcement.clients.all %}
+                  <li>{{ client.first_name }}</li>
+                {% endfor %}
+              </ul>
+            {% endif %}
             </div>
             <div class="col mb-0 w-70 mt-2">
               {% if "client" in request.user.roles %}
