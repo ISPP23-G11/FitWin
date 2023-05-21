@@ -298,7 +298,11 @@
                           <i class="fa fa-star {% if announcement.trainer.avg_rating < 4 %} text-secondary {% endif %}"></i>
                           <span class="fa fa-star {% if announcement.trainer.avg_rating < 5 %} text-secondary {% endif %}"></span>
                           <span class="ms-1">
-                            {{ announcement.trainer.avg_rating }}
+                            {%if announcement.trainer.avg_rating == None%}
+                              0
+                            {%else%}
+                              {{ announcement.trainer.avg_rating }}
+                            {%endif%}
                           </span>
                         </div>
                         <span class="text-muted">{{ announcement.capacity }} espacios libres</span>
