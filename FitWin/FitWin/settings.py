@@ -30,7 +30,7 @@ GOOGLE_CLIENT_SECRET = str(os.environ.get('GOOGLE_CLIENT_SECRET'))
 SECRET_KEY = os.environ.get('SECRET_KEY', default='django-insecure-8zxdpip+15qrv8i_86$5s=3%(ygo9p=ung=f)c_us2ffn!_5eo')
 
 
-BASEURL = 'https://fitwin-s4.onrender.com'
+BASEURL = 'https://fitwin-s5.onrender.com'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = 'RENDER' not in os.environ
