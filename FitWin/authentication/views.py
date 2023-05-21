@@ -37,19 +37,6 @@ def login(request):
     else:
         template = loader.get_template('account/login.html')
         context = {}
-
-        user = request.user
-        if user.is_authenticated:
-            if is_trainer(user):
-                return redirect('/trainers')
-            elif is_client(user):
-                return redirect('/clients')
-            elif is_admin(user):
-                return redirect('/admin')
-            else:
-                return redirect(reverse('home'))
-
-
         return HttpResponse(template.render(context, request))
 
 

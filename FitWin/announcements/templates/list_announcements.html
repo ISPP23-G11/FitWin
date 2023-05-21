@@ -292,17 +292,13 @@
                       <h5>{{ announcement.title }}</h5>
                       <div class="d-flex flex-row">
                         <div class="text-warning mb-1 me-2">
-                          <span class="fa fa-star {% if announcement.trainer.avg_rating < 1 or announcement.trainer.avg_rating == None %} text-secondary {% endif %}"></span>
-                          <i class="fa fa-star {% if announcement.trainer.avg_rating < 2 or announcement.trainer.avg_rating == None %} text-secondary {% endif %}"></i>
-                          <i class="fa fa-star {% if announcement.trainer.avg_rating < 3 or announcement.trainer.avg_rating == None %} text-secondary {% endif %}"></i>
-                          <i class="fa fa-star {% if announcement.trainer.avg_rating < 4 or announcement.trainer.avg_rating == None %} text-secondary {% endif %}"></i>
-                          <span class="fa fa-star {% if announcement.trainer.avg_rating < 5 or announcement.trainer.avg_rating == None %} text-secondary {% endif %}"></span>
+                          <span class="fa fa-star {% if announcement.trainer.avg_rating < 1 %} text-secondary {% endif %}"></span>
+                          <i class="fa fa-star {% if announcement.trainer.avg_rating < 2 %} text-secondary {% endif %}"></i>
+                          <i class="fa fa-star {% if announcement.trainer.avg_rating < 3 %} text-secondary {% endif %}"></i>
+                          <i class="fa fa-star {% if announcement.trainer.avg_rating < 4 %} text-secondary {% endif %}"></i>
+                          <span class="fa fa-star {% if announcement.trainer.avg_rating < 5 %} text-secondary {% endif %}"></span>
                           <span class="ms-1">
-                            {%if announcement.trainer.avg_rating == None%}
-                              0
-                            {%else%}
-                              {{ announcement.trainer.avg_rating }}
-                            {%endif%}
+                            {{ announcement.trainer.avg_rating }}
                           </span>
                         </div>
                         <span class="text-muted">{{ announcement.capacity }} espacios libres</span>
