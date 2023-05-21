@@ -15,9 +15,10 @@
         <div class="col s3">
             {% if "trainer" in request.user.roles %}
             <div class="card">
-                <div class="card-title">
-                    <h3 class="text-center"><strong>Todos los alumnos</strong></h3>
+                <div class="card-title" style="text-align: center;">
+                    <h3><strong>Alumnos</strong></h3>
                 </div>
+                
                 <div class="collection">
                     {% for user in users %}
                     {% if "client" in user.roles %}
@@ -34,8 +35,8 @@
             {% endif %}
             {% if "client" in request.user.roles %}
             <div class="card">
-                <div class="card-title">
-                    <h3 class="text-center"><strong>Entrenadores</strong></h3>
+                <div class="card-title" style="text-align: center;">
+                    <h3><strong>Entrenadores</strong></h3>
                 </div>
                 <div class="collection">
                     {% for user in users %}
@@ -54,7 +55,11 @@
         
         </div>
         <div class="col s6">
+            <!-- Agrega un elemento para mostrar el mensaje de error -->
+            <div id="error-message" style="color: red;"></div>
+            
             <div class="card">
+                
             <div id="board" class="section grey lighten-3" style="height: 68vh; padding: 5px; overflow-y: scroll">
                 {% block messages %}
 
@@ -81,22 +86,33 @@
     {% load static %}
     <script src="{% static 'js/chat.js' %}"></script>
     
-    <script>
-        // For receiving
-        sender_id = "{{ receiver.id }}";
-        receiver_id = "{{ request.user.id }}";
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> <!-- Asegúrate de incluir jQuery -->
 
-        //For sending
-        $(function () {
-            scrolltoend();
-            $('#chat-box').on('submit', function (event) {
-                event.preventDefault();
-                var message = $('#id_message');
+<script>
+    // For receiving
+    sender_id = "{{ receiver.id }}";
+    receiver_id = "{{ request.user.id }}";
+
+    // For sending
+    $(function () {
+        scrolltoend();
+        $('#chat-box').on('submit', function (event) {
+            event.preventDefault();
+            var message = $('#id_message');
+            var maxCharacters = 1200
+
+            if (message.val().length > maxCharacters) {
+                // Mostrar mensaje de error
+                $('#error-message').text('El mensaje supera el límite de caracteres permitidos.');
+                message.val('');
+            } else {
                 send('{{ request.user.username }}', '{{ receiver.username }}', message.val());
                 message.val('');
-                
-            })
-        })
-    </script>
+            }
+        });
+    });
+</script>
+
+
    
 {% endblock %}
