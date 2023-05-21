@@ -43,6 +43,29 @@ def validate_announcement(request, title, description, place, price, capacity,
 
     return errors
 
+def validate_edit_announcement(request, title, description, place, price,
+                          day, start_date, finish_date):
+    errors = False
+
+    price = float(price)
+    if price <= 0.0:
+        errors = True
+        messages.error(
+            request, "El precio no puede ser menor o igual que cero", extra_tags='error')
+
+    if title == '' or description == '' or place == '' or price == '' \
+            or day == '' or start_date == '' or finish_date == '':
+        errors = True
+        messages.error(request, "Todos los datos son obligatorios", extra_tags='error')
+
+    if errors == False:
+        now_date = (datetime.now() + timedelta(hours=1))
+        if now_date > start_date or start_date > finish_date:
+            errors = True
+            messages.error(request, "Las fechas son incorrectas", extra_tags='error')
+
+    return errors
+
 
 @login_required
 @user_passes_test(is_trainer)
@@ -144,8 +167,8 @@ def edit_announcement(request, announcement_id):
         start_date = datetime.combine(day, start_date)
         finish_date = datetime.combine(day, finish_date)
 
-        errors = validate_announcement(request, title, description, place, price,
-                                       capacity, day, start_date, finish_date)
+        errors = validate_edit_announcement(request, title, description, place, price,
+                                       day, start_date, finish_date)
 
         if errors == True:
             return redirect("/announcements/edit/"+str(announcement.id))
@@ -223,8 +246,15 @@ def delete_categories(request, announcement_id, category_id):
 def book_announcement(request, announcement_id):
     client = request.user
     announcement = Announcement.objects.get(id=announcement_id)
+    now = timezone.now()
 
-    if announcement.capacity > 0 and client not in announcement.clients.all():
+    if announcement.capacity <= 0:
+        messages.error(request, "No hay suficiente capacidad para reservar esta clase", extra_tags='error')
+    elif client in announcement.clients.all():
+        messages.error(request, "Ya esta apuntado a esta clase", extra_tags='error')
+    elif announcement.start_date < now:
+        messages.error(request, "No puede reservar una clase que ha caducado", extra_tags='error')
+    else:
         announcement.clients.add(client.id)
         announcement.capacity = announcement.capacity - 1
         announcement.save()
@@ -232,12 +262,8 @@ def book_announcement(request, announcement_id):
         calendar = CalendarAPI(announcement.trainer)
         calendar.add_attendee_to_event(
             announcement.google_calendar_event_id, client)
-
+    
         messages.success(request, "¡Reserva realizada con éxito!", extra_tags='success')
-    else:
-
-        messages.error(
-            request, "No hay suficiente capacidad para reservar esta clase o ya esta apuntado a esta clase", extra_tags='error')
 
     return redirect(reverse('announcement_details',  kwargs={'announcement_id': announcement.id}))
 

@@ -218,6 +218,7 @@ figure img{width:300px;}
 <div class="container">
 	<div class="container">
 	  <div class="row blog mt-2">
+<<<<<<< HEAD
 		<div class="col-sm-12 col-md-8 offset-md-2 col-lg-6 offset-lg-3 col-xl-6 offset-xl-3 col-xxl-6 offset-xxl-3">
 		  <div id="blogCarousel" class="carousel slide container-blog" data-ride="carousel">
 			<ol class="carousel-indicators">
@@ -289,6 +290,81 @@ figure img{width:300px;}
 		  </div>
 		</div>
 	</div>
+=======
+      <div class="col-sm-12 col-md-8 offset-md-2 col-lg-6 offset-lg-3 col-xl-6 offset-xl-3 col-xxl-6 offset-xxl-3">
+        <div id="blogCarousel" class="carousel slide container-blog" data-ride="carousel">
+        <ol class="carousel-indicators">
+          <li data-target="#blogCarousel" data-slide-to="0" class="active"></li>
+          {% if announcements|length >= 2 %}
+          <li data-target="#blogCarousel" data-slide-to="1"></li>
+          {% endif %}
+          {% if announcements|length >= 3 %}
+          <li data-target="#blogCarousel" data-slide-to="2"></li>
+          {% endif %}
+        </ol>
+        <!-- Carousel items -->
+        
+        <div class="carousel-inner">
+
+          {%for a in announcements%}
+            {%if forloop.first%}
+          <div class="carousel-item active">
+            {% else %}
+          <div class="carousel-item">
+            {% endif %}
+            <div class="row">
+              <div class="col-md-12" >
+                <div class="item-box-blog">
+                  <div class="item-box-blog-image">
+                    <!--Date-->
+                    <div class="item-box-blog-date bg-blue-ui white"> <span class="mon">{{ a.trainer.username }} | ⭐ {{ a.trainer.avg_rating }} ⭐</span> </div>
+                    <!--Image-->
+                    
+                    <figure> 
+                      <a href="/trainers/{{a.trainer.id}}">
+                        <img src="{{ request.scheme }}://{{ request.get_host }}/media/{{ a.trainer.picture }}" class="w-100" style="transition: transform 0.2s ease-in-out; transform-origin: center; object-fit: cover;" onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'" /> 
+                      </a>
+                    </figure>
+                  </div>
+                  <div class="item-box-blog-body">
+                    <!--Heading-->
+                    <div class="item-box-blog-heading">
+                      <h5>{{ a.title }} | {{ a.price|floatformat:2 }} €</h5>
+                    </div>
+                    <!--Data-->
+                    <!--Text-->
+                    <div class="item-box-blog-text">
+                      <p>a{{ a.description }}</p>
+                      <div class="dropdown">
+                        <a class="btn btn-info" href="/announcements/{{a.pk}}" role="button" id="details" aria-expanded="false">
+                          Ver anuncio
+                        </a>
+                      </div>
+                    </div>
+                    <!--Read More Button-->
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          {% endfor %}
+          </div>
+        </div>
+
+        {% else %}
+        <hr>
+        <div class="container">
+          <div class="row">
+            <div class="col-md-6 mx-auto text-center fw-light">
+              <p class="fs-1 fw-light">Cuando hayas usado <b>FitWin</b> se activarán recomendaciones para que encuentres a los entrenadores que más se ajusten a tus necesidades</p>
+            </div>
+          </div>
+        </div>
+        {% endif %}
+        </div>
+      </div>
+	  </div>
+>>>>>>> main
 	</div>
 </div>
 

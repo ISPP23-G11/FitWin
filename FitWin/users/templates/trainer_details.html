@@ -11,6 +11,7 @@
       {% endif %}
       <div class="user-info">
         <h2 class="mb-4">{{ trainer.first_name }} {{ trainer.last_name }}</h2>
+        <p class="mb-2">Usuario: <strong>{{ trainer.username }}</strong></p>
         <p class="mb-4"><strong>{{ trainer.email }}</strong></p>
         <p> {{ trainer.bio }} </p>
       </div>
@@ -23,12 +24,14 @@
 
           
       {% if client %}
-        <p class="mb-5">
-
-          <a href="/announcements/list?trainer={{trainer.username}}" class="btn btn-primary btn-lg btn-block">Clases</a>
-          <a href="/chat/chat/{{request.user.id}}/{{trainer.id}}" class="btn btn-primary btn-lg btn-block" style="width: 89px;">Chat</a>
-
-        </p>
+        <div class="d-flex justify-content-center mb-5">
+          <div class="col-3 px-1">
+            <a href="/announcements/list?trainer={{trainer.username}}" class="btn btn-primary btn-lg btn-block">Clases</a>
+          </div>
+          <div class="col-3">
+            <a href="/chat/chat/{{request.user.id}}/{{trainer.id}}" class="btn btn-primary btn-lg btn-block">Chat <i class="fas fa-comments"></i></a>
+          </div>
+        </div>
       {% endif %}
   
       {% if mean %}

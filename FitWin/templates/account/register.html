@@ -58,7 +58,7 @@
 			<div class="col">
 				<div class="input-group mb-3 col-sm-12 col-lg-6">
 				<span class="input-group-text">Email<span style="color: brown;">&nbsp(*)</span></span>
-					<input required class="form-control" type="email" name="email">
+					<input required class="form-control" type="email" name="email" maxlength="254">
 				</div>
 			</div>
 		</div>
@@ -67,7 +67,7 @@
 			<div class="col">
 				<div class="input-group mb-3 col-sm-12 col-lg-6">
 				<span class="input-group-text">Contraseña<span style="color: brown;">&nbsp(*)</span></span>
-					<input required class="form-control" type="password" name="password" id="password">
+					<input required class="form-control" type="password" name="password" id="password" maxlength="128">
 					<svg id="togglePassword" style="float: right;
 					margin-left: -30px;
 					margin-top: 5px;
@@ -156,6 +156,12 @@
 			<div class="col-auto" style="font-style: italic;">Los campos con <span style="color: brown;">&nbsp(*)</span> son obligatorios</div>
 			<div class="col"> </div>
 		</div>
+
+		<div class="row my-4">
+			<div class="col"></div>
+			<div class="col-auto" style="font-style: italic;">Al registrarse, acepta nuestras <a href="{% url 'legal_notice' %}">condiciones y términos de privacidad</a></div>
+			<div class="col"> </div>
+		</div>    
 
 		<div class="mt-4 pt-2">
 			<input class="btn btn-primary btn-lg" type="submit" value="Registrarse" style="border-radius: 2rem;"/>

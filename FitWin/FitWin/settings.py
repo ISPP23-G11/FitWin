@@ -58,7 +58,6 @@ INSTALLED_APPS = [
     'authentication',
     'announcements',
     'payment',
-    'searching',
     'users',
     'chat',
     'recommendations',
@@ -153,8 +152,6 @@ USE_I18N = True
 USE_TZ = True
 
 
-
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
@@ -204,7 +201,7 @@ try:
 except ImportError:
     print("local_settings.py not found")
 
-MEDIA_ROOT = os.path.join(BASE_DIR,'media')
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 MEDIA_URL = '/media/'
 

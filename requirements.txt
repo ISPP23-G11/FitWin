@@ -21,6 +21,9 @@ oauthlib==3.2.2
 # Config
 python-dotenv==1.0.0
 
+# Testing
+locust==2.15.1
+
 #Chat
 arabic-reshaper
 asgiref

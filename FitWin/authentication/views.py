@@ -9,8 +9,9 @@ from django.dispatch import receiver
 from django.shortcuts import HttpResponse, redirect
 from django.template import loader
 from django.urls import reverse
-from users.models import User, is_client, is_trainer
+from users.models import User, is_client, is_trainer, is_admin
 from recommendations.models import create_similarities
+
 
 def login(request):
     if request.method == 'POST':
@@ -25,10 +26,13 @@ def login(request):
             elif is_client(user):
                 create_similarities(user)
                 return redirect('/clients')
+            elif is_admin(user):
+                return redirect('/admin')
             else:
                 return redirect(reverse('home'))
         else:
-            messages.error(request, 'El usuario y la contraseña son incorrectos', extra_tags='error')
+            messages.error(
+                request, 'El usuario y la contraseña son incorrectos', extra_tags='error')
             return redirect('/login')
     else:
         template = loader.get_template('account/login.html')
@@ -52,6 +56,7 @@ def register(request, role):
         except:
             picture = 'users/default.jpeg'
 
+        roles = []
         if validate_role(role):
             roles = [role]
 
@@ -60,13 +65,14 @@ def register(request, role):
 
         if not errors:
 
-            user = User.objects.create_user(username = username, password=password,
+            user = User.objects.create_user(username=username, password=password,
                                             email=email, first_name=name, last_name=last_name,
                                             bio=bio, birthday=birthday, roles=roles)
-            
+
             user.save()
             if 'picture' in request.FILES:
-                user.picture.save(request.FILES['picture'].name, request.FILES['picture'])
+                user.picture.save(
+                    request.FILES['picture'].name, request.FILES['picture'])
             else:
                 user.picture = 'users/default.jpeg'
 
@@ -80,32 +86,44 @@ def register(request, role):
         }
         return HttpResponse(template.render(context, request))
 
+
 def validate_register_form(request, username, email, password, password_again, bio, birthday,
                            picture, name, last_name, roles):
-    old_user = User.objects.filter(username = username)
+    old_user = User.objects.filter(username=username)
 
     errors = False
     if old_user:
         errors = True
-        messages.error(request, 'Este nombre de usuario ya existe', extra_tags='error')
+        messages.error(
+            request, 'Este nombre de usuario ya existe', extra_tags='error')
 
     if password != password_again:
         errors = True
-        messages.error(request, 'Las contraseñas no coinciden', extra_tags='error')
+        messages.error(request, 'Las contraseñas no coinciden',
+                       extra_tags='error')
 
-    if birthday!= '':
+    if birthday != '':
         birthday = datetime.strptime(birthday, '%Y-%m-%d')
         if birthday >= datetime.now():
             errors = True
-            messages.error(request, 'La fecha de nacimiento debe ser anterior a hoy', extra_tags='error')
+            messages.error(
+                request, 'La fecha de nacimiento debe ser anterior a hoy', extra_tags='error')
     else:
         errors = True
-        messages.error(request, 'La fecha de naciemiento es obligatoria', extra_tags='error')
+        messages.error(
+            request, 'La fecha de naciemiento es obligatoria', extra_tags='error')
 
-    email_val = re.fullmatch('([A-Za-z0-9]+[.-_])*[A-Za-z0-9]+@[A-Za-z0-9-]+(\.[A-Z|a-z]{2,})+', email)
+    email_val = re.fullmatch(
+        '([A-Za-z0-9]+[.-_])*[A-Za-z0-9]+@[A-Za-z0-9-]+(\.[A-Z|a-z]{2,})+', email)
     if not email_val:
         errors = True
-        messages.error(request, 'El email no sigue un formato valido. Por ejemplo: prueba@host.com', extra_tags='error')
+        messages.error(
+            request, 'El email no sigue un formato valido. Por ejemplo: prueba@host.com', extra_tags='error')
+
+    if not roles:
+        errors = True
+        messages.error(request, 'No tiene un rol válido.', extra_tags='error')
+
     return errors
 
 
@@ -118,6 +136,7 @@ def assign_role_to_user(sender, request, user, **kwargs):
     if validate_role(role):
         user.roles = [role]
     user.save()
+
 
 def validate_role(role):
     return role in ['client', 'trainer']
