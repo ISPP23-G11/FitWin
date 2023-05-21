@@ -143,8 +143,9 @@
                         {% if not trainer.is_premium %}
                         <button type="button" class="btn btn-primary btn-rounded" id="checkout-button">Suscribirse</button>
                         {% else %}
-                        <button type="button" class="btn btn-success">Ya eres entrenador premium</button>
-
+                        <button type="button" class="btn btn-success">
+                            Ya eres entrenador premium - Hasta el día {{ fecha_vencimiento|date:"d/m/Y" }}
+                        </button>                           
                         {% endif %}
                        
                     </div>
