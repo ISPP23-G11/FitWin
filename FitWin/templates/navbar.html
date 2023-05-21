@@ -49,7 +49,7 @@
             {% else %}
                 {% url 'home' as main %}
             {% endif %}
-			<a class="navbar-brand" href="{{main}}" style="font-weight: 800;font-size: x-large; letter-spacing: 3px;"><img alt="" class="img-fluid" width="75" height="75" src="{% static 'img/logo.png' %}" style="font-family: sans-serif;"><span style="color:white">FIT</span>WIN
+			<a class="navbar-brand" href="{{main}}" style="font-weight: 800;font-size: x-large; letter-spacing: 3px;"><img alt="" style="width:75px; height: 100%;" src="{% static 'img/logo.png' %}" style="font-family: sans-serif;"><span style="color:white">FIT</span>WIN
                 {% if "trainer" in request.user.roles %}
                     {% if request.user.is_premium %}
                         <hr><p style="font-size: medium;">PREMIUM</p>
