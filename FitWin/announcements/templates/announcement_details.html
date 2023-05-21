@@ -102,7 +102,7 @@
             {% url 'announcement_details' announcement_id=announcement.id as announcement_details_id %}
             <span style="width: fit-content;" >{% post_to_facebook announcement_details_id '<i class="fab fa-facebook fa-2x"></i>' %}</span>
             <span style="width: fit-content;" >{% post_to_whatsapp announcement_details_id "<i class='fab fa-whatsapp fa-2x'></i>" %}</span>
-            <span style="width: fit-content;" >{% post_to_twitter "Nueva clase: {{a.title}}. {{a.description}}. El día {{a.start_date|date:'d-m-Y'}} de {{ a.start_date|date:'H:i' }} hasta {{ a.finish_date|date:'H:i' }}. Echa un vistazo!" announcement_details_id "<i class='fab fa-twitter fa-2x' ></i>" %}</span>
+            <span style="width: fit-content;" >{% post_to_twitter "Nueva clase: {{announcement.title}}. {{announcement.description}}. El día {{announcement.start_date|date:'d-m-Y'}} de {{ announcement.start_date|date:'H:i' }} hasta {{ announcement.finish_date|date:'H:i' }}. Echa un vistazo!" announcement_details_id "<i class='fab fa-twitter fa-2x' ></i>" %}</span>
           </div>
         </div>
       </main>
