@@ -9,6 +9,8 @@ from users.views import upgrade_suscription, is_premium
 from users.models import User, is_trainer
 from django.contrib import messages
 from django.contrib.auth.decorators import user_passes_test, login_required
+from datetime import timedelta
+
 
 @login_required
 @user_passes_test(is_trainer)
@@ -71,9 +73,23 @@ def plans(request):
     trainer = request.user
     is_premium(trainer)
     #trainer = Trainer.objects.filter(user = user)
+  
+     # Verifica si la fecha de premium está configurada
+    if trainer.date_premium:
+        # Calcula la fecha de vencimiento sumando un mes a la fecha de premium
+        fecha_vencimiento = trainer.date_premium + timedelta(days=30)
+    else:
+        # Fecha predeterminada si la fecha de premium no está configurada
+        fecha_vencimiento = None  # Asigna el valor que corresponda
+
     url = '/payments/create-checkout-session/'
     #trainer=trainer.get()
 
-    context = {'url':url, 'trainer':trainer}
+    context = {'url':url, 'trainer':trainer, 'fecha_vencimiento': fecha_vencimiento,}
+
     template = loader.get_template('payments/plans.html')
     return HttpResponse(template.render(context, request))
+
+
+
+
