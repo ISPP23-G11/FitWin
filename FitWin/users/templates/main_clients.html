@@ -244,7 +244,11 @@ figure img{width:300px;}
                 <div class="item-box-blog">
                   <div class="item-box-blog-image">
                     <!--Date-->
-                    <div class="item-box-blog-date bg-blue-ui white"> <span class="mon">{{ a.trainer.username }} | ⭐ {{ a.trainer.avg_rating }} ⭐</span> </div>
+                    <div class="item-box-blog-date bg-blue-ui white"> 
+                      <span class="mon">
+                        {{ a.trainer.username }} | ⭐ {% if a.trainer.avg_rating == None %} 0 {% else %} {{ a.trainer.avg_rating }} {% endif %} ⭐
+                      </span>
+                    </div>
                     <!--Image-->
                     
                     <figure> 
@@ -261,12 +265,15 @@ figure img{width:300px;}
                     <!--Data-->
                     <!--Text-->
                     <div class="item-box-blog-text">
-                      <p>a{{ a.description }}</p>
-                      <div class="dropdown">
-                        <a class="btn btn-info" href="/announcements/{{a.pk}}" role="button" id="details" aria-expanded="false">
-                          Ver anuncio
-                        </a>
-                      </div>
+                      <p>
+                        {{ a.description|slice:":200" }}
+                        {% if a.description|length > 200%}...{% endif %}
+                      </p>
+                    </div>
+                    <div class="dropdown">
+                      <a class="btn btn-info" href="/announcements/{{a.pk}}" role="button" id="details" aria-expanded="false">
+                        Ver anuncio
+                      </a>
                     </div>
                     <!--Read More Button-->
                   </div>
