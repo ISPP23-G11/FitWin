@@ -261,12 +261,15 @@ figure img{width:300px;}
                     <!--Data-->
                     <!--Text-->
                     <div class="item-box-blog-text">
-                      <p>a{{ a.description }}</p>
-                      <div class="dropdown">
-                        <a class="btn btn-info" href="/announcements/{{a.pk}}" role="button" id="details" aria-expanded="false">
-                          Ver anuncio
-                        </a>
-                      </div>
+                      <p>
+                        {{ a.description|slice:":200" }}
+                        {% if a.description|length > 200%}...{% endif %}
+                      </p>
+                    </div>
+                    <div class="dropdown">
+                      <a class="btn btn-info" href="/announcements/{{a.pk}}" role="button" id="details" aria-expanded="false">
+                        Ver anuncio
+                      </a>
                     </div>
                     <!--Read More Button-->
                   </div>
