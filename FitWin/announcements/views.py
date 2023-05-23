@@ -3,7 +3,7 @@ from datetime import datetime, timedelta
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.core.paginator import Paginator
-from django.db.models import Count
+from django.db.models import Count, F
 from django.http import HttpResponseRedirect
 from django.shortcuts import HttpResponse, redirect, render
 from django.template import loader
@@ -359,10 +359,7 @@ def list_announcements(request):
 
 def sort_announcements(announcements, sort_by):
     if sort_by == 'bestRated':
-        announcements = announcements.order_by('-trainer__avg_rating')
-    elif sort_by == 'recommended':
-        # TODO
-        pass
+        announcements = announcements.order_by(F('trainer__avg_rating').desc(nulls_last=True))
     elif sort_by == 'priceAsc':
         announcements = announcements.order_by('price')
     elif sort_by == 'priceDesc':

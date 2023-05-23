@@ -236,10 +236,6 @@
                   {% if request.GET.sortBy == "bestRated" %}selected{% endif %}>
                 Mejor valorados
               </option>
-              <option value="?{{ request.GET.urlencode|addstr:"&sortBy=recommended"|remove_duplicated_get_params }}"
-                  {% if request.GET.sortBy == "recommended" %}selected{% endif %}>
-                Recomendados
-              </option>
               <option value="?{{ request.GET.urlencode|addstr:"&sortBy=priceAsc"|remove_duplicated_get_params }}"
                   {% if request.GET.sortBy == "priceAsc" %}selected{% endif %}>
                 Precio ascendente
