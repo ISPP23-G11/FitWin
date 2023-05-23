@@ -244,7 +244,11 @@ figure img{width:300px;}
                 <div class="item-box-blog">
                   <div class="item-box-blog-image">
                     <!--Date-->
-                    <div class="item-box-blog-date bg-blue-ui white"> <span class="mon">{{ a.trainer.username }} | ⭐ {{ a.trainer.avg_rating }} ⭐</span> </div>
+                    <div class="item-box-blog-date bg-blue-ui white"> 
+                      <span class="mon">
+                        {{ a.trainer.username }} | ⭐ {% if a.trainer.avg_rating == None %} 0 {% else %} {{ a.trainer.avg_rating }} {% endif %} ⭐
+                      </span>
+                    </div>
                     <!--Image-->
                     
                     <figure> 
